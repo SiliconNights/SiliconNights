@@ -1,0 +1,90 @@
+{% extends "header.html" %}
+
+{% block head_css %}
+	<style type="text/css">
+
+    body {
+	    font-family:font-family: Arial, Helvetica, sans-serif;
+	}
+	#container {
+	    position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+    }
+    spaceLine {
+        white-space:pre-line;
+    }
+	div.boxLeft {
+        width: 58%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: left;
+    }
+	div.boxRight {
+        width: 37%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: right;
+    }
+	div.BackColor {
+    background-color: white;
+}
+#clear {
+    clear: both;
+}
+	</style>
+{% endblock %}
+
+{% block body %}
+<body class="body" style="background-color:white">
+
+	<div id = "container" >
+         <h1 style = "font-size:60px; text-align:center; padding-top:30px"> Recipe Name</h1>
+		 <p style = "text-align:center;"> Author:????? </p>
+		 <hr>
+	     <div class = "boxLeft">
+		     <div class = "BackColor">
+			     <p>
+			         <img src="http://images.media-allrecipes.com/userphotos/960x960/3758842.jpg" width= "100%" >
+			         <p style= "padding-top: 10px"><b>Description:</b></p> <br>
+					 This is where the description goes....
+		         </p>
+	         </div>
+	     </div>
+		 <div class = "boxRight">
+		    <div class = "BackColor">
+		     <p style = "text-align:center; padding: 15px ; background-color: lightgrey" width = "100%"><b>Ingredients:</b></p>
+			 <p>1.something</p>
+			 <p>2.something else</p>
+			 <p>3.something</p>
+			 <p>4.something</p>
+			 <p>5.something</p>
+			 <p>6.something</p>
+			 <p>7.omething</p>
+			 <p>8.something</p>
+			 <p>9.something</p>
+			 <p>10.something</p>
+			</div>
+		 </div>
+		 <div id = "clear"></div>
+		 <br>
+		 <br>
+		 <div class = "boxLeft">
+		     <div class = "BackColor">
+			     		     <div style = "text-align:center; padding: 15px; background-color: lightgrey" width = "100%" ><b>Instructions:</b></div>
+							 <p> 1. steps to make dish</p>
+			 </div>
+		 </div>
+		 <div class = "boxRight">
+		     <div class = "BackColor">
+		     <p style = "text-align:center; padding: 15px ; background-color: lightgrey; line-height: 100% " line-height= "50%" width = "100%"><b>Amount:</b></p>
+			 <p>1. contains the amount of ingredients needed </p>
+			</div>
+
+		 </div>
+		 <div id = "clear">
+
+		 <br>
+		 <br>
+	</div>
+</body>
+{% endblock %}
