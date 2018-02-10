@@ -41,8 +41,14 @@
 											</div>
 										</form>
 										<li><a href="/recipes/">Advanced Search</a></li>
-										<li><a href="/accounts/">Login/Register</a></li>
-										<li><a href="/accounts/">Profile</a></li>
+										{% if user.is_authenticated %}
+											<li><a href="/accounts/">Profile</a></li>
+											<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+										{% else %}
+											<li><a href="{% url 'login'%}?next={{request.path}}">Login/Register</a></li>   
+										{% endif %} 
+										
+										
 									</ul>
 
 								</div>
