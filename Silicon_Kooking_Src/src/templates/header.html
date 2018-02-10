@@ -41,6 +41,7 @@
 											</div>
 										</form>
 										<li><a href="/recipes/">Advanced Search</a></li>
+										<li><a href="/recipes/list_recipes/">List Recipes</a></li>
 										{% if user.is_authenticated %}
 											<li><a href="/accounts/">Profile</a></li>
 											<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
@@ -51,7 +52,7 @@
 										
 									</ul>
 
-=======
+
 				<header>
 						<nav class="navbar navbar-inverse navbar-fixed-top">
 							<div class="container-fluid">
@@ -62,7 +63,7 @@
 										<span class="icon-bar"></span>
 									</button>
 									<a class="navbar-brand" href="/">Silicon Kooking</a>
->>>>>>> origin/master
+
 								</div>
 								<div class="collapse navbar-collapse" id="myNavbar">
 									<div class="container text-center">
@@ -80,8 +81,13 @@
 												</form>
 												<li><a href="/recipes/">Advanced Search</a></li>
 												<li><a href="/recipes/list_recipes/">List Recipes</a></li>
-												<li><a href="/accounts/">Login/Register</a></li>
-												<li><a href="/accounts/">Profile</a></li>
+												
+										{% if user.is_authenticated %}
+											<li><a href="/accounts/">Profile</a></li>
+											<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+										{% else %}
+											<li><a href="{% url 'login'%}?next={{request.path}}">Login/Register</a></li>   
+										{% endif %} 
 											</ul>
 
 										</div>
