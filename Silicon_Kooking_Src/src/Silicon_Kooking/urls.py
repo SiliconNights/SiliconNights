@@ -21,6 +21,4 @@ urlpatterns = [
     url(r'^login/', include('accounts.urls')),
     url(r'^recipes/', include('recipes.urls')),
     url(r'^', include('home.urls')),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
-    
 ]
