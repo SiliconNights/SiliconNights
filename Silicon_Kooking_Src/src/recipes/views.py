@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Recipe
 
-def recipes_detail(request):
+# Use for listing recipes and querying
+def recipes_detail_list(request):
     queryset = Recipe.objects.all()
     context = {'object_list': queryset}
 
-    return render(request, 'recipes/recipe_page.html', context)
+    return render(request, 'recipes/recipe_list.html', context)
+
+def get_temp_page(request):
+    return render(request, 'recipes/recipe_page.html', {})

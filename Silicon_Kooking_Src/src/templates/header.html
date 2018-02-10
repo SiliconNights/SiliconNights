@@ -6,7 +6,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 			{% load staticfiles %}
-			<link rel="stylesheet" href="{% static 'css/header.css' %}" type = "text/css"/>-
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,6 +14,7 @@
 				{% block head_css %}
 				{% endblock %}
 			</head>
+<<<<<<< HEAD
 			<header>
 				<nav class="navbar navbar-inverse navbar-fixed-top">
 					<div class="container-fluid">
@@ -51,14 +51,44 @@
 										
 									</ul>
 
+=======
+				<header>
+						<nav class="navbar navbar-inverse navbar-fixed-top">
+							<div class="container-fluid">
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+									<a class="navbar-brand" href="/">Silicon Kooking</a>
+>>>>>>> origin/master
 								</div>
-							</div
-							</div>
-						</nav>
-					</header>
+								<div class="collapse navbar-collapse" id="myNavbar">
+									<div class="container text-center">
+										<ul class="nav navbar-nav">
 
+											<li class="active"><a href="/">Home</a></li>
+											<form class="navbar-form navbar-left" action="/action_page.php">
+
+												<div class="form-group">
+
+													<input type="text" class="f-control" placeholder="Search" name="search">
+
+														<button type="Search" class="btn btn-default">Search</button>
+													</div>
+												</form>
+												<li><a href="/recipes/">Advanced Search</a></li>
+												<li><a href="/recipes/list_recipes/">List Recipes</a></li>
+												<li><a href="/accounts/">Login/Register</a></li>
+												<li><a href="/accounts/">Profile</a></li>
+											</ul>
+
+										</div>
+									</div
+									</div>
+								</nav>
+						</header>
 					{% block body %}
-					<body>
-					</body>
 					{% endblock %}
 </html>
