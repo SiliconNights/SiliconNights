@@ -1,39 +1,102 @@
+{% extends "header.html" %}	
+
+
+{% load static %}
+<link rel="stylesheet" src="css/login.css" type = "text/css"/>
+
+{% block head_css %}
+	<style type="text/css">
+	
+	 body {
+	    font-family:font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	#container {
+	
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+    
+	P{text-align: center} 
+	
+	
+
+	
+spaceLine {
+        white-space:pre-line;
+    }
+	
+	div.box {
+        width: 100%;
+		border-radius: .5em;
+		 padding: 1em;
+		border-color: black;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
+		
+    }
+	
+	
+	div.BackColor {
+    background-color: white;
+}
+#clear {
+    clear: both;
+}
+</style>
+{%endblock%}
+
+
+
 
 
 {% block body %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
+<body class="body" style="background-color:white">
+	<div id = "container" >
+	
+	 <div class = "box">
+		     <div class = "BackColor">
+		{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+		{% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+		{% if next %}
+			{% if user.is_authenticated %}
+			<p>Your account doesn't have access to this page. To proceed,
+			please login with an account that has access.</p>
+			{% else %}
+			<p>Log In To Your Account</p>
+			{% endif %}
+		{% endif %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
+		<form method="post" action="{% url 'login' %}">
+		{% csrf_token %}
 
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
-</form>
+		<div>
+		  <td>{{ form.username.label_tag }}</td>
+		  <td>{{ form.username }}</td>
+		</div>
+		<div>
+		  <td>{{ form.password.label_tag }}</td>
+		  <td>{{ form.password }}</td>
+		</div>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+		<div>
+		  <input type="submit" value="login" />
+		  <input type="hidden" name="next" value="{{ next }}" />
+		</div>
+		</form>
 
+		{# Assumes you setup the password_reset view in your URLconf #}
+		<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+		</div>
+		</div>
+	</div>
+	
+</body>
 {% endblock %}
+
