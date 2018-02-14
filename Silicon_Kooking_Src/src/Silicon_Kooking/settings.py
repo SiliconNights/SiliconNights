@@ -25,7 +25,7 @@ SECRET_KEY = 'qexw&zwfw5=$%r@0h64d^42d6pyjtkptu_h2+yk9@(5-9a)=#b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'Silicon_Kooking.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Food_Data_Base',
+        'NAME': 'quantumrecipe',
         'USER': 'root',
-        'PASSWORD': 'bsepulveda',
+        'PASSWORD': 'root',
     }
 }
 
