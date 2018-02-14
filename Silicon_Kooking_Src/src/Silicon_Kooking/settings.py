@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Food_Data_Base',
         'USER': 'root',
-        'PASSWORD': '4321',
+        'PASSWORD': 'bsepulveda',
     }
 }
 

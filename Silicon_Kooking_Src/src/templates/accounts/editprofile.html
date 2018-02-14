@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+
+
+
+{% block body %}
+<br>
+<br>
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <a href="/accounts/profile/change-password">Change Password</a>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
