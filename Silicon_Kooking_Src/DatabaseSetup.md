@@ -5,7 +5,7 @@
 #### Create database with previous name in MySQL:
 ```
 mysql -u root -p
-create database database_name;
+create database database_name character set utf8 collate utf8_unicode_ci;
 ```
 
 #### Check and migrate with python:
