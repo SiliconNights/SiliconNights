@@ -17,11 +17,16 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-#### Reset database:
+## Populate recipes table 
+```
+python manage.py populate-recipes
+```
+
+## Reset database:
 ```
 mysql -u root -p
 drop database database_name;
 create database database_name;
 ```
 
-Go to each app, and in the migrations folder delete everything but __init__.py file.
+Go to each app, and in the migrations folder delete everything but ```__init__.py``` file.

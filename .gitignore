@@ -1,2 +1,5 @@
 # ignore decompressed data file
-Silicon_Kooking_Src/models/data/cookbook.xml
+Silicon_Kooking_Src/models/data/data-license/datadump.xml
+Silicon_Kooking_Src/models/data/clean-parse-data/datadump.xml
+Silicon_Kooking_Src/models/data/clean-parse-data/cleandata.xml
+Silicon_Kooking_Src/models/data/database.xml
