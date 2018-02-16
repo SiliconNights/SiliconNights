@@ -5,3 +5,5 @@
 #### 2. Download list of images. 
 
 #### 3. Add tags to database.xml.
+
+#### 4. Add Description attribute to recipe model.
