@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'Silicon_Kooking.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dreamweaver',
+        'NAME': 'quantumrecipe',
         'USER': 'root',
-        'PASSWORD': 'bsepulveda',
+        'PASSWORD': 'root',
     }
 }
 
