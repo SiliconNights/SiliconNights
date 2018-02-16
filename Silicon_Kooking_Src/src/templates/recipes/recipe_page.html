@@ -44,13 +44,15 @@
 <body class="body" style="background-color:white">
 
 	<div id = "container" >
-         <h1 style = "font-size:60px; text-align:center; padding-top:30px"> Recipe Name</h1>
-		 <p style = "text-align:center;"> Author:????? </p>
+         <h1 style = "font-size:60px; text-align:center; padding-top:30px">{{recipe.name}}</h1>
+		 <p style = "text-align:center;"> Author: {{recipe.author}}</p>
+		 <p style = "text-align:center;"> Publiser: {{recipe.publisher}}</p>
+		 <p style = "text-align:center;"> Time & Date Published: {{recipe.time}}</p>
 		 <hr>
 	     <div class = "boxLeft">
 		     <div class = "BackColor">
 			     <p>
-			         <img src="http://images.media-allrecipes.com/userphotos/960x960/3758842.jpg" width= "100%" >
+			         <img src={{recipe.image}} width= "100%" >
 			         <p style= "padding-top: 10px"><b>Description:</b></p> <br>
 					 This is where the description goes....
 		         </p>
@@ -59,8 +61,7 @@
 		 <div class = "boxRight">
 		    <div class = "BackColor">
 		     <p style = "text-align:center; padding: 15px ; background-color: lightgrey" width = "100%"><b>Ingredients:</b></p>
-			 {% block ingredients %}
-			 {% endblock %}
+			 {{recipe.ingredients}}
 			</div>
 		 </div>
 		 <div id = "clear"></div>
@@ -69,7 +70,7 @@
 		 <div class = "boxLeft">
 		     <div class = "BackColor">
 			     		     <div style = "text-align:center; padding: 15px; background-color: lightgrey" width = "100%" ><b>Instructions:</b></div>
-							 <p> 1. steps to make dish</p>
+							 <p>{{recipe.instructions}}</p>
 			 </div>
 		 </div>
 		 <div class = "boxRight">

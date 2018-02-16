@@ -13,10 +13,10 @@
       <!---Lists all recipes--->
       {% for obj in object_list%}
 
-        <li class="list-group-item">{{obj.name}}</li>
-
+        <li class="list-group-item">
+          <a href="/recipes/{{obj.id}}">{{obj.name}}</a>
+        </li>
       {% endfor %}
-
     </ul>
   </div>
 

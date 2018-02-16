@@ -27,7 +27,7 @@ def register_user(request):
             form.save()
             return redirect('/accounts/login')
         else:
-            return render(request, 'registration/registration.html')
+            return redirect('/accounts/register')
     else:
         form = RegistrationForm()
 

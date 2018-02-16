@@ -10,3 +10,8 @@ def recipes_detail_list(request):
 
 def get_temp_page(request):
     return render(request, 'recipes/recipe_page.html', {})
+
+def recipes_detail_display(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+    args = {'recipe': recipe}
+    return render(request, 'recipes/recipe_page.html', args)
