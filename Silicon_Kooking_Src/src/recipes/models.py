@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Recipe(models.Model):
     name = models.CharField(db_column='name', max_length=200, null=True)
     image = models.CharField(db_column='image', max_length=200, null=True)
-    ingredients = models.TextField(db_column='ingredient', null=True)
+    ingredients = models.TextField(db_column='ingredients', null=True)
     directions = models.TextField(db_column='directions', null=True)
     author = models.CharField(db_column='author', max_length=45, null=True)
     publisher = models.ForeignKey(User, db_column='user', on_delete=models.PROTECT, null=True)

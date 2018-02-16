@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from recipes.models import Recipe
 from datetime import datetime
 import xml.etree.ElementTree as ET
-import re
+import re, codec
 
 
 '''
@@ -27,7 +27,7 @@ class Command(BaseCommand):
 		scriptpath = os.path.dirname(__file__)
 		xmlfile = os.path.join(scriptpath, 'recipe-data.xml')
 
-		with open(xmlfile, 'r', encoding='utf-8') as file:
+		with codec.open(xmlfile, 'r') as file:
 			tree = ET.parse(file)
 
 		data = tree.getroot()
