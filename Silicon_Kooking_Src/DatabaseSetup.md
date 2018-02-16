@@ -17,12 +17,12 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-### Populate recipes table 
+## Populate recipes table 
 ```
 python manage.py populate-recipes
 ```
 
-#### Reset database:
+## Reset database:
 ```
 mysql -u root -p
 drop database database_name;
