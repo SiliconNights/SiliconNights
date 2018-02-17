@@ -1,11 +1,12 @@
 import os.path
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-from recipes.models import Recipe
-from datetime import datetime
 import xml.etree.ElementTree as ET
-import re, codec
-
+from django.utils import timezone
+from recipes.models import Recipe
+import re, json, urllib.request, pytz
+from time import sleep
+  
 
 '''
 	NOTE: create user (run this once) or use a registered user id
@@ -19,6 +20,30 @@ user = User.objects.create_user(username='user',
 	TODO: argument to specify number of recipes to add.
 '''
 
+header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
+
+# get image url
+def getImageURL(name):
+	name = name.lstrip(' ')
+	name = name.rstrip(' ')
+	name = re.sub(' ', '_', name)
+	url = "https://api.qwant.com/api/search/images?count=10&offset=0&q=" + name
+	req = urllib.request.Request(url, None, header)
+	qwantResponse = urllib.request.urlopen(req)
+	results = json.loads(qwantResponse.read())
+	qwantResponse.close()
+	for i in range(0,10):
+		link = results['data']['result']['items'][i]['media']
+		if link.endswith('jpg'):
+			print(link)
+			return link
+
+
 class Command(BaseCommand):	
 	args = '<none>'
 	help = 'Adds recipes to recipe table'
@@ -27,7 +52,7 @@ class Command(BaseCommand):
 		scriptpath = os.path.dirname(__file__)
 		xmlfile = os.path.join(scriptpath, 'recipe-data.xml')
 
-		with codec.open(xmlfile, 'r') as file:
+		with open(xmlfile, 'r', encoding='utf-8') as file:
 			tree = ET.parse(file)
 
 		data = tree.getroot()
@@ -46,10 +71,12 @@ class Command(BaseCommand):
 					directions = element.text
 			author = 'wikimedia'
 			publisher = 1
-			time = datetime.now()
+			time = timezone.now()
 			tags = ' '
+			image = getImageURL(name)
 			recipe = Recipe(i, name, image, ingredients, directions, author, 1, time, tags)
 			i = i + 1
 			recipe.save()
+			sleep(5)
 			if i == 100:
 				break
