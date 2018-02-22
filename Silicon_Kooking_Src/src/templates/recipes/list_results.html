@@ -1,0 +1,29 @@
+{% extends "header.html" %}
+
+
+{% block body %}
+
+a:link, a:visited {
+    color: black;
+    text-decoration: bold;
+    cursor: auto;
+}
+
+  <br>
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      <center>
+        {% for recipe in object_list %}
+           <div class="col-md-4">
+             <a href=/recipes/{{recipe.id}}>
+               <img src={{recipe.image}} height=200 width=200><br>
+             </a>
+             <a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
+           </div>
+        {% endfor %}
+      </center>
+    </div>
+  </div>
+
+{% endblock %}
