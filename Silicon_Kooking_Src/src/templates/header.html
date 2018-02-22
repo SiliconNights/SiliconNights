@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,17 +36,16 @@ header {
 								<ul class="nav navbar-nav">
 
 									<li><a href="/">Home</a></li>
-									<form class="navbar-form navbar-left" action="">
+									<form class="navbar-form navbar-left" action="search" method="get">
 
 										<div class="form-group">
 
-											<input type="text" class="f-control" placeholder="Search" name="search">
+											<input type="text" class="f-control" placeholder="Search" name="query">
 
 												<button type="Search" class="btn btn-default">Search</button>
 											</div>
 										</form>
-										<li><a href="/recipes/">Advanced Search</a></li>
-										<li><a href="/recipes/list_recipes/">List Recipes</a></li>
+										<li><a href="#">Advanced Search</a></li>
 										{% if user.is_authenticated %}
 											<li><a href="/accounts/profile/">Profile</a></li>
 											<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
@@ -75,17 +75,16 @@ header {
 										<ul class="nav navbar-nav">
 
 											<li><a href="/">Home</a></li>
-											<form class="navbar-form navbar-left" action="">
+											<form class="navbar-form navbar-left" action="search" method="get">
 
 												<div class="form-group">
 
-													<input type="text" class="f-control" placeholder="Search" name="search">
+													<input type="text" class="f-control" placeholder="Search" name="query">
 
 														<button type="Search" class="btn btn-default">Search</button>
 													</div>
 												</form>
-												<li><a href="/recipes/">Advanced Search</a></li>
-												<li><a href="/recipes/list_recipes/">List Recipes</a></li>
+												<li><a href="#">Advanced Search</a></li>
 
 										{% if user.is_authenticated %}
 											<li><a href="/accounts/profile/">Profile</a></li>

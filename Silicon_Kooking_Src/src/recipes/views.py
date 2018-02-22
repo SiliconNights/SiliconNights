@@ -3,9 +3,18 @@ from .models import Recipe
 
 # Use for listing recipes and querying
 def recipes_detail_list(request):
-    queryset = Recipe.objects.all()
-    context = {'object_list': queryset}
 
+    query = request.GET
+    query = query['query']
+
+    print(query)
+    print(Recipe.objects.filter(name=query))
+    queryset = Recipe.objects.filter(name=query)
+
+    if len(queryset) == 0:
+        return render(request, 'recipes/no_results.html')
+
+    context = {'recipe': queryset}
     return render(request, 'recipes/list_results.html', context)
 
 def get_temp_page(request):
