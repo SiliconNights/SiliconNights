@@ -6,7 +6,7 @@ def recipes_detail_list(request):
     queryset = Recipe.objects.all()
     context = {'object_list': queryset}
 
-    return render(request, 'recipes/recipe_list.html', context)
+    return render(request, 'recipes/list_results.html', context)
 
 def get_temp_page(request):
     return render(request, 'recipes/recipe_page.html', {})
