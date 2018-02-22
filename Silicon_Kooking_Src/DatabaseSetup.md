@@ -26,7 +26,7 @@ python manage.py populate-recipes
 ```
 mysql -u root -p
 drop database database_name;
-create database database_name;
+create database database_name character set utf8 collate utf8_unicode_ci;
 ```
 
 Go to each app, and in the migrations folder delete everything but ```__init__.py``` file.
