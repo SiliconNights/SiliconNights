@@ -1,8 +1,7 @@
 # ignore decompressed data file
-Silicon_Kooking_Src/models/data/data-license/datadump.xml
-Silicon_Kooking_Src/models/data/clean-parse-data/datadump.xml
-Silicon_Kooking_Src/models/data/clean-parse-data/cleandata.xml
-Silicon_Kooking_Src/models/data/database.xml
+**/datadump.xml
+**/recipe-data.xml
+**/title-images.xml
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
