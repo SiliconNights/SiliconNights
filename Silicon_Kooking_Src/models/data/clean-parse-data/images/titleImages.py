@@ -20,7 +20,7 @@ def clean_encoding(line):
 	return line
 
 # open file to write
-f = open('./recipe-data.xml', 'w', encoding='utf-8')
+f = open('./title-images.xml', 'w', encoding='utf-8')
 		
 # create element tree object
 with open('datadump.xml', 'r', encoding='utf-8') as file:
@@ -117,93 +117,16 @@ for page in wikimedia:
 								title = title.unicode_markup
 								title = title.replace('&','&amp;')
 								f.write(title)
-								f.write('</title>')
+								f.write('</title>')	
 								
-								# description
-								string = get_between(info, '== Description ==', '== Ingredients ==')
-								f.write('\n<description>\n')
-								string = string.replace('.', '')
-								string = re.sub(r'^=\n', '', string)
-								string = string.strip()
-								if len(string) > 0 and string[len(string)-1] == '=':
-									string = string[0:len(string)-1]
-								string = re.sub(r'(\n)+$', '', string)
-								string = re.sub(r'^(\n)+', '', string)
-								string = re.sub(r'\n\s*\n', '\n', string)
-								if len(string) == 0:
-									f.write('none')
-								else:
-									string = clean_encoding(string)
-									string = string.unicode_markup 
-									string = string.replace('&','&amp;')
-									f.write(string)
-								f.write('\n</description>\n')
-													
-													
-								# ingredients 
-								f.write('<ingredients>\n')
-								ingredients = clean_encoding(ingredients)
-								ingredients = ingredients.unicode_markup
-								ingredients = ingredients.replace('&','&amp;')
-								f.write(ingredients)
-								f.write('\n</ingredients>\n')
+								# image
+								f.write('\n<image>\n')
+								f.write('</image>')
 								
-								
-								# ingredient list
-								f.write('<ingredientList>\n')
-								string = ', '.join(map(str, list))
-								string = clean_encoding(string)
-								string = string.unicode_markup 
-								string = string.replace('&','&amp;')
-								f.write(string)
-								f.write('\n</ingredientList>\n')
-									
-									
-								# instructions
-								string = get_between(info,'== Directions ==', '[[Category')
-								f.write('<instructions>\n')
-								string = re.sub(r'\=\= Source(.)* \=\=[\s\S]+__NOEDITSECTION__', '', string)
-								string = string.replace('__NOEDITSECTION__', '')
-								string = re.sub(r'\=\= Source(.)* \=\=[\s\S]+$', '', string)
-								string = string.replace('== Source ==', '')
-								string = re.sub(r'\=\= Other Links \=\=[\s\S]+$', '', string)
-								string = re.sub(r'=== See Also ===', '', string)
-								string = re.sub(r'(\n)+$', '', string)
-								string = re.sub(r'^(\n)+', '', string)
-								string = re.sub(r'(\n)+','\n', string)
-								string = re.sub(r'\s*\n\s*\n', '\n', string)
-								string = string.strip()
-								string = clean_encoding(string)
-								string = string.unicode_markup 
-								string = string.replace('&','&amp;')
-								f.write(string)
-								f.write('\n</instructions>\n')
-								
-								
-								# tags
-								f.write('<tags>\n')
-								list = re.findall(r'\[\[Category:(.*?)\]\]', info)
-								newlist = []
-								for item in list:
-									item = item.replace('Recipes', '')
-									item = item.strip()
-									item = item.lstrip('using ')
-									if item != 'that need photos' and item != 'with video instruction':
-										newlist.append(item)
-								list = newlist
-								newlist = []
-								for i in list:
-									if i not in newlist:
-										newlist.append(i)
-								newlist.reverse()
-								list = newlist
-								if len(list) == 0: 
-									f.write('none')
-								else:
-									string = ', '.join(map(str, list))
-									string = clean_encoding(string)
-									f.write(string.unicode_markup)
-								f.write('\n</tags>')
+								# images
+								f.write('\n<images>\n')
+								f.write('</images>')				
+
 								f.write('\n</recipe>')
 								f.write('\n')
 								count = count + 1
