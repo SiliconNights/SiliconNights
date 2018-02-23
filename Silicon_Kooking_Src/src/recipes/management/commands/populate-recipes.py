@@ -62,6 +62,7 @@ class Command(BaseCommand):
 			for element in recipe:
 				if element.tag == 'title':
 					name = element.text
+					name.strip()
 				elif element.tag == 'image':
 					image = element.text
 				elif element.tag == 'ingredients':
