@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
-import re, json, urllib.request, urllib.error, pytz
+import re, json, pytz, urllib.parse, urllib.request
 from time import sleep
+
 
 # http header
 # NOTE: Make sure to set your specific User-Agent or remove the field.
@@ -15,7 +16,7 @@ header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:58.0) Gecko
 def getImageURL(name):
 	name = re.sub(' ', '_', name)
 	print(name)
-	url = "https://api.qwant.com/api/search/images?count=10&offset=0&q=" + name
+	url = "https://api.qwant.com/api/search/images?ie=UTF-8&count=10&offset=0&q=" + urllib.parse.quote(name)
 	req = urllib.request.Request(url, None, headers={'User-Agent':' Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'})
 	qwantResponse = urllib.request.urlopen(req)
 	results = json.loads(qwantResponse.read().decode('utf-8'))
