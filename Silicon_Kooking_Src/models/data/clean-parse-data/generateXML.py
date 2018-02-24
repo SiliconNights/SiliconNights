@@ -61,12 +61,21 @@ for page in wikimedia:
 							info = re.sub('\{\|[\S\s]+\}', '', info)
 							info = re.sub(r'==(.*?)Video(.)*(.*?)==', '', info)
 							info = re.sub(r'<(.*?)p(.*?)>', '', info)
+							info = re.sub(r'<(.*?)i(.*?)>', '', info)
+							info = re.sub(r'<(.*?)gallery(.*?)>', '', info)
+							info = re.sub(r'<(.*?)s(.*?)>', '', info)
+							info = re.sub(r'<(.*?)b(.*?)>', '', info)
+							info = re.sub(r'<(.*?)tr(.*?)>', '', info)
+							info = re.sub(r'<(.*?)td(.*?)>', '', info)
+							info = re.sub(r'<(.*?)table(.*?)>', '', info)
 							info = re.sub(r'<(.*?)u(.*?)>', '', info)
 							info = re.sub(r'<(.*?)ref(.*?)>', '', info)
 							info = re.sub(r'<(.*?)br(.*?)>', '', info)
 							info = re.sub(r'<(.*?)span(.*?)>', '', info)
 							info = re.sub(r'<(.*?)nowiki(.*?)>', '', info)
+							info = re.sub(r'\-\=>(.*?)<\=\-', '', info)
 							info = re.sub(r'<(.*?)small(.*?)>', '', info)
+							info = re.sub(r'<(.*?)@gmail(.*?)>', '', info)
 							info = re.sub(r'<(.*?)References(.*?)>', '', info)
 							info = re.sub(r'{{DEFAULTSORT:(.*?)}}', '', info)
 							info = info.replace('{{wikifiedrecipe}}', '')
@@ -88,6 +97,14 @@ for page in wikimedia:
 							string = re.sub('\[\[\:Category\:(.*?)\]\]', '', string)
 							string = re.sub('\[\[Category(.*?)\]\]', '', string)
 							string = re.sub('\[http(.*?)\]','', string)
+							string = re.sub(r'#(.*?)\|','|', string)
+							string = re.sub(r'special\:(.*?),', '', string)
+							string = re.sub(r"'''(.*?)'''", '', string)
+							string = re.sub(r'\[\[\|', '[[', string)
+							string = re.sub(r'\|\|', '|', string)
+							string = re.sub('(.)ikipedia:', '', string)
+							string = string.replace('w:c:bakingrecipes:', '')
+							string = string.replace('"', '')
 							ingredients = string
 							
 							# get list of ingredients
@@ -97,7 +114,10 @@ for page in wikimedia:
 							for i in list:
 								if i not in newlist:
 									i = clean_encoding(i)
-									newlist.append(i.unicode_markup)
+									i = i.unicode_markup
+									i = i.strip()
+									i = re.sub(r'^\|', '', i)
+									newlist.append(i)
 							newlist.reverse()
 							list = newlist
 							
@@ -124,6 +144,7 @@ for page in wikimedia:
 								f.write('\n<description>\n')
 								string = string.replace('.', '')
 								string = re.sub(r'^=\n', '', string)
+								string = re.sub(r'(<)*', '', string)
 								string = string.strip()
 								if len(string) > 0 and string[len(string)-1] == '=':
 									string = string[0:len(string)-1]
@@ -169,6 +190,7 @@ for page in wikimedia:
 								string = re.sub(r'\=\= Other Links \=\=[\s\S]+$', '', string)
 								string = re.sub(r'=== See Also ===', '', string)
 								string = re.sub(r'(\n)+$', '', string)
+								string = re.sub(r'(<)*', '', string)
 								string = re.sub(r'^(\n)+', '', string)
 								string = re.sub(r'(\n)+','\n', string)
 								string = re.sub(r'\s*\n\s*\n', '\n', string)
@@ -202,7 +224,9 @@ for page in wikimedia:
 								else:
 									string = ', '.join(map(str, list))
 									string = clean_encoding(string)
-									f.write(string.unicode_markup)
+									string = string.unicode_markup
+									string = string.replace('&','&amp;')
+									f.write(string)
 								f.write('\n</tags>')
 								f.write('\n</recipe>')
 								f.write('\n')
