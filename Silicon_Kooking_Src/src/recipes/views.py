@@ -1,21 +1,47 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Recipe
+from .models import Recipe, Ingredientrecipe, Ingredient
 
 # Use for listing recipes and querying
+# Generic Search
 def recipes_detail_list(request):
 
     query = request.GET
     query = query['query']
 
-    print(query)
-    print(Recipe.objects.filter(name=query))
-    queryset = Recipe.objects.filter(name=query)
+    # A more robust parse is needed
+    # parse_query(query)
+    query = query.split()
+
+    # Contains all the queries in a generic search
+    list_of_queries = []
+
+    for q in query:
+        list_of_queries.append(q)
+
+    queryset = []
+
+    for q in list_of_queries:
+        for recipe in Recipe.objects.filter(name=q):
+            queryset.append(recipe)
+
+        for i in Ingredient.objects.filter(name=q):
+            query.append(Ingredientrecipe.objects.filter(ingredient=i).recipe)
+
+
 
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
-    context = {'recipe': queryset}
+    context = {'object_list': queryset}
     return render(request, 'recipes/list_results.html', context)
+
+# Supports advanced search functionality
+def advanced_search(request):
+    pass
+
+# Parse a query represented as a string
+def parse_query(query):
+    pass
 
 def get_temp_page(request):
     return render(request, 'recipes/recipe_page.html', {})

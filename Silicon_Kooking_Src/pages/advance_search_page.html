@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery/jquery.js"></script>
+<script type="text/javascript" src='js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<!--may need to use the bottom vs the top. -----------------------------------------------------------------------------
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+-->
+</head>
+
+   <style type="text/css">
+    body {
+	    font-family:font-family: Arial, Helvetica, sans-serif;		   		
+        background-image: url("https://static1.squarespace.com/static/54d3b744e4b07b2898a56f8d/t/585afa9c20099ec5194e1dc9/1482358028454/iStock_000046272610_Large.jpg?format=1500w");
+		background-repeat: no-repeat;
+		background-position: right top;
+        background-attachment: fixed;
+		background-size: cover;		
+	}
+	#container {
+	    position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+		height: 100%;
+		background-color: rgba(220,220,220, 0.9);
+		border-radius: 25px;
+    }
+    spaceLine {
+        white-space:pre-line;
+    }
+	div.boxLeft {
+        width: 100%;
+       <!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: left;
+		-->
+    }
+	div.boxRight {
+        width: 37%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: right;
+    }
+	div.BackColor {
+    background-color: white;
+}
+#clear {
+    clear: both;
+}
+@media only screen and (min-width:800px){
+   div.boxLeft{
+      float:center;
+      width: 30%; 
+   }
+   #container{
+   height: 100%;
+}
+ul{
+list-style-type:none;
+
+float:left;
+margin-top:5px;
+margin:5px;
+text-align:center;
+color: black;
+
+}
+
+   </style>  
+<body class="body" style="background-color:white">
+<br>
+<br>
+<br>
+<br>
+   <div id = "container" >
+   <h1 style="font-size: 72px; text-align: center; padding: 30px;">Advanced Search</h1>
+   <hr>
+   <br>
+   <br>
+   <br>
+   
+   <br>
+   <br>
+   
+   <div class = "boxLeft" style = "width: 25%">
+   <br>
+         <div class="dropdown" style = "padding-left: 65px; padding-top: 10px" >
+          <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Meal Type
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Breakfast</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Lunch</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dinner</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other</a></li>
+          </ul>
+        </div>
+   </div>
+   <div class = "boxLeft">
+      <p>Country of Origin:</p>
+      <input type="text" id="country">
+	  <input type='button' onclick='changeText1()' value='Add' />
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b> 
+      </p>
+      <p>List of Countries:</p>
+	  
+      <ul id="countries"></ul>
+	     <script>
+var list1 = document.getElementById('countries');
+var lastid1 = 0;
+
+function changeText1() {
+    var country = document.getElementById('country').value;
+    document.getElementById('boldStuff2').innerHTML = country;
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(country));
+    entry.setAttribute('id','item1'+lastid1);
+    var removeButton = document.createElement('button');
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute('onClick','removecountry("'+'item1'+lastid1+'")');
+    entry.appendChild(removeButton);
+    lastid1+=1;
+    list1.appendChild(entry);
+}
+function removecountry(itemid) {
+  var item1 = document.getElementById(itemid);
+  list1.removeChild(item1);
+}
+
+   </script>
+   
+   </div>
+   <div class = "boxLeft">
+      <p>Ingredient:</p>
+	  <form>
+      <input type="text" id="itemInput" name = "itemInput" autofocus="true" placeholder="accessible ingredients"  onblur="if(this.value == '')" >
+	  
+	    <input type='button' onclick='changeText2()' value='Add' />
+		
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b> 
+      </p>
+      <p>List of ingredients:</p>
+      <ul id="items"></ul>
+	  </form>
+   <script>
+    
+var list = document.getElementById('items');
+var lastid = 0;
+
+function changeText2() {
+    var itemInput = document.getElementById('itemInput').value;
+    document.getElementById('boldStuff2').innerHTML = itemInput;
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(itemInput));
+    entry.setAttribute('id','item'+lastid);
+    var removeButton = document.createElement('button');
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute('onClick','removeItemInput("'+'item'+lastid+'")');
+    entry.appendChild(removeButton);
+    lastid+=1;
+    list.appendChild(entry);
+	document.getElementById('itemInput').value = "";
+}
+function removeItemInput(itemid) {
+  var item = document.getElementById(itemid);
+  list.removeChild(item);
+}
+
+   </script>
+   </div>
+ <div class = " boxLeft" style = "width: 10%; margin-top: 10px" >
+          <button type="button" style="height:50px; width:100px; background-color: lightgrey">Search</button>
+        </div>
+
+   </div>
+   
+   
+</body>
+</html>
+
