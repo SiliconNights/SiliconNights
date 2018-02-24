@@ -1,7 +1,7 @@
 ## Setting up database
 
 #### Change database name, user, password in setting.py and add:
-'''
+```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -13,7 +13,7 @@ DATABASES = {
 		},
     }
 }
-'''
+```
 
 #### Create database with previous name in MySQL:
 ```
