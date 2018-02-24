@@ -3,21 +3,23 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     name = models.CharField(db_column='name', max_length=200, null=True)
-    image = models.CharField(db_column='image', max_length=200, null=True)
+    description = models.TextField(db_column='description', null=True)
+    image = models.CharField(db_column='image', max_length=1000, null=True)
     ingredients = models.TextField(db_column='ingredients', null=True)
-    directions = models.TextField(db_column='directions', null=True)
-    author = models.CharField(db_column='author', max_length=45, null=True)
+    ingredientList = models.TextField(db_column='ingredientList', null=True)
+    instructions = models.TextField(db_column='instructions', null=True)
+    author = models.CharField(db_column='author', max_length=200, null=True)
     publisher = models.ForeignKey(User, db_column='user', on_delete=models.PROTECT, null=True)
     time = models.DateTimeField(db_column='time', null=True)
     tags = models.TextField(db_column='tags', null=True)
-
+    
     class Meta:
         managed = True
         db_table = 'recipe'
 
 		
 class RecipesRecipe(models.Model):
-    name = models.CharField(db_column='name', max_length=30)
+    name = models.CharField(db_column='name', max_length=200)
     updated = models.DateTimeField(db_column='updated')
     timestamp = models.DateTimeField(db_column='timestamp')
 
@@ -27,18 +29,23 @@ class RecipesRecipe(models.Model):
 		
 
 class Ingredient(models.Model):
-    name = models.CharField(db_column='name', max_length=45, null=True)  
-
+    name = models.CharField(db_column='name', max_length=200, null=True)  
     class Meta:
         managed = True
         db_table = 'ingredient'
 
+class SimilarIngredient(models.Model):
+    similar = models.ForeignKey(Ingredient, db_column='similar', on_delete=models.PROTECT) 
+    name = models.CharField(db_column='name', max_length=200, null=True)
+    class Meta:
+        managed = True
+        db_table = 'similar_ingredient'
 		
-class Ingredientrecipe(models.Model):
+class IngredientRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
     ingredient = models.ForeignKey(Ingredient, db_column='ingredient', on_delete=models.PROTECT)
 
     class Meta:
         managed = True
-        db_table = 'ingredientrecipe'
+        db_table = 'ingredient_recipe'
         unique_together = (('recipe', 'ingredient'),)

@@ -14,3 +14,4 @@ class Favorite(models.Model):
         db_table = 'favorite'
         unique_together = (('recipe', 'user'),)
 
+
