@@ -2,16 +2,6 @@ import xml.etree.ElementTree as ET
 import re, json, pytz, urllib.parse, urllib.request
 from time import sleep
 
-
-# http header
-# NOTE: Make sure to set your specific User-Agent or remove the field.
-header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0',
-       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-       'Accept-Encoding': 'none',
-       'Accept-Language': 'en-US,en;q=0.8',
-       'Connection': 'keep-alive'}
-
 # get image url
 def getImageURL(name):
 	name = re.sub(' ', '_', name)
