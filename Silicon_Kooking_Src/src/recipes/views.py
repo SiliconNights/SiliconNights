@@ -21,11 +21,11 @@ def recipes_detail_list(request):
     queryset = []
 
     for q in list_of_queries:
-        for recipe in Recipe.objects.filter(name=q):
+        for recipe in Recipe.objects.filter(name__icontains=q):
             queryset.append(recipe)
 
-        for i in Ingredient.objects.filter(name=q):
-            query.append(Ingredientrecipe.objects.filter(ingredient=i).recipe)
+
+
 
 
 
