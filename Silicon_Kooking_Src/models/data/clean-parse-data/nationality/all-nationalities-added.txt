@@ -1,0 +1,316 @@
+Abkhazian
+Afghan
+African
+Albanian
+Algerian
+Asian
+American
+Andorran
+Angolan
+Antiguans and Barbudan
+Argentine
+Armenian
+Aruban
+Australian
+Austrian
+Azerbaijani
+Bahamian
+Bahraini
+Bangladeshi
+Barbadian
+Basque
+Belarusian
+Belgian
+Belizean
+Beninese
+Bermudian
+Bhutanese
+Bolivian
+Bosniak
+Bosnians and Herzegovinian
+Botswana
+Brazilian
+Breton
+British
+British Virgin Island
+Bruneian
+Bulgarian
+Macedonian Bulgarian
+Burkinabé
+Burmese
+Burundian
+Cambodian
+Cameroonian
+Canadian
+Catalan
+Cape Verdean
+Chadian
+Chilean
+Chinese
+Colombian
+Comorian
+Congolese
+Costa Rican
+Croatian
+Cuban
+Cypriot
+Turkish Cypriot
+Czech
+Dane
+Greenland
+Djiboutian
+Dominican
+Dutch
+East Timorese
+Ecuadorian
+Egyptian
+Emirati
+English
+Equatoguinean
+Eritrean
+Estonian
+Ethiopian
+Falkland Island
+Faroese
+Fijian
+Finn
+Finnish 
+Swedish
+Filipino
+French
+Gabonese
+Gambian
+Georgian
+German
+Baltic German
+Ghanaian
+Gibraltarian
+Greek
+Greek Macedonian
+Grenadian
+Guatemalan
+Guianese
+Guinean
+Guinea-Bissau national
+Guyanese
+Guamanian
+Haitian
+Hawaiian
+Honduran
+Hong Kong
+Hungarian
+Iceland
+I-Kiribati
+Indian
+Indonesian
+Iranian
+Iraqi
+Irish
+Israeli
+Italian
+Ivoirian
+Jamaican
+Japanese
+Jordanian
+Kazakh
+Kenyan
+Korean
+Kosovar
+Kuwaiti
+Kyrgyz
+Lao
+Latvian
+Lebanese
+Liberian
+Libyan
+Liechtenstein
+Lithuanian
+Luxembourg
+Macao
+Macedonian
+Malagasy
+Malawian
+Malaysian
+Maldivian
+Malian
+Maltese
+Manx
+Marshallese
+Mauritanian
+Mauritian
+Mexican
+Micronesian
+Moldovan
+Monégasque
+Mongolian
+Montenegrin
+Moroccan
+Mozambican
+Namibian
+Nauran
+Nepalese
+New Zealand
+Nepali
+Nicaraguan
+Nigerien
+Nigerian
+Norwegian
+Omani
+Pakistani
+Palauan
+Palestinian
+Panamanian
+Papua New Guinean
+Paraguayan
+Persian
+Peruvian
+Pole
+Portuguese
+Puerto Rican
+Qatari
+Quebec
+Réunionnai
+Romanian
+Russian
+Baltic Russian
+Rwandan
+Saint Kitts and Nevi
+Saint Lucian
+Salvadoran
+Sammarinese
+Samoan
+São Tomé and Príncipe
+Saudi
+Scot
+Senegalese
+Serb
+Seychelloi
+Sierra Leonean
+Singaporean
+Slovak
+Slovene
+Solomon Island
+Somali
+Somaliland
+Sotho
+South African
+Spaniard
+Sri Lankan
+Sudanese
+Surinamese
+Swazi
+Swede
+Swis
+Syriac
+Syrian
+Taiwanese
+Tamil
+Tajik
+Tanzanian
+Thai
+Tibetan
+Tobagonian
+Togolese
+Tongan
+Trinidadian
+Tunisian
+Turk
+Tuvaluan
+Ugandan
+Ukrainian
+Uruguayan
+Uzbek
+Vanuatuan
+Venezuelan
+Vietnamese
+Vincentian
+Welsh
+Yemeni
+Zambian
+Zimbabwean
+Aromanian
+Assyrian
+Basque
+Bengali
+Berb
+Bo
+Buryat
+Cajun
+californian
+Catalan
+Celt
+Chuvash
+Colombian
+Han Chinese
+Hispanic and Latino American
+Hutu
+Igbo
+Indigenous Australian
+Indigenous people of the America
+First Nation
+Huaorani people
+Inuit
+Canadian Inuit
+Greenlandic Inuit
+Métis people
+Native American
+Kannadiga
+Karen
+Kodava
+Kurd
+Macedonian
+Malay
+Mediterranean
+Middle Eastern
+Roma
+Sami
+Sikh
+Silesian
+Sindhi
+Sinhalese
+Syriac
+Tamil
+Tatar
+Tutsi
+Zulu
+macanese
+santomean
+martiniquais
+hollands
+surinamer
+southwestern
+salvadorian
+central african
+north korean
+arabian
+new guinean
+east indian
+slovenian
+kashmiri
+south indian
+punjabi
+mughlai
+marathi
+passover
+euro-asian
+new england
+amish
+bhutani
+california
+caribbean
+central american
+creole
+danish
+guadeloupian
+jewish
+kentucky
+new york
+north african
+north indian
+polish
+rajasthani
+scandinavian
+sicilian
+spanish
+tahitian
+west indian

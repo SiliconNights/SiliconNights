@@ -5,6 +5,7 @@
 **/*-imag*.txt
 **/tags.txt
 **/ingredients.txt
+**/left-over.txt
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
