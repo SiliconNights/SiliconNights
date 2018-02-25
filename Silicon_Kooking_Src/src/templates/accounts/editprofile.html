@@ -3,15 +3,48 @@
 
 
 {% block body %}
-<br>
-<br>
-<div class="container">
-  <form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <a href="/accounts/profile/change-password">Change Password</a>
-    <button type="submit">Submit</button>
-  </form>
-</div>
+<br><br><br>
+<center><h1>Change {{user.username}} Information</h1></center>
+<br><br><br>
+<form method="post">
+  {% csrf_token %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6" align="right">{{form.username.label_tag}}</div>
+      <div class="col-md-6" align="left">{{form.username}}</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6" align="right">{{form.email.label_tag}}</div>
+      <div class="col-md-6" align="left">{{form.email}}</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6" align="right">{{form.first_name.label_tag}}</div>
+      <div class="col-md-6" align="left">{{form.first_name}}</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6" align="right">{{form.last_name.label_tag}}</div>
+      <div class="col-md-6" align="left">{{form.last_name}}</div>
+    </div>
+  </div>
+
+  <center>
+    <button type="Submit">Submit</button>
+    <br>
+    <a href="/accounts/profile/change-password/">Change Password</a>
+  </center>
+
+</center>
+
+</form>
 
 {% endblock %}

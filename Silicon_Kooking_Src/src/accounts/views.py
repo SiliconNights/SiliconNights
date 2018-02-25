@@ -18,7 +18,7 @@ def login_page(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return render(request, 'registration/logged_out.html', {})
 
 def register_user(request):
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def edit_profile(request):
             return redirect('/accounts/profile/edit')
     else:
         form = EditProfileForm(instance=request.user)
-        args = {'form': form}
+        args = {'form': form, 'user': request.user}
         return render(request, 'accounts/editprofile.html', args)
 
 

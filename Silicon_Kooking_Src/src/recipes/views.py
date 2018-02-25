@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Recipe, Ingredientrecipe, Ingredient
+from .models import Recipe, IngredientRecipe, Ingredient
 
 # Use for listing recipes and querying
 # Generic Search
