@@ -3,6 +3,8 @@
 **/recipe-data.xml
 **/title-images.xml
 **/*-imag*.txt
+**/tags.txt
+**/ingredients.txt
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
