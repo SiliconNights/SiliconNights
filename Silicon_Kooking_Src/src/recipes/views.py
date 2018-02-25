@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Recipe, IngredientRecipe, Ingredient
+from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
 
 # Use for listing recipes and querying
 # Generic Search
@@ -18,15 +18,31 @@ def recipes_detail_list(request):
     for q in query:
         list_of_queries.append(q)
 
-    queryset = []
+    queryset = set()
+
+    ingredients_set = set()
+
+    similar_ingredient_set = set()
 
     for q in list_of_queries:
+        # Search By Recipe Name
         for recipe in Recipe.objects.filter(name__icontains=q):
-            queryset.append(recipe)
+            queryset.add(recipe)
 
+        # Search By Ingredient Name In Ingredient Table
+        for i in Ingredient.objects.filter(name__icontains=q):
+            ingredients_set.add(i)
 
+    # Finds Similar Ingredients
+    for i in ingredients_set:
+        for similar in SimilarIngredient.objects.filter(name__icontains=i.name):
+            similar_ingredient_set.add(similar.similar)
 
+    ingredients_set = ingredients_set.union(similar_ingredient_set)
 
+    for i in ingredients_set:
+        for recipe in IngredientRecipe.objects.filter(ingredient=i):
+            queryset.add(recipe.recipe)
 
 
     if len(queryset) == 0:
