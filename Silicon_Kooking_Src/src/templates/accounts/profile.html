@@ -2,12 +2,8 @@
 
 
 {% block body %}
-
-<br><br><br>
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<br>
 <div class="col-md-12">
     <div class="col-md-4">
         <div class="portlet light profile-sidebar-portlet bordered">
@@ -17,6 +13,7 @@
                 <div class="profile-usertitle-name">{{user.username}}</div>
             </div>
             <div class="profile-userbuttons">
+                <a href="/accounts/profile/edit"><button type="submit" class="btn btn-info  btn-sm">Edit Profile</button></a>
                 <button type="button" class="btn btn-info  btn-sm">Follow</button>
             </div>
 
