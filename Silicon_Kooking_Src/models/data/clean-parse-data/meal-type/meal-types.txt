@@ -1,10 +1,10 @@
-soup | soups
-salad | salads
-appetizer | appetizer
-snacks | snack
-desserts | dessert
-side dish | side dishes
-meat dish | meat dishes
+soup
+salad
+appetizer 
+snack
+dessert
+side dish 
+meat dish 
 vegetarian
 seafood
 juice

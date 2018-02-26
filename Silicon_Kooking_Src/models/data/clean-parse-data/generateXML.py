@@ -19,6 +19,18 @@ def clean_encoding(line):
 	line = UnicodeDammit(line)
 	return line
 
+# get ethnicities
+ethnicities = []
+with open('found-nationalities.txt') as f:
+	for line in f:
+		ethnicities.append(line.strip('\n'))
+
+# get meal-types
+types = []
+with open('meal-types.txt') as f:
+	for line in f:
+		types.append(line.strip('\n'))
+		
 # open file to write
 f = open('./recipe-data.xml', 'w', encoding='utf-8')
 		
@@ -228,6 +240,43 @@ for page in wikimedia:
 									string = string.replace('&','&amp;')
 									f.write(string)
 								f.write('\n</tags>')
+								
+								# ethnicity
+								f.write('\n<ethnicity>\n')
+								found = []
+								list = [item.lower() for item in list]
+								if len(list) == 0: 
+									f.write('none')
+								else:
+									for ethnicity in ethnicities:
+										for item in list:
+											if re.search(ethnicity, item) != None:
+												if ethnicity not in found:
+													found.append(ethnicity)		
+									if len(found) == 0:
+										f.write('none')
+									else:
+										f.write(', '.join(map(str, found)))
+								f.write('\n</ethnicity>')
+								
+								# meal-type
+								f.write('\n<mealType>\n')
+								found = []
+								list = [item.lower() for item in list]
+								if len(list) == 0: 
+									f.write('none')
+								else:
+									for type in types:
+										for item in list:
+											if re.search(type, item) != None:
+												if type not in found:
+													found.append(type)
+									if len(found) == 0:
+										f.write('none')
+									else:
+										f.write(', '.join(map(str, found)))
+								f.write('\n</mealType>')
+								
 								f.write('\n</recipe>')
 								f.write('\n')
 								count = count + 1
