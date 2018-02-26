@@ -33,15 +33,16 @@ python manage.py runserver
 ## Populate recipes table 
 
 #### Data
- Uncompress inputdata.7z
+ Uncompress inputdata.7z in same directory (src/recipes/management/commands)
 
 #### Set limit
-To set number of recipes to add to database, modify last-recipe.txt [max = 793].
+To set number of recipes to add to database, modify last-recipe.txt [max = 1528].
 
 #### Run in sequence
 
 ```
 python manage.py populate ing
+python manage.py populate tag
 python manage.py populate rec
 ```
 
