@@ -40,3 +40,7 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password',
         )
+
+class UploadRecipeForm(forms.Form):
+    recipeName = forms.CharField(required=True)
+    instructions =  forms.CharField(widget=forms.Textarea)

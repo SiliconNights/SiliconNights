@@ -1,0 +1,16 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<form method="POST">
+  {% csrf_token %}
+  
+  <!--<h1>Upload a Recipe</h1>
+    <p>{{form.as_p}}</p>-->
+	
+	<table>
+		{{form.as_table}}
+	</table>
+    <input type="submit" value="Submit" />
+
+{% endblock %}

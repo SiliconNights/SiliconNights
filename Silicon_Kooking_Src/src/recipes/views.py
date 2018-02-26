@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
+from .forms import UploadRecipeForm
 
 # Use for listing recipes and querying
 # Generic Search
@@ -66,3 +67,17 @@ def recipes_detail_display(request, pk):
     recipe = Recipe.objects.get(pk=pk)
     args = {'recipe': recipe}
     return render(request, 'recipes/recipe_page.html', args)
+
+def upload_recipe(request):
+    if request.method == 'POST':
+        # POST, generate form with data from the request
+        form = UploadRecipeForm(request.POST)
+        # check if it's valid:
+        if form.is_valid():
+            # process data, insert into DB, generate email,etc
+            # redirect to a new url:
+            return HttpResponseRedirect('/')
+    else:
+        # GET, generate blank form
+        form = UploadRecipeForm()
+    return render(request,'recipes/uploadRecipe.html',{'form':form})
