@@ -3,6 +3,9 @@
 **/recipe-data.xml
 **/title-images.xml
 **/*-imag*.txt
+**/tags.txt
+**/ingredients.txt
+**/left-over.txt
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
@@ -22,3 +25,4 @@ Silicon_Kooking_Src/models/data/clean-parse-data/ingredients/ingredients.txt
 Silicon_Kooking_Src/models/data/clean-parse-data/todo.md
 Silicon_Kooking_Src/models/data/clean-parse-data/ingredients/recipe-ingredients.txt
 Silicon_Kooking_Src/src/home/migrations/0001_initial.py
+Silicon_Kooking_Src/src/recipes/management/commands/recipe-data.xml
