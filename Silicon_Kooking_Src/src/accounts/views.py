@@ -36,7 +36,7 @@ def register_user(request):
 
 def profile(request):
     args = {'user': request.user}
-    return render(request, 'registration/profile.html', args)
+    return render(request, 'accounts/profile.html', args)
 
 def edit_profile(request):
     if request.method == 'POST':
