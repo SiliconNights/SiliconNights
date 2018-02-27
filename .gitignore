@@ -6,6 +6,9 @@
 **/tags.txt
 **/ingredients.txt
 **/left-over.txt
+**/found-nationalities.txt
+**/meal-types.txt
+**/recipe-ingredients.txt
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
@@ -17,12 +20,3 @@ Silicon_Kooking_Src/src/Silicon_Kooking/settings.py
 
 # misc
 *.pyc
-Silicon_Kooking_Src/src/recipes/management/commands/populate-recipes.py
-Silicon_Kooking_Src/src/recipes/management/commands/ingredients.txt
-Silicon_Kooking_Src/src/home/migrations/__init__.py
-Silicon_Kooking_Src/models/data/clean-parse-data/images/last-recipe.txt
-Silicon_Kooking_Src/models/data/clean-parse-data/ingredients/ingredients.txt
-Silicon_Kooking_Src/models/data/clean-parse-data/todo.md
-Silicon_Kooking_Src/models/data/clean-parse-data/ingredients/recipe-ingredients.txt
-Silicon_Kooking_Src/src/home/migrations/0001_initial.py
-Silicon_Kooking_Src/src/recipes/management/commands/recipe-data.xml

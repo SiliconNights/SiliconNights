@@ -1,0 +1,53 @@
+{% extends "header.html" %}
+
+
+{% block body %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div class="portlet light profile-sidebar-portlet bordered">
+            <div class="profile-userpic">
+                <img src="http://loganfuneralchapel.com/wp-content/uploads/2017/01/generic-profile-avatar_352864.jpg" class="img-responsive" alt=""> </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">{{user.username}}</div>
+            </div>
+            <div class="profile-userbuttons">
+                <a href="/accounts/profile/edit"><button type="submit" class="btn btn-info  btn-sm">Edit Profile</button></a>
+                <button type="button" class="btn btn-info  btn-sm">Follow</button>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item">{{user.first_name}} {{user.last_name}}</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                    <b><h1><span class="caption-subject font-blue-madison bold uppercase">User Created Recipe(s)</span><h1></b>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Recipe Name(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="active">
+                          <!-- This will need to loop through all user created recipes -->
+                            <th>No Recipes Yet</th>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

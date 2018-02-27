@@ -49,3 +49,33 @@ class IngredientRecipe(models.Model):
         managed = True
         db_table = 'ingredient_recipe'
         unique_together = (('recipe', 'ingredient'),)
+		
+class MealType(models.Model):
+    type = models.CharField(db_column='type', max_length=100, null=True)  
+    class Meta:
+        managed = True
+        db_table = 'meal_type'
+		
+class MealTypeRecipe(models.Model):
+    recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
+    type = models.ForeignKey(Ingredient, db_column='type', on_delete=models.PROTECT)
+
+    class Meta:
+        managed = True
+        db_table = 'meal_type_recipe'
+        unique_together = (('recipe', 'type'),)
+
+class Ethnicity(models.Model):
+    name = models.CharField(db_column='name', max_length=100, null=True)  
+    class Meta:
+        managed = True
+        db_table = 'ethnicity'
+		
+class EthnicityRecipe(models.Model):
+    recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
+    name = models.ForeignKey(Ingredient, db_column='name', on_delete=models.PROTECT)
+
+    class Meta:
+        managed = True
+        db_table = 'ethnicity_recipe'
+        unique_together = (('recipe', 'name'),)

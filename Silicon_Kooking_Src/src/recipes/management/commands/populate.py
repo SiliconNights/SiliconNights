@@ -4,13 +4,13 @@ from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 import xml.etree.ElementTree as ET
 from django.utils import timezone
-from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe
+from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Ethnicity, EthnicityRecipe
 import re, pytz
 from time import sleep
 
 
 '''
-	NOTE: create user (run this once) or use a registered user id
+	NOTE: create user (run this once) or run: python manage.py createsuperuser
 user = User.objects.create_user(username='user',
                                  email='email@ssexample.com',
                                  password='password')
@@ -18,7 +18,8 @@ user = User.objects.create_user(username='user',
 
 class Command(BaseCommand):
 	args = '<arg1>'
-	help = 'first run with "ing" argument, then run with "rec" argument'
+	help = 'run with "ing", "tag", then "rec" argument'
+	
 	def add_arguments(self, parser):
 			parser.add_argument('arg1')
 
@@ -47,7 +48,6 @@ class Command(BaseCommand):
 					list = item.split('|')
 					first = list[0].strip().replace('_', ' ')
 					second = list[1].strip().replace('_', ' ')
-					print(first, second)
 					try:
 						q1 = Ingredient.objects.get(name=first)
 					except ObjectDoesNotExist:
@@ -89,7 +89,47 @@ class Command(BaseCommand):
 							r1.save()
 							pass
 							
-		
+	
+							
+		if arg1 == 'tag':
+			scriptpath = os.path.dirname(__file__)
+			ethnicitiesFile = os.path.join(scriptpath, 'found-nationalities.txt')
+			mealTypes = os.path.join(scriptpath, 'meal-types.txt')
+			
+			print('\nadding meal type:')
+			# get mealtypes
+			types = []
+			with open(mealTypes) as f:
+				for line in f:
+					types.append(line.strip('\n'))
+			
+			i = 1
+			# add meal type
+			for item in types:
+				item = item.strip()
+				type = MealType(i, item)
+				type.save()
+				i = i + 1
+				print(item)
+			
+			sleep(2)
+			print('\nadding ethnicity:')
+			# get ethnicities
+			ethnicities = []
+			with open(ethnicitiesFile) as f:
+				for line in f:
+					ethnicities.append(line.strip('\n'))
+			
+			i = 1
+			# add ethnicity
+			for item in ethnicities:
+				item = item.strip()
+				ethnic = Ethnicity(i, item)
+				ethnic.save()
+				i = i + 1
+				print(item)
+			
+				
 		# add recipes and setup search tables
 		if arg1 == 'rec':
 			scriptpath = os.path.dirname(__file__)
@@ -98,21 +138,23 @@ class Command(BaseCommand):
 			skipFile = os.path.join(scriptpath, '0-images.txt')
 			count = os.path.join(scriptpath, 'last-recipe.txt')
 			
-			
 			j = 1
 			k = 1
+			x = 1
+			y = 1
 			# get last recipe processed by images
 			with open(count) as f:
 				for line in f:
 					max = int(line)
 			
+			# get recipes to skip (without images)
 			skipList = []
-			# get recipes without images
 			with open(skipFile) as f:
 				for line in f:
 					line = re.sub(r'[0-9]+ ', '', line)
 					skipList.append(line.strip('\n'))
-
+		
+			
 			with open(imageFile, 'r', encoding='utf-8') as f1:
 				with open(xmlFile, 'r', encoding='utf-8') as f2:
 					
@@ -121,6 +163,7 @@ class Command(BaseCommand):
 					images = tree1.getroot()
 
 					name, imageUrl, ingredients, ingredientList, instructions, tags = '', '', '', '', '', ''
+					mealType, ethnicity = '', ''
 						
 					# check if should skip, else get image url 
 					for i in range(0, (max+1)):
@@ -159,7 +202,12 @@ class Command(BaseCommand):
 										instructions = element.text
 									elif element.tag == 'tags':
 										tags = element.text
+									elif element.tag == 'ethnicity':
+										ethnicity = element.text
+									elif element.tag == 'mealType':
+										mealType = element.text
 										found = True
+										
 								if found:
 									# add recipe
 									author = 'wikimedia'
@@ -169,11 +217,44 @@ class Command(BaseCommand):
 									recipe = Recipe(j, name, description, imageUrl, ingredients, ingredientList, instructions, author, 1, time, tags)
 									recipe.save()
 									j = j + 1
-									pair = []
-									single = []
 									
 									added = []
+									# add meal type
+									list = mealType.split(', ')
+									for item in list:
+										item = item.strip()
+										try:
+											q1 = MealType.objects.get(type=item)
+											if q1.id not in added:
+												r1 = MealTypeRecipe(x, recipe.id, q1.id)
+												r1.save()
+												x = x + 1
+												added.append(q1.id)
+												print('add meal type ', item)
+										except ObjectDoesNotExist:
+											pass
 									
+									
+									added = []
+									# add ethnicity
+									list = ethnicity.split(', ')
+									for item in list:
+										item = item.strip()
+										try:
+											q1 = Ethnicity.objects.get(name=item)
+											if q1.id not in added:
+												r1 = EthnicityRecipe(y, recipe.id, q1.id)
+												r1.save()
+												y = y + 1
+												added.append(q1.id)
+												print('add ethnicity', item)
+										except ObjectDoesNotExist:
+											pass
+									
+									
+									pair = []
+									single = []
+									added = []
 									# add ingredient search
 									list = ingredientList.split(', ')
 									for item in list:
@@ -230,4 +311,5 @@ class Command(BaseCommand):
 												print(item)
 												print('WARNING!')
 												sleep(10)
+									print()
 		print('done')

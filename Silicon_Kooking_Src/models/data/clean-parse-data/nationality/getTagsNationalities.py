@@ -33,6 +33,11 @@ for item in tags:
 print('items in tags before removing national dishes ', len(tags))
 print('# of unique-nationalities: ', i)
 
+with open('found-nationalities.txt', 'w', encoding='utf-8') as file:
+	for nationality in found:
+		nationality = fix_encoding(nationality + '\n')
+		file.write(nationality)
+		
 # remove nationalities
 for item in remove:
 	if item in tags:
@@ -57,11 +62,6 @@ for item in tags:
 		
 print('items in tags after removing ingredients', len(tags))
 
-with open('found-nationalities.txt', 'w', encoding='utf-8') as file:
-	for nationality in found:
-		nationality = fix_encoding(nationality + '\n')
-		file.write(nationality)
-		
 with open('left-over.txt', 'w', encoding='utf-8') as file:
 	for item in tags:
 		item = fix_encoding(item)

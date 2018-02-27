@@ -28,7 +28,9 @@ korean
 north korean
 mediterranean
 indian
+tahitian
 mexican
+polish
 czech
 swis
 asian
@@ -45,6 +47,7 @@ sri lankan
 german
 swedish
 south african
+creole
 singaporean
 bangladeshi
 croatian
@@ -55,8 +58,10 @@ pole
 hawaiian
 passover
 portuguese
+danish
 armenian
 norwegian
+scandinavian
 iceland
 finn
 finnish
@@ -65,19 +70,24 @@ bahamian
 british
 cajun
 mughlai
+amish
 canadian
 cuban
+caribbean
 trinidadian
 chilean
 haitian
 jamaican
 estonian
+central american
 new england
 puerto rican
+spanish
 russian
 belizean
 cypriot
 jordanian
+jewish
 malawian
 taiwanese
 macedonian
@@ -88,8 +98,10 @@ saudi
 latvian
 brazilian
 native american
+california
 argentine
 ecuadorian
+kentucky
 middle eastern
 californian
 lao
@@ -100,9 +112,11 @@ panamanian
 new guinean
 euro-asian
 kashmiri
+north indian
 punjabi
 bengali
 omani
+rajasthani
 marathi
 zambian
 tunisian
@@ -144,6 +158,7 @@ east indian
 syrian
 guinean
 gabonese
+north african
 yemeni
 albanian
 arabian
@@ -161,6 +176,7 @@ romanian
 eritrean
 uruguayan
 kuwaiti
+bhutani
 libyan
 burundian
 namibian
@@ -175,6 +191,7 @@ montenegrin
 comorian
 luxembourg
 maltese
+guadeloupian
 macanese
 surinamer
 cape verdean
@@ -187,6 +204,9 @@ samoan
 santomean
 guamanian
 malagasy
+sicilian
+new york
+west indian
 greenland
 hollands
 seychelloi
