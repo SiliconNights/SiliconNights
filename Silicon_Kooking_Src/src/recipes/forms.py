@@ -42,5 +42,16 @@ class EditProfileForm(UserChangeForm):
         )
 
 class UploadRecipeForm(forms.Form):
-    recipeName = forms.CharField(required=True)
-    instructions =  forms.CharField(widget=forms.Textarea)
+    recipeName = forms.CharField(required=True, max_length = 100, label="Recipe Name")
+    description = forms.CharField(required=True)
+    instructions =  forms.CharField(widget=forms.Textarea(attrs={'cols':'25',
+'rows':'10'}), required=True,)
+    image = forms.ImageField()
+    author = forms.CharField(required=True, max_length = 100, label="Author")
+    publisher = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly','placeholder': User.username}))
+
+ 
+        
+           
+    
+    

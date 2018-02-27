@@ -1,0 +1,65 @@
+{% extends "header.html" %}
+{% block body %}
+
+<style type="text/css">
+
+	 body {
+	    font-family:font-family: Arial, Helvetica, sans-serif;
+	}
+
+	#container {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+
+	P{text-align: center}
+
+
+  
+  div.box {
+        width: 100%;
+		border-radius: .5em;
+		 padding: 1em;
+		border-color: black;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+    }
+
+
+	div.BackColor {
+    background-color: white;
+	}
+	textarea { resize: none; }
+
+</style>
+
+
+<body class="body" style="background-color:white">
+<div class="container">
+	<div class = "box">
+		<div class = "BackColor">
+ 
+
+			<div class="Absolute-Center is-Responsive">  
+				<form method="POST">
+  {% csrf_token %}
+
+  <!--<h1>Upload a Recipe</h1>
+    <p>{{form.as_p}}</p>-->
+
+					<p>
+						{{form.as_p}}
+					
+					</p>
+					<center>
+						<input type="submit" value="Submit" />
+					</center>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
