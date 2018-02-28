@@ -46,7 +46,16 @@ def parse_query(query):
 
     query_list = list(filter(lambda a: a != '', query_list))
 
-    # Here we need to create all possible combination of words in list using an iterator tool
+    if len(query_list) > 1:
+        combined_list_as_string = []
+        for q in query_list:
+            combined_list_as_string.append(q)
+            combined_list_as_string.append(' ')
+        else:
+            del combined_list_as_string[-1]
+
+
+        query_list.append(''.join(combined_list_as_string))
 
 
     return query_list
