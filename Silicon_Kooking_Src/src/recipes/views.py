@@ -15,7 +15,16 @@ def recipes_detail_list(request):
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
-    context = {'object_list': queryset}
+    page_list = 1
+    if len(queryset) > 12:
+        page_list = (len(queryset) // 12) + 1
+        page_list = [x+1 for x in range(page_list)]
+
+
+    context = {'object_list': queryset,
+                'page': page_list,
+                'num_pages': len(page_list)}
+
     return render(request, 'recipes/list_results.html', context)
 
 # Supports advanced search functionality

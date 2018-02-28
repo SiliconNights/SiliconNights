@@ -1,21 +1,45 @@
 {% extends "header.html" %}
 
 
+{% if  num_pages > 1 %}
+  {% block pager %}
+      <center>
+       <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+                  </li>
+                  {% for page_num in page %}
+                    <li><a href="#">{{page_num}}</a></li>
+                  {% endfor %}
+            <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+          </li>
+        </ul>
+      </nav>
+    </center>
+  {% endblock %}
+{% endif %}
+
 {% block body %}
 
-  <div class="container-fluid">
-    <div class="row">
-      <center>
-        {% for recipe in object_list %}
-           <div class="col-md-4">
-             <a href=/recipes/{{recipe.id}}>
-               <img src={{recipe.image}} height=200 width=200><br>
-             </a>
-             <a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
-           </div>
-        {% endfor %}
-      </center>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+    <center>
+      {% for recipe in object_list %}
+         <div class="col-md-4">
+           <a href=/recipes/{{recipe.id}}>
+             <img src={{recipe.image}} height=200 width=200><br>
+           </a>
+           <a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
+         </div>
+      {% endfor %}
+    </center>
   </div>
+</div>
 
 {% endblock %}
