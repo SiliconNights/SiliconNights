@@ -10,15 +10,73 @@ from time import sleep
 
 
 '''
-	NOTE: create user (run this once) or run: python manage.py createsuperuser
-user = User.objects.create_user(username='user',
-                                 email='email@ssexample.com',
-                                 password='password')
+	NOTE: create one user first.
+	python manage.py createsuperuser
 '''
+
+# --- Helper functions --- 
+
+def getFile(name):
+	scriptpath = os.path.dirname(__file__)
+	return os.path.join(scriptpath, name)
+
+	
+def addIngredientPair(pair):
+	list = pair.split('|')											
+	A = list[0].strip().replace('_', ' ')
+	B = list[1].strip().replace('_', ' ')
+	
+	qA = Ingredient.objects.filter(name__iexact=A) 					
+	qB = SimilarIngredient.objects.filter(name__iexact=B)			
+																	
+	if len(qA) > 0 and len(qB) > 0 and qB[0].similar.id == qA[0].id:
+		pass		
+	
+	elif len(qA) > 0 and len(qB) > 0 and qB[0].similar.id != qA[0].id:
+		addSimilarIngredient(qA[0], B)
+	
+	elif len(qA) > 0 and len(qB) == 0:								
+		addSimilarIngredient(qA[0], B)							
+		
+	elif len(qA) == 0 and (len(qB) > 0 or len(qB) == 0) :
+		rA = addIngredient(A)
+		addSimilarIngredient(rA, B)
+	
+	
+def addSingleIngredient(A):
+	q1A = Ingredient.objects.filter(name__iexact=A)
+	
+	if len(q1A) == 0:
+		addIngredient(A)
+	else:
+		pass
+	
+	
+def addSimilarIngredient(similarTo, ingredient):
+	record = SimilarIngredient(similar=similarTo, name=ingredient)
+	record.save()
+	
+	
+def addIngredient(ingredient):
+	record = Ingredient(name=ingredient)
+	record.save()
+	return record
+
+# Author: https://stackoverflow.com/users/2206251/greenstick
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
+    if iteration == total: 
+        print()
+	
+
+# --- Main function --- 	
 
 class Command(BaseCommand):
 	args = '<arg1>'
-	help = 'run with "ing", "tag", then "rec" argument'
+	help = 'first run with "ing", "tag", then "rec" argument'
 	
 	def add_arguments(self, parser):
 			parser.add_argument('arg1')
@@ -27,76 +85,48 @@ class Command(BaseCommand):
 
 		arg1 = options['arg1']	
 		
-		# add ingredients
+		# --- Add ingredients ---
 		if arg1 == 'ing':
-			pair = []
+			
+			print('\n Adding ingredients...')
+			pairs = []
 			single = []
-			i = 1
-			j = 1
-			scriptpath = os.path.dirname(__file__)
-			ingredientsFile = os.path.join(scriptpath, 'ingredients.txt')
+			ingredientsFile = getFile('ingredients.txt')
+			
 			with open(ingredientsFile, 'r', encoding='utf-8') as file:
 				for line in file:
 					if '|' in line:
-						pair.append(line.strip('\n'))
+						pairs.append(line.strip('\n'))
 					else:
 						single.append(line.strip('\n'))
-				
-				# add pairs
-				for item in pair: 
-					print(item)
-					list = item.split('|')
-					first = list[0].strip().replace('_', ' ')
-					second = list[1].strip().replace('_', ' ')
-					try:
-						q1 = Ingredient.objects.get(name=first)
-					except ObjectDoesNotExist:
-						try:
-							q2 = SimilarIngredient.objects.get(name=first)
-						except ObjectDoesNotExist:
-							try:
-								q3 = Ingredient.objects.get(name=second)
-								r1 = SimilarIngredient(j, q3.id, first)
-								r1.save()
-								j = j + 1
-							except ObjectDoesNotExist:
-								try:
-									q4 = SimilarIngredient.objects.get(name=second)
-									r1 = SimilarIngredient(j, q4.similar.id, first)
-									r1.save()
-									j = j + 1
-								except ObjectDoesNotExist:
-									r1 = Ingredient(i, first)
-									r1.save()
-									i = i + 1
-									r2 = SimilarIngredient(j, r1.id, second)
-									r2.save()
-									j = j + 1
-									pass
-					
-				# add single
-				for item in single:
-					item = item.strip().replace('_',' ')
-					print(item)
-					try:
-						q1 = Ingredient.objects.get(name=item)
-					except ObjectDoesNotExist:
-						try:
-							q2 = SimilarIngredient.objects.get(name=item)
-						except ObjectDoesNotExist:
-							r1 = Ingredient(i, item)
-							i = i + 1
-							r1.save()
-							pass
-							
-	
-							
-		if arg1 == 'tag':
-			scriptpath = os.path.dirname(__file__)
-			ethnicitiesFile = os.path.join(scriptpath, 'found-nationalities.txt')
-			mealTypes = os.path.join(scriptpath, 'meal-types.txt')
 			
-			print('\nadding meal type:')
+			iter1 = (len(pairs)*2)
+			iter2 = len(single)
+			
+
+			i = 2		
+			for pair in pairs: 
+				addIngredientPair(pair)
+				printProgressBar(i, iter1, suffix = ' Pair Ingredients')
+				i = i + 2
+
+			print()
+			
+			i = 1
+			for ingredient in single:
+				addSingleIngredient(ingredient)
+				printProgressBar(i, iter2, suffix = ' Single Ingredients')
+				i = i + 1
+
+				
+							
+		# --- Add tags ---							
+		if arg1 == 'tag':
+
+			ethnicitiesFile = getFile('found-nationalities.txt')
+			mealTypes = getFile(scriptpath, 'meal-types.txt')
+			
+			print('\nAdding meal type:')
 			# get mealtypes
 			types = []
 			with open(mealTypes) as f:
@@ -269,6 +299,7 @@ class Command(BaseCommand):
 										first = list[0].strip().replace('_', ' ')
 										second = list[1].strip().replace('_', ' ')
 										
+										# (A, -) -> (A, Rec)
 										try:
 											q1 = Ingredient.objects.get(name=first)
 											if q1.id not in added:
@@ -277,17 +308,25 @@ class Command(BaseCommand):
 												k = k + 1
 												added.append(q1.id)
 										except ObjectDoesNotExist:
+											
+											# (-, A) -> (A.similar, Rec)
 											try:
-												q2 = SimilarIngredient.objects.get(name=first)
-												if q2.similar.id not in added:
-													r2 = IngredientRecipe(k, recipe.id, q2.similar.id)
-													r2.save()
-													k = k + 1
-													added.append(q2.similar.id)
+					
+												q2 = SimilarIngredient.objects.filter(name=first)
+												if len(q2) > 0:
+													for item in q2:
+														if item.similar.id not in  added:
+															r2 = IngredientRecipe(k, recipe.id, item.similar.id)
+															r2.save()
+															k = k + 1
+															added.append(item.similar.id)
+															
+												else:
+													print(first, second)
+													print('WARNING!')
+													sleep(10)
 											except ObjectDoesNotExist:
-												print(first, second)
-												print('WARNING!')
-												sleep(10)
+												pass
 										
 									# add single
 									for item in single:
@@ -300,16 +339,23 @@ class Command(BaseCommand):
 												k = k + 1
 												added.append(q1.id)
 										except ObjectDoesNotExist:
+											# (-, A) -> (A.similar, Rec)
 											try:
-												q2 = SimilarIngredient.objects.get(name=item)
-												if q2.similar.id not in added: 
-													r2 = IngredientRecipe(k, recipe.id, q2.similar.id)
-													r2.save()
-													k = k + 1
-													added.append(q2.similar.id)
+					
+												q2 = SimilarIngredient.objects.filter(name=item)
+												if len(q2) > 0:
+													for result in q2:
+														if result.similar.id not in  added:
+															r2 = IngredientRecipe(k, recipe.id, result.similar.id)
+															r2.save()
+															k = k + 1
+															added.append(result.similar.id)
+															
+												else:
+													print(first, second)
+													print('WARNING!')
+													sleep(10)
 											except ObjectDoesNotExist:
-												print(item)
-												print('WARNING!')
-												sleep(10)
-									print()
+												pass
+										
 		print('done')
