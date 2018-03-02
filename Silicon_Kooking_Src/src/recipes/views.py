@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
 from .forms import UploadRecipeForm
-import re
+from django.shortcuts import render, redirect
 
 # Use for listing recipes and querying
 # Generic Search
@@ -122,15 +122,21 @@ def recipes_detail_display(request, pk):
     return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
+    #recipe = UploadRecipeForm(user=request.user)
     if request.method == 'POST':
         # POST, generate form with data from the request
+        #form = UploadRecipeForm(request.POST, request.FILES, instance=recipe)
         form = UploadRecipeForm(request.POST)
         # check if it's valid:
         if form.is_valid():
-            # process data, insert into DB, generate email,etc
-            # redirect to a new url:
-            return HttpResponseRedirect('/')
+            form.instance.user = request.user.id
+            form.save()
+            
+            #form = UploadRecipeForm()
+         
+            return redirect('/recipes/upload')
     else:
         # GET, generate blank form
+        #form = UploadRecipeForm(instance=recipe)
         form = UploadRecipeForm()
     return render(request,'recipes/uploadRecipe.html',{'form':form})
