@@ -14,11 +14,36 @@ from time import sleep
 	python manage.py createsuperuser
 '''
 
-# --- Helper functions --- 
 
-def getFile(name):
-	scriptpath = os.path.dirname(__file__)
-	return os.path.join(scriptpath, name)
+# --- Add Ingredient functions --- #
+
+def addAllIngredients():
+	pairs = []
+	single = []
+	ingredientsFile = getFile('ingredients.txt')
+
+	with open(ingredientsFile, 'r', encoding='utf-8') as file:
+		for line in file:
+			if '|' in line:
+				pairs.append(line.strip('\n'))
+			else:
+				single.append(line.strip('\n'))
+
+	iter1 = (len(pairs)*2)
+	iter2 = len(single)
+
+	i = 2		
+	for pair in pairs: 
+		addIngredientPair(pair)
+		printProgressBar(i, iter1, suffix = ' Pair Ingredients')
+		i = i + 2
+		
+	print()
+	i = 1
+	for ingredient in single:
+		addSingleIngredient(ingredient)
+		printProgressBar(i, iter2, suffix = ' Single Ingredients')
+		i = i + 1
 
 	
 def addIngredientPair(pair):
@@ -62,6 +87,63 @@ def addIngredient(ingredient):
 	record.save()
 	return record
 
+	
+
+# --- Add Meal Type functions --- #
+
+def addAllMealTypes():
+	mealTypes = getFile('meal-types.txt')
+	types = []
+	with open(mealTypes) as f:
+		for line in f:
+			types.append(line.strip('\n'))
+			
+	iter1 = len(mealTypes)
+	i = 1
+	for type in types:
+		type = type.strip()
+		addMealType(type)
+		printProgressBar(i, iter1, suffix = ' Meal Types')
+		i = i + 1
+	
+	
+def addMealType(type):
+	record = MealType(type)
+	record.save()
+	
+	
+	
+# --- Add Ethnicities functions --- #	
+
+def addAllEthnicities():
+	ethnicitiesFile = getFile('found-nationalities.txt')		
+	ethnicities = []
+	with open(ethnicitiesFile) as f:
+		for line in f:
+			ethnicities.append(line.strip('\n'))
+	
+	iter1 = len(ethnicities)
+	
+	i = 1
+	for ethnicity in ethnicities:
+		ethnicity = ethnicity.strip()
+		addEthnicity(ethnicity)
+		printProgressBar(i, iter1, suffix = ' Ethnicities')
+		i = i + 1
+		
+def addEthnicity(ethnicity):
+	record = Ethnicity(ethnicity)
+	record.save()
+	
+	
+# --- Add Recipe functions --- #	
+	
+# --- Helper functions --- #
+
+def getFile(name):
+	scriptpath = os.path.dirname(__file__)
+	return os.path.join(scriptpath, name)
+	
 # Author: https://stackoverflow.com/users/2206251/greenstick
 def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
@@ -72,7 +154,8 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
 	
 
-# --- Main function --- 	
+
+# --- Main function --- #	
 
 class Command(BaseCommand):
 	args = '<arg1>'
@@ -85,80 +168,23 @@ class Command(BaseCommand):
 
 		arg1 = options['arg1']	
 		
-		# --- Add ingredients ---
+		
+		# --- Add Ingredients --- #
 		if arg1 == 'ing':
 			
 			print('\n Adding ingredients...')
-			pairs = []
-			single = []
-			ingredientsFile = getFile('ingredients.txt')
-			
-			with open(ingredientsFile, 'r', encoding='utf-8') as file:
-				for line in file:
-					if '|' in line:
-						pairs.append(line.strip('\n'))
-					else:
-						single.append(line.strip('\n'))
-			
-			iter1 = (len(pairs)*2)
-			iter2 = len(single)
-			
-
-			i = 2		
-			for pair in pairs: 
-				addIngredientPair(pair)
-				printProgressBar(i, iter1, suffix = ' Pair Ingredients')
-				i = i + 2
-
-			print()
-			
-			i = 1
-			for ingredient in single:
-				addSingleIngredient(ingredient)
-				printProgressBar(i, iter2, suffix = ' Single Ingredients')
-				i = i + 1
-
+			addAllIngredients()
 				
 							
-		# --- Add tags ---							
+		# --- Add Tags ---	#						
 		if arg1 == 'tag':
-
-			ethnicitiesFile = getFile('found-nationalities.txt')
-			mealTypes = getFile(scriptpath, 'meal-types.txt')
 			
-			print('\nAdding meal type:')
-			# get mealtypes
-			types = []
-			with open(mealTypes) as f:
-				for line in f:
-					types.append(line.strip('\n'))
+			print('\n Adding meal types...')
+			addAllMealTypes()
 			
-			i = 1
-			# add meal type
-			for item in types:
-				item = item.strip()
-				type = MealType(i, item)
-				type.save()
-				i = i + 1
-				print(item)
-			
-			sleep(2)
-			print('\nadding ethnicity:')
-			# get ethnicities
-			ethnicities = []
-			with open(ethnicitiesFile) as f:
-				for line in f:
-					ethnicities.append(line.strip('\n'))
-			
-			i = 1
-			# add ethnicity
-			for item in ethnicities:
-				item = item.strip()
-				ethnic = Ethnicity(i, item)
-				ethnic.save()
-				i = i + 1
-				print(item)
-			
+			print('\n Adding ethnicities...')
+			addAllEthnicities()
+		
 				
 		# add recipes and setup search tables
 		if arg1 == 'rec':
