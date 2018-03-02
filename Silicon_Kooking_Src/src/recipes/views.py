@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
 from .forms import UploadRecipeForm
 from django.shortcuts import render, redirect
+import re
 
 # Use for listing recipes and querying
 # Generic Search
