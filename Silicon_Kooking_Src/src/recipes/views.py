@@ -12,6 +12,8 @@ def recipes_detail_list(request):
 
     queryset = generic_search(query)
 
+    print(queryset)
+
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
