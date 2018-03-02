@@ -33,33 +33,74 @@
 	div.BackColor {
     background-color: white;
 	}
-	textarea { resize: none; }
+	
+	textarea { resize: none;
+		}
 
 </style>
-
-
-<body class="body" style="background-color:white">
+<center>
+<h1>Upload a Recipe</h1>
+<form method="post" action".">
 <div class="container">
 	<div class = "box">
 		<div class = "BackColor">
- 
-
-			<div class="Absolute-Center is-Responsive">  
-				<form method="POST">
+			
   {% csrf_token %}
-
-  <!--<h1>Upload a Recipe</h1>
-    <p>{{form.as_p}}</p>-->
-
-					<p>
-						{{form.as_p}}
-					
-					</p>
+    <table border="0">
+    <tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_recipeName">Recipe Name:</label></th>
+        <th>{{ form.recipeName }}<maxlength="100"></th>
+    </div>
+    </tr>
+	<tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_description">Description:</label></th>
+        <th>{{ form.description }}<maxlength="100"></th>
+    </div>
+    </tr>
+	<tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_instructions">Instructions:</label></th>
+        <th>{{ form.instructions }}<maxlength="100"></th>
+    </div>
+    </tr>
+	<tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_author">Author:</label></th>
+        <th>{{ form.author }}<maxlength="100"></th>
+    </div>
+    </tr>
+	<tr>
+	<tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_publisher">Publisher:</label></th>
+        <th>{{ user.username }}<maxlength="100"></th>
+    </div>
+    </tr>
+	<tr>
+    {{ form.non_field_errors }}
+     <div class="fieldWrapper">
+        {{ form.recipeName.errors }}
+        <th><label for="id_image">Image:</label></th>
+        <th>{{ form.image }}<maxlength="100"></th>
+    </div>
+    </tr>
+   
+	</table>
 					<center>
 						<input type="submit" value="Submit" />
 					</center>
-			</div>
-		</div>
-	</div>
-</div>
+				
+</form>
 {% endblock %}
