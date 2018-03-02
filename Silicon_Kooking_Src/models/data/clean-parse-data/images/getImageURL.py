@@ -1,16 +1,27 @@
 import xml.etree.ElementTree as ET
 import re, json, pytz, urllib.parse, urllib.request
 from time import sleep
+from bs4 import UnicodeDammit
+from ftfy import fix_encoding, fix_text
+import json, requests
+from random import randint
+
+header = {
+	'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'en-US,en;q=0.5',
+	'Connection' : 'keep-alive',
+	'Host' : 'api.qwant.com',
+	'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0',
+	'Content-Type': 'application/json'
+}
 
 # get image url
 def getImageURL(name):
-	name = re.sub(' ', '_', name)
 	print(name)
+	name = re.sub(' ', '_', name)
 	url = "https://api.qwant.com/api/search/images?ie=UTF-8&count=10&offset=0&q=" + urllib.parse.quote(name)
-	req = urllib.request.Request(url, None, headers={'User-Agent':' Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'})
-	qwantResponse = urllib.request.urlopen(req)
-	results = json.loads(qwantResponse.read().decode('utf-8'))
-	qwantResponse.close()
+	resp = requests.get(url, headers=header)
+	results = resp.json()
 	links = []
 	for result in results['data']['result']['items']:
 		link = result['media']
@@ -22,7 +33,7 @@ def getImageURL(name):
 i = 0
 
 # max requests
-max = 50
+max = 500
 			
 # get last recipe processed
 with open('last-recipe.txt') as f:
@@ -34,6 +45,7 @@ f0 = open('0-images.txt', 'a')
 f1 = open('1-image.txt', 'a')
 f2 = open('2-images.txt', 'a')
 f3 = open('3-images.txt', 'a')
+
 
 # get title and update images
 with open('title-images.xml', 'r', encoding='utf-8') as file:
@@ -81,6 +93,6 @@ with open('title-images.xml', 'r', encoding='utf-8') as file:
 				f.write(str(i))
 			print('done: ', str(i))
 			i = i + 1
-			sleep(10)
+			sleep(randint(10, 25))
 		if i == max:
 			break
