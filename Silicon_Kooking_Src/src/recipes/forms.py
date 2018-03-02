@@ -55,7 +55,7 @@ class UploadRecipeForm(forms.ModelForm):
             'name',
             'description',
             'instructions',
-            'image',
+            #'image',
             'author',
             #'user',
             )

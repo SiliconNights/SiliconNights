@@ -1,0 +1,184 @@
+{% extends "practice/header.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery/jquery.js"></script>
+<script type="text/javascript" src='js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Raleway" rel="stylesheet">
+<!--may need to use the bottom vs the top. -----------------------------------------------------------------------------
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+-->
+</head>
+
+   <style type="text/css">
+    body {
+	    font-family: 'Raleway', sans-serif;		  
+        background-image:  url("http://www.thekingandqueenpub.com/Images/Food-Background.jpg");
+		background-repeat: no-repeat;
+		background-position: right top;
+        background-attachment: fixed;
+		background-size: cover;		
+	}
+	.containerBox {
+	    position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+		height: auto;
+		background-color: rgba(19,20,20, 0.47);
+		border-radius: 25px;
+		display: inline-block;
+    }
+	.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+    spaceLine {
+        white-space:pre-line;
+    }
+	div.boxLeft {
+        width: 100%;
+        padding-left: 39%;
+        padding-right: 39%;
+        padding-bottom: 1%; 		
+        float: left;
+		
+    }
+		div.boxL {
+        width: 100%;
+        float: left;
+	
+		padding-left: 39%;
+        padding-right: 39%;
+        padding-bottom: 1%; 
+    }
+	div.boxRight {
+        width: 37%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: right;
+    }
+	div.BackColor {
+    background-color: white;
+}
+#clear {
+    clear: both;
+}
+.containSmall{
+
+}
+
+@media only screen and (min-width:1070px){
+   div.boxLeft{
+	  padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px; 	
+	  width:39%; 
+	  padding-left: 15%;
+	  padding-right: -15%; 
+	  padding-bottom: 1%;
+   }
+    div.boxL{
+	  padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px; 	
+	  width :25%; 
+	  padding-left: 0%;
+	  padding-right: 15%;
+	  padding-bottom: 1%;
+   } 
+}
+
+.headerMargin{
+height: 100px;
+width:100%;
+overflow:hidden;
+float:center;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+	
+}
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+
+   </style>  
+<body class="body" style="background-color:white">
+   <div class = "headerMargin">
+   </div>
+   
+    <div class = "containerBox clearfix" >
+	  <h1 style="font-size: 72px; text-align: center; padding-bottom:5%;padding: 5%; color:white; font-family:
+	  'Dancing Script', cursive" >Register</h1>
+	  <hr>
+	      <div class = "boxLeft">
+	          <b style = " color: white">Username:</b>
+			  <br>
+              <input type="text" id="username">
+			  <p style = "color:white">  Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+          </div>
+		    <div class = "boxL">
+		     <b style = " color: white" >First Name:</b>
+			 <br>
+			 <input type="text" id="firstName">
+
+		</div>
+		<div class = "boxL">
+	          <b style = " color: white">Last name:</b>
+			  <br>
+              <input type="text" id="LastName">
+          </div>
+		  <div class = "boxL" >
+	          <b style = " color: white"><b style = "visibility: hidden"></b>email:</b>
+			  <br>
+              <input type="text" id="email">
+          </div>
+		    <div class = "boxL" >
+	          <b style = " color: white">Password:</b>
+			  <br>
+              <input type="text" id="password">
+          </div>
+		  <div class = "boxLeft" style = " width :100%; padding-left: 39%;
+        padding-right: 39%;
+        padding-bottom: 1%; ">
+	          <b style = " color: white">Password Confirmation:</b>
+              <input type="text" id="passwordConfirmation">
+          </div>
+		  <div class = "boxLeft" style = " width :100%; padding-left: 35%;
+        padding-right: 39%;
+        padding-bottom: 5%; ">
+		      <div class = " boxLeft" style = "width: 8%; margin-top: 10px; padding-bottom: 50px" >
+              <button class = " button button4" >Login</button>
+              </div>
+		  </div>	  
+    </div>
+   
+   
+</body>
+</html>
+
+{% endblock %}

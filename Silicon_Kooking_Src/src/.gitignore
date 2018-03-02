@@ -7,3 +7,4 @@ recipes/__pycache__
 recipes/migrations
 accounts/__pycache__
 accounts/migrations
+../models/data/clean-parse-data/images/last-recipe.txt
