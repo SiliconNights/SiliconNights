@@ -10,6 +10,7 @@
 **/meal-types.txt
 **/recipe-ingredients.txt
 **/last-recipe.txt
+**/filters.txt
 
 # ignore migrations 
 Silicion_Kooking_Src/src/accounts/migrations/*
