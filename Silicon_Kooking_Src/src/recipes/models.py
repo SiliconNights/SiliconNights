@@ -1,4 +1,4 @@
-from django.db import models 
+from django.db import models
 from django.contrib.auth.models import User
 
 class Recipe(models.Model):
@@ -12,12 +12,12 @@ class Recipe(models.Model):
     publisher = models.ForeignKey(User, db_column='user', on_delete=models.PROTECT, null=True)
     time = models.DateTimeField(db_column='time', null=True)
     tags = models.TextField(db_column='tags', null=True)
-    
+
     class Meta:
         managed = True
         db_table = 'recipe'
 
-		
+
 class RecipesRecipe(models.Model):
     name = models.CharField(db_column='name', max_length=200)
     updated = models.DateTimeField(db_column='updated')
@@ -26,21 +26,21 @@ class RecipesRecipe(models.Model):
     class Meta:
         managed = True
         db_table = 'recipes_recipe'
-		
+
 
 class Ingredient(models.Model):
-    name = models.CharField(db_column='name', max_length=200, null=True)  
+    name = models.CharField(db_column='name', max_length=200, null=True)
     class Meta:
         managed = True
         db_table = 'ingredient'
 
 class SimilarIngredient(models.Model):
-    similar = models.ForeignKey(Ingredient, db_column='similar', on_delete=models.PROTECT) 
+    similar = models.ForeignKey(Ingredient, db_column='similar', on_delete=models.PROTECT)
     name = models.CharField(db_column='name', max_length=200, null=True)
     class Meta:
         managed = True
         db_table = 'similar_ingredient'
-		
+
 class IngredientRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
     ingredient = models.ForeignKey(Ingredient, db_column='ingredient', on_delete=models.PROTECT)
@@ -49,13 +49,13 @@ class IngredientRecipe(models.Model):
         managed = True
         db_table = 'ingredient_recipe'
         unique_together = (('recipe', 'ingredient'),)
-		
+
 class MealType(models.Model):
-    type = models.CharField(db_column='type', max_length=100, null=True)  
+    type = models.CharField(db_column='type', max_length=100, null=True)
     class Meta:
         managed = True
         db_table = 'meal_type'
-		
+
 class MealTypeRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
     type = models.ForeignKey(Ingredient, db_column='type', on_delete=models.PROTECT)
@@ -66,11 +66,11 @@ class MealTypeRecipe(models.Model):
         unique_together = (('recipe', 'type'),)
 
 class Ethnicity(models.Model):
-    name = models.CharField(db_column='name', max_length=100, null=True)  
+    name = models.CharField(db_column='name', max_length=100, null=True)
     class Meta:
         managed = True
         db_table = 'ethnicity'
-		
+
 class EthnicityRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, db_column='recipe', on_delete=models.PROTECT)
     name = models.ForeignKey(Ingredient, db_column='name', on_delete=models.PROTECT)
@@ -90,7 +90,7 @@ class UploadRecipe(models.Model):
     ingredients = models.TextField(db_column='ingredients', null=True)
     user = models.CharField(max_length=11)
     time = models.DateTimeField(auto_now_add=True)
-   
+
     class Meta:
         managed = True
         db_table = 'recipe'
