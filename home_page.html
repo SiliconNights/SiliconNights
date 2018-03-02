@@ -1,0 +1,219 @@
+
+{% extends "practice/header.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Silicon Kooking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery/jquery.js"></script>
+<script type="text/javascript" src='js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Raleway" rel="stylesheet">
+<!--may need to use the bottom vs the top. -----------------------------------------------------------------------------
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+-->
+</head>
+ 
+   <style type="text/css">
+    body {
+    font-family: 'Raleway', sans-serif;  
+        background-image:  url("http://www.thekingandqueenpub.com/Images/Food-Background.jpg");
+background-repeat: no-repeat;
+background-position: right top;
+        background-attachment: fixed;
+background-size: cover;
+}
+.containerBox {
+    position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+height: auto;
+background-color: rgba(19,20,20, 0.47);
+border-radius: 25px;
+display: block;
+    }
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+    spaceLine {
+        white-space:pre-line;
+    }
+div.boxMid{
+    width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-bottom: 5%;
+        background-color: rgba(220,220,220, 0.9);
+}
+div.boxLeft {
+        width: 100%;
+       padding-left: 20%;
+        padding-right: 20%;
+        padding-bottom: 5%;
+       <!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: left;
+-->
+    }
+div.boxRight {
+        width: 37%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: right;
+    }
+div.boxCenter{
+width:100%;
+height: 400px;
+}
+div.BackColor {
+    background-color: black;
+}
+#clear {
+    clear: both;
+}
+@media only screen and (min-width:1070px){
+   div.boxLeft{
+      float:center;
+      width: 30%;
+  padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+   }
+}
+ul{
+list-style-type:none;
+ 
+float:left;
+margin-top:5px;
+margin:5px;
+text-align:center;
+color: black;
+ 
+}
+.headerMargin{
+height: 45px;
+width:100%;
+overflow:hidden;
+float:center;
+}
+img{
+border-radius: 25px;
+display: block;
+vertical-align: text-bottom;
+line-height: 0;
+float:left;
+width: 100%;
+height: 400px;
+white-space: nowrap;
+}
+ 
+ul li {
+    float:left;
+    display:inline;
+    list-style:none;
+}
+ul li img {
+    border: 1px solid #000;
+    display:block;
+    padding: 0;
+    width: 300px;
+}
+ 
+ 
+ 
+   </style>
+<body class="body" >
+   <div class = "headerMargin">
+   </div>
+   <h1 style="font-size: 72px; text-align: center;padding: 5%; color:black;font-family:
+  'Dancing Script', cursive;">Silicon Kooking</h1>
+   <div class = "containerBox clearfix;" style = " background-color: rgba(0,0,0, 0); color: black; padding-bottom: 100px"  >
+     <hr style = " background-color: black; color: black; padding-bottom">
+  
+   <br>
+   <br>
+   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
+   background-color: rgba(19,20,20, 0.47); border-radius: 25px;
+ 
+" >
+      <h2 style = " color: white">Recipe of the Week<h2>
+  <hr>
+  <div class = "boxCenter"  style = "padding: 0px;margin: 0px;  font-size: 0px; ">
+       <div class = "boxLeft" style = "float:left;width: 50%; height: 400px; ">
+           <img src = "http://images.media-allrecipes.com/userphotos/960x960/3758842.jpg" >
+    </div>
+<div class = "boxLeft" style = "text-align:right;width: 50%; height:400px ">
+  <p style="color:white; text-align: right; font-size: 24px;">Recipe name goes here...</p>
+  <br><br>
+  <p style="color:white; text-align: right; font-size: 16px;">Author goes here...</p>
+  <br><br><br><br>
+  <p style="color:white; text-align: right; font-size: 16px;">Description of recipe goes here...</p>
+</div>
+          
+   <ul>
+      <li> </li>
+   </ul>
+  </div>
+   </div>
+ 
+      <div class = "headerMargin">
+   </div>
+   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
+   border-radius: 25px;background-color:rgba(19,20,20, 0.47);
+ 
+" >
+      <h2 style = " color: white">Featured Chef<h2>
+  <hr>
+  <div class = "boxCenter"  style = "padding: 0px;margin: 0px;  font-size: 0px; ">
+       <div class = "boxLeft" style = "float:center;width: 50%; height: 400px; vertical-align: top;">
+           <img src = "https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" >
+    </div>
+<div class = "boxLeft" style = "text-align:right;width: 50%; height:400px ">
+  <p style="color:white; text-align: center; font-size: 24px;">Author name goes here...</p>
+  <br><br>
+  <p style="color:white; text-align: center; font-size: 16px;">Number of recipes goes here...</p>
+  <br><br>
+  <p style="color:white; text-align: center; font-size: 16px;">Brief bio goes here...</p>
+</div>
+          
+   <ul>
+      <li> </li>
+   </ul>
+  </div>
+   </div>
+   <div class = "headerMargin">
+   </div>
+   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
+   border-radius: 25px;background-color:rgba(19,20,20, 0.47);
+ 
+" >
+      <h2 style = " color: white">Silicon Nights: About Us<h2>
+  <hr>
+  <div class = "boxCenter"  style = "padding: 0px;margin: 0px; font-size: 0px;">
+      <p style="color:white; text-align: center; font-size: 24px;">Our Story...</p>
+      <br><br>
+      <p style="color:white; text-align: center; font-size: 16px;">Silicon Nights was founded one dark stormy night (actually it was a bright clear morning) barely eighteen years into the 21st century. The Founding Knights (David, Baldemar, Saif, Rafael and Brian) formed a brotherhood, and sought to create the Silicon Knights. Shortly thereafter, the name was changed due to an already existing company of the same name. The Founding Knights -- Nights? -- joined forces for one sole purpose: To create a cool little website and search for recipes based on ingredients a user may have, and also to get an A in a Software Engineering class. This is that website!</p>
+    </div>
+          
+   <ul>
+      <li> </li>
+   </ul>
+  </div>
+   
+ </div>
+
+
+
+
+ 
+</body>
+</html>
+ 
+{% endblock %}
