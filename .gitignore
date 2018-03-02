@@ -15,8 +15,11 @@ Silicion_Kooking_Src/src/accounts/migrations/*
 Silicion_Kooking_Src/src/recipes/migrations/*
 Silicion_Kooking_Src/src/home/migrations/*
 
+
 # ignore settings
 Silicon_Kooking_Src/src/Silicon_Kooking/settings.py
 
 # misc
-*.pyc
+**/__pycache__/**
+**.pyc
+Silicon_Kooking_Src/src/recipes/management/commands/recipe-data.xml
