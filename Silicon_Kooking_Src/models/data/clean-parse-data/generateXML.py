@@ -3,8 +3,15 @@ from bs4 import UnicodeDammit
 from ftfy import fix_encoding, fix_text
 import re
 
-# get text in between first and last 
-def get_between(str, first, last):
+# --- String functions --- #
+
+def cleanEncoding(line):
+	line = fix_encoding(line)
+	line = fix_text(line)
+	line = UnicodeDammit(line).unicode_markup 
+	return line
+
+def getBetween(str, first, last):
 	try:
 		start = str.index(first) + len(first)
 		end = str.index(last, start)
@@ -12,32 +19,48 @@ def get_between(str, first, last):
 	except ValueError:
 		return ""
 
-# clean encoding
-def clean_encoding(line):
-	line = fix_encoding(line)
-	line = fix_text(line)
-	line = UnicodeDammit(line)
-	return line
+def removeBlankLines(text):
+	text = re.sub(r'((\s)*\n(\s)*)+','\n', text)
+	return text
+	
+def cleanPrint(text, file):
+	text = text.strip()
+	text = cleanEncoding(text)
+	text = text.replace('&','&amp;')
+	file.write(text)
+	
+	
+# --- Helper functions --- #
+	
+def skipRecipe(filters, text):
+	text = str.lower(text)
+	for item in filters:
+		if item in text:
+			return True
+	return False
 
-# get ethnicities
-ethnicities = []
-with open('found-nationalities.txt') as f:
-	for line in f:
-		ethnicities.append(line.strip('\n'))
+def fileLinesToList(fileName):
+	list = []
+	with open(fileName) as file:
+		for line in file:
+			list.append(line.strip('\n').strip())
+	return list
 
-# get meal-types
-types = []
-with open('meal-types.txt') as f:
-	for line in f:
-		types.append(line.strip('\n'))
-		
-# open file to write
+
+# --- Main program --- #
+
+# input files
+ethnicities = fileLinesToList('found-nationalities.txt')
+types = fileLinesToList('meal-types.txt')
+filters = fileLinesToList('filters.txt')
+
+# write file
 f = open('./recipe-data.xml', 'w', encoding='utf-8')
-		
-# create element tree object
+
+# data file
 with open('datadump.xml', 'r', encoding='utf-8') as file:
 	tree = ET.parse(file)
- 
+
 # get root element
 wikimedia = tree.getroot()
 count = 1
@@ -59,7 +82,7 @@ for page in wikimedia:
 				# get text tag
 				if child.tag == 'text':
 					# check if contains recipe
-					if child.text != None and '== ingredients ==' in child.text.lower():
+					if child.text != None and '== ingredients ==' in child.text.lower() and not skipRecipe(filters, child.text):
 							# remove/fix misc. tags/data
 							info = child.text
 							info = re.sub(r'\[\[Image:(.*?)\]\]', '', info)
@@ -93,13 +116,12 @@ for page in wikimedia:
 							info = info.replace('{{wikifiedrecipe}}', '')
 							info = re.sub(r'<(.*?)youtube(.*?)>(.*?)<(.*?)youtube(.*?)>', '', info)
 							info = re.sub(r'<(.*?)youtube(.*?)>', '', info)
-							info = info.replace('&','&amp;')				
-							info = re.sub(r'(\n)+$', '', info)
-							info = re.sub(r'^(\n)+', '', info)
-							info = re.sub(r'(\n)+','\n', info)
-							
+							info = info.replace('&','&amp;')
+							info = removeBlankLines(info)
+
+
 							# get ingredients
-							string = get_between(info,'== Ingredients ==', '== Directions ==')
+							string = getBetween(info,'== Ingredients ==', '== Directions ==')
 							string = re.sub(r'(\n)+$', '', string)
 							string = re.sub(r'^(\n)+', '', string)
 							string = re.sub(r'^=\n', '', string)
@@ -118,82 +140,73 @@ for page in wikimedia:
 							string = string.replace('w:c:bakingrecipes:', '')
 							string = string.replace('"', '')
 							ingredients = string
-							
+
 							# get list of ingredients
 							list = re.findall(r'\[\[(.*?)\]\]', string)
 							list = [item.lower() for item in list]
 							newlist = []
 							for i in list:
 								if i not in newlist:
-									i = clean_encoding(i)
-									i = i.unicode_markup
 									i = i.strip()
 									i = re.sub(r'^\|', '', i)
 									newlist.append(i)
 							newlist.reverse()
 							list = newlist
-							
+
 							if len(list) > 0 :
 								# create new recipe
 								tag = '\n<recipe number="' + str(count) + '">'
 								f.write(tag)
-								
+
 								# title
 								f.write('\n<title>')
-								title = re.sub(r'(\n)+$', '', title)
-								title = re.sub(r'^(\n)+', '', title)
-								title = re.sub(r'(\n)+','\n', title)
-								string = re.sub(r'\n\s*\n', '\n', string)
-								title = title.strip()
-								title = clean_encoding(title)
-								title = title.unicode_markup
-								title = title.replace('&','&amp;')
-								f.write(title)
+								title = removeBlankLines(title)
+								cleanPrint(title, f)
 								f.write('</title>')
-								
+
 								# description
-								string = get_between(info, '== Description ==', '== Ingredients ==')
+								string = getBetween(info, '== Description ==', '== Ingredients ==')
 								f.write('\n<description>\n')
 								string = string.replace('.', '')
 								string = re.sub(r'^=\n', '', string)
 								string = re.sub(r'(<)*', '', string)
+								string = string.replace('[[' , '')
+								string = string.replace(']]' , '')
 								string = string.strip()
 								if len(string) > 0 and string[len(string)-1] == '=':
 									string = string[0:len(string)-1]
-								string = re.sub(r'(\n)+$', '', string)
-								string = re.sub(r'^(\n)+', '', string)
-								string = re.sub(r'\n\s*\n', '\n', string)
 								if len(string) == 0:
 									f.write('none')
 								else:
-									string = clean_encoding(string)
-									string = string.unicode_markup 
-									string = string.replace('&','&amp;')
-									f.write(string)
+									cleanPrint(string, f)
 								f.write('\n</description>\n')
-													
-													
-								# ingredients 
+
+
+								# ingredients
 								f.write('<ingredients>\n')
-								ingredients = clean_encoding(ingredients)
-								ingredients = ingredients.unicode_markup
-								ingredients = ingredients.replace('&','&amp;')
-								f.write(ingredients)
+								string = ingredients 
+								string = string.replace('[[' , '')
+								string = re.sub(r'\|(.*?)\]\]' , '', string)
+								string = string.replace(']]' , '')
+								string = re.sub(r'\*\s*' , '', string)
+								string = re.sub(r'#\s*' , '', string)
+								while '\t' in string:
+									string = string.replace('\t', ' ')
+								while '  ' in string:
+									string = string.replace('  ', ' ')
+								cleanPrint(string, f)
 								f.write('\n</ingredients>\n')
-								
-								
+
+
 								# ingredient list
 								f.write('<ingredientList>\n')
 								string = ', '.join(map(str, list))
-								string = clean_encoding(string)
-								string = string.unicode_markup 
-								string = string.replace('&','&amp;')
-								f.write(string)
+								cleanPrint(string, f)
 								f.write('\n</ingredientList>\n')
-									
-									
+
+
 								# instructions
-								string = get_between(info,'== Directions ==', '[[Category')
+								string = getBetween(info,'== Directions ==', '[[Category')
 								f.write('<instructions>\n')
 								string = re.sub(r'\=\= Source(.)* \=\=[\s\S]+__NOEDITSECTION__', '', string)
 								string = string.replace('__NOEDITSECTION__', '')
@@ -201,19 +214,25 @@ for page in wikimedia:
 								string = string.replace('== Source ==', '')
 								string = re.sub(r'\=\= Other Links \=\=[\s\S]+$', '', string)
 								string = re.sub(r'=== See Also ===', '', string)
-								string = re.sub(r'(\n)+$', '', string)
 								string = re.sub(r'(<)*', '', string)
-								string = re.sub(r'^(\n)+', '', string)
-								string = re.sub(r'(\n)+','\n', string)
-								string = re.sub(r'\s*\n\s*\n', '\n', string)
-								string = string.strip()
-								string = clean_encoding(string)
-								string = string.unicode_markup 
-								string = string.replace('&','&amp;')
-								f.write(string)
+								string = re.sub('\[http(.*?)\]','', string)
+								string = string.replace('[[' , '')
+								string = re.sub(r'\|(.*?)\]\]' , '', string)
+								string = string.replace(']]' , '')
+								string = re.sub(r'\*\s*' , '', string)
+								string = re.sub(r'#\s*' , '', string)
+								string = re.sub(r'\d+\. ', '', string)
+								string = re.sub(r'\d+\) ', '', string)
+								string = re.sub(r'\d+\.', '', string)
+								string = re.sub(r'\d+\)', '', string)
+								while '\t' in string:
+									string = string.replace('\t', ' ')
+								while '  ' in string:
+									string = string.replace('  ', ' ')
+								cleanPrint(string, f)
 								f.write('\n</instructions>\n')
-								
-								
+
+
 								# tags
 								f.write('<tags>\n')
 								list = re.findall(r'\[\[Category:(.*?)\]\]', info)
@@ -231,39 +250,37 @@ for page in wikimedia:
 										newlist.append(i)
 								newlist.reverse()
 								list = newlist
-								if len(list) == 0: 
+								if len(list) == 0:
 									f.write('none')
 								else:
 									string = ', '.join(map(str, list))
-									string = clean_encoding(string)
-									string = string.unicode_markup
-									string = string.replace('&','&amp;')
-									f.write(string)
+									cleanPrint(string, f)
 								f.write('\n</tags>')
-								
+
 								# ethnicity
 								f.write('\n<ethnicity>\n')
 								found = []
 								list = [item.lower() for item in list]
-								if len(list) == 0: 
+								if len(list) == 0:
 									f.write('none')
 								else:
 									for ethnicity in ethnicities:
 										for item in list:
 											if re.search(ethnicity, item) != None:
 												if ethnicity not in found:
-													found.append(ethnicity)		
+													found.append(ethnicity)
 									if len(found) == 0:
 										f.write('none')
 									else:
-										f.write(', '.join(map(str, found)))
+										string = ', '.join(map(str, found))
+										cleanPrint(string, f)
 								f.write('\n</ethnicity>')
-								
+
 								# meal-type
 								f.write('\n<mealType>\n')
 								found = []
 								list = [item.lower() for item in list]
-								if len(list) == 0: 
+								if len(list) == 0:
 									f.write('none')
 								else:
 									for type in types:
@@ -274,11 +291,13 @@ for page in wikimedia:
 									if len(found) == 0:
 										f.write('none')
 									else:
-										f.write(', '.join(map(str, found)))
+										string = ', '.join(map(str, found))
+										cleanPrint(string, f)
 								f.write('\n</mealType>')
-								
+
 								f.write('\n</recipe>')
 								f.write('\n')
+								print(count)
 								count = count + 1
 f.write('\n</data>')
 f.close()

@@ -18,10 +18,11 @@ def recipes_detail_list(request):
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
-    page_list = 1
+    number_of_pages = 1
+    page_list = []
     if len(queryset) > 12:
-        page_list = (len(queryset) // 12) + 1
-        page_list = [x+1 for x in range(page_list)]
+        number_of_pages = (len(queryset) // 12) + 1
+        page_list = [x+1 for x in range(number_of_pages)]
 
 
     context = {'object_list': queryset,
@@ -119,7 +120,24 @@ def get_temp_page(request):
 
 def recipes_detail_display(request, pk):
     recipe = Recipe.objects.get(pk=pk)
-    args = {'recipe': recipe}
+
+    if recipe.author == 'wikimedia':
+        # Parse Ingredients
+        ingredients_list = recipe.ingredients.split('\n')
+        ingredients_list = list(filter(lambda a: a != '', ingredients_list))
+        for i in range(len(ingredients_list)):
+            ingredients_list[i] = ingredients_list[i].strip()
+
+        # Parse Instructions
+        instruction_list = recipe.instructions.split('\n')
+        instruction_list = list(filter(lambda a: a != '', instruction_list))
+        for i in range(len(instruction_list)):
+            instruction_list[i] = instruction_list[i].strip()
+
+
+    args = {'recipe': recipe,
+            'ingredients_list': ingredients_list,
+            'instruction_list': instruction_list}
     return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
@@ -132,9 +150,9 @@ def upload_recipe(request):
         if form.is_valid():
             form.instance.user = request.user.id
             form.save()
-            
+
             #form = UploadRecipeForm()
-         
+
             return redirect('/recipes/upload')
     else:
         # GET, generate blank form
