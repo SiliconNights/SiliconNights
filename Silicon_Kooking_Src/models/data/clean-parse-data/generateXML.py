@@ -45,6 +45,16 @@ def fileLinesToList(fileName):
 		for line in file:
 			list.append(line.strip('\n').strip())
 	return list
+	
+# Author: https://stackoverflow.com/users/2206251/greenstick
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
+    if iteration == total: 
+        print()
+	
 
 
 # --- Main program --- #
@@ -63,15 +73,20 @@ with open('datadump.xml', 'r', encoding='utf-8') as file:
 
 # get root element
 wikimedia = tree.getroot()
+iteration = 1
 count = 1
 string = ' '
+total = len(wikimedia)
 
 f.write('<?xml version="1.0" encoding="utf-8"?>')
 f.write('\n<data>')
 
+print('\n Generating data XML...')
 # iterate page items
 for page in wikimedia:
 	# iterate elements of page
+	printProgressBar (iteration, total, suffix = 'Recipe Data')
+	iteration = iteration + 1
 	for element in page:
 		# if title, store title
 		if element.tag == 'title':
@@ -297,8 +312,7 @@ for page in wikimedia:
 
 								f.write('\n</recipe>')
 								f.write('\n')
-								print(count)
 								count = count + 1
 f.write('\n</data>')
 f.close()
-print(count)
+print('\n Total recipes added:', count)
