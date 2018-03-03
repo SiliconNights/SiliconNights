@@ -18,10 +18,11 @@ def recipes_detail_list(request):
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
-    page_list = 1
+    number_of_pages = 1
+    page_list = []
     if len(queryset) > 12:
-        page_list = (len(queryset) // 12) + 1
-        page_list = [x+1 for x in range(page_list)]
+        number_of_pages = (len(queryset) // 12) + 1
+        page_list = [x+1 for x in range(number_of_pages)]
 
 
     context = {'object_list': queryset,

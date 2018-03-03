@@ -3,15 +3,15 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     name = models.CharField(db_column='name', max_length=200, null=True)
-    description = models.TextField(db_column='description', null=True)
-    image = models.CharField(db_column='image', max_length=1000, null=True)
-    ingredients = models.TextField(db_column='ingredients', null=True)
-    ingredientList = models.TextField(db_column='ingredientList', null=True)
+    description = models.CharField(max_length = 200,verbose_name="Description")
+    #image = models.CharField(db_column='image', max_length=1000, null=True)
+    #ingredients = models.TextField(db_column='ingredients', null=True)
+    #ingredientList = models.TextField(db_column='ingredientList', null=True)
     instructions = models.TextField(db_column='instructions', null=True)
     author = models.CharField(db_column='author', max_length=200, null=True)
-    publisher = models.ForeignKey(User, db_column='user', on_delete=models.PROTECT, null=True)
+    user = models.CharField(max_length=11)
     time = models.DateTimeField(db_column='time', null=True)
-    tags = models.TextField(db_column='tags', null=True)
+    #tags = models.TextField(db_column='tags', null=True)
     
     class Meta:
         managed = True
@@ -80,17 +80,17 @@ class EthnicityRecipe(models.Model):
         db_table = 'ethnicity_recipe'
         unique_together = (('recipe', 'name'),)
 
-class UploadRecipe(models.Model):
-    name = models.CharField(max_length = 200, verbose_name="Recipe_Name_")
-    description = models.CharField(max_length = 200,verbose_name="Description")
-    instructions = models.TextField()
-    #image2 = models.ImageField()
-    #image = models.CharField(max_length = 100)
-    author = models.CharField(max_length = 100)
-    ingredients = models.TextField(db_column='ingredients', null=True)
-    user = models.CharField(max_length=11)
-    time = models.DateTimeField(auto_now_add=True)
-   
-    class Meta:
-        managed = True
-        db_table = 'recipe'
+##class UploadRecipe(models.Model):
+##    name = models.CharField(max_length = 200, verbose_name="Recipe_Name_")
+##    description = models.CharField(max_length = 200,verbose_name="Description")
+##    instructions = models.TextField()
+##    #image2 = models.ImageField()
+##    #image = models.CharField(max_length = 100)
+##    author = models.CharField(max_length = 100)
+##    ingredients = models.TextField(db_column='ingredients', null=True)
+##    user = models.CharField(max_length=11)
+##    time = models.DateTimeField(auto_now_add=True)
+##   
+##    class Meta:
+##        managed = True
+##        db_table = 'recipe'
