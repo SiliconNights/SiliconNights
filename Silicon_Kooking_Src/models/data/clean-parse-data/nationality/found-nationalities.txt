@@ -6,11 +6,9 @@ australian
 japanese
 chinese
 filipino
-bo
 malaysian
 malay
 persian
-roma
 turk
 american
 afghan

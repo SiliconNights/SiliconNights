@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 import xml.etree.ElementTree as ET
 from django.utils import timezone
-from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Ethnicity, EthnicityRecipe
+from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Cuisine, CuisineRecipe
 import re, pytz
 from time import sleep
 
@@ -15,12 +15,12 @@ from time import sleep
 '''
 
 
-# --- Add Ingredient functions --- #
+# --- Add Ingredient functions (Pass Tests)--- #
 
 def addAllIngredients():
 	pairs = []
 	single = []
-	ingredientsFile = getFile('ingredients.txt')
+	ingredientsFile = getFile('final-ingredients.txt')
 
 	with open(ingredientsFile, 'r', encoding='utf-8') as file:
 		for line in file:
@@ -61,13 +61,13 @@ def addIngredientPair(pair):
 		addSimilarIngredient(qA[0], B)
 	
 	elif len(qA) > 0 and len(qB) == 0:								
-		addSimilarIngredient(qA[0], B)							
+		addSimilarIngredient(qA[0], B)	
 		
 	elif len(qA) == 0 and (len(qB) > 0 or len(qB) == 0) :
 		rA = addIngredient(A)
 		addSimilarIngredient(rA, B)
 	
-	
+
 def addSingleIngredient(A):
 	q1A = Ingredient.objects.filter(name__iexact=A)
 	
@@ -89,10 +89,10 @@ def addIngredient(ingredient):
 
 	
 
-# --- Add Meal Type functions --- #
+# --- Add Meal Type functions (Pass Tests)--- #
 
 def addAllMealTypes():
-	mealTypes = getFile('meal-types.txt')
+	mealTypes = getFile('meal-types-db.txt')
 	types = []
 	with open(mealTypes) as f:
 		for line in f:
@@ -113,26 +113,26 @@ def addMealType(type):
 	
 	
 	
-# --- Add Ethnicities functions --- #	
+# --- Add Cuisines functions (Pass Tests)--- #	
 
-def addAllEthnicities():
-	ethnicitiesFile = getFile('found-nationalities.txt')		
-	ethnicities = []
-	with open(ethnicitiesFile) as f:
+def addAllCuisines():
+	cuisinesFile = getFile('found-nationalities.txt')		
+	cuisines = []
+	with open(cuisinesFile) as f:
 		for line in f:
-			ethnicities.append(line.strip('\n'))
+			cuisines.append(line.strip('\n'))
 	
-	iter1 = len(ethnicities)
+	iter1 = len(cuisines)
 	
 	i = 1
-	for ethnicity in ethnicities:
-		ethnicity = ethnicity.strip()
-		addEthnicity(ethnicity)
-		printProgressBar(i, iter1, suffix = ' Ethnicities')
+	for cuisine in cuisines:
+		cuisine = cuisine.strip()
+		addCuisine(cuisine)
+		printProgressBar(i, iter1, suffix = ' Cuisines')
 		i = i + 1
 		
-def addEthnicity(ethnicity):
-	record = Ethnicity(name=ethnicity)
+def addCuisine(cuisine):
+	record = Cuisine(name=cuisine)
 	record.save()
 	
 	
@@ -145,6 +145,7 @@ def addAllRecipes():
 	count = getFile('last-recipe.txt')
 	
 	max = 0
+	j = 0
 	with open(count) as f:
 			for line in f:
 				max = int(line)
@@ -158,37 +159,41 @@ def addAllRecipes():
 	with open(imageFile, 'r', encoding='utf-8') as f1:
 		with open(recipeFile, 'r', encoding='utf-8') as f2:
 					
-		tree1 = ET.parse(f1)
-		tree2 = ET.parse(f2)
-		images = tree1.getroot()
-
-		name, imageUrl, ingredients, ingredientList, instructions, tags = '', '', '', '', '', ''
-		mealType, ethnicity = '', ''
-						
-		
-		for i in range(0, (max+1)):
-			add = True
+			tree1 = ET.parse(f1)
+			tree2 = ET.parse(f2)
+			images = tree1.getroot()
 			data = tree2.getroot()
+
+			name, imageUrl, description, ingredients, ingredientList, instructions, tags = '', '', '', '', '', '', ''
+			mealType, cuisine = '', ''
+							
 			
-			for element in images[i]:
-				if element.tag == 'title' and element.text in skipList:
-					add = False
-					break
-				elif element.tag == 'title':
-					name = element.text
-				elif element.tag == 'image':
-					imageUrl = element.text.strip()
-					i = i + 1
-					print('image ', name)
-					break
-			
-			if add:
-				for recipe in data:
-					found = False
-					for element in recipe:
-						if element.tag == 'title' and element.text != name:
-							break
-						elif element.tag == 'title':
+			for i in range(0, (max+1)):
+				add = False
+				for element in images[i]:
+					if element.tag == 'title' and element.text in skipList:
+						i = i + 1
+						j = j + 1
+						break
+					elif element.tag == 'title':
+						name = element.text
+						current = ''
+						for element in data[j]:
+							if element.tag == 'title':
+								current = element.text
+								if current == name:
+									j = j + 1
+									add = True
+					elif element.tag == 'image':
+						imageUrl = element.text.strip()
+						i = i + 1
+						break
+				
+				printProgressBar(i, max, suffix = ' Recipes')
+	
+				if add:
+					for element in data[j]:
+						if element.tag == 'title':
 							test = element.text
 						elif element.tag == 'description':
 							description = element.text
@@ -200,132 +205,126 @@ def addAllRecipes():
 							instructions = element.text
 						elif element.tag == 'tags':
 							tags = element.text
-						elif element.tag == 'ethnicity':
-							ethnicity = element.text
+						elif element.tag == 'cuisine':
+							cuisine = element.text
 						elif element.tag == 'mealType':
 							mealType = element.text
-							found = True
-							
+					
+					author = 'wikimedia'
+					publisher = User.objects.get(id='1')
+					time = timezone.now()
+					recipe = Recipe(name=name, description=description, image=imageUrl, 
+										ingredients=ingredients, ingredientList=ingredientList, 
+										instructions=instructions, cuisine=cuisine, type=mealType,
+										author=author, publisher=publisher,	time=time, tags=tags)
+					recipe.save()
+						
+					addRecipeMeal(recipe, mealType)
+						
+					addRecipeCuisine(recipe, cuisine)
+						
+					addRecipeIngredients(recipe, ingredientList)
 
-					if found:
-						# add recipe
-						author = 'wikimedia'
-						publisher = 1
-						time = timezone.now()
-						print('data  ', test)
-						recipe = Recipe(j, name, description, imageUrl, ingredients, ingredientList, instructions, author, 1, time, tags)
-						recipe.save()
-						j = j + 1
-						
-						added = []
-						# add meal type
-						list = mealType.split(', ')
-						for item in list:
-							item = item.strip()
-							try:
-								q1 = MealType.objects.get(type=item)
-								if q1.id not in added:
-									r1 = MealTypeRecipe(x, recipe.id, q1.id)
-									r1.save()
-									x = x + 1
-									added.append(q1.id)
-									print('add meal type ', item)
-							except ObjectDoesNotExist:
-								pass
-						
-						
-						added = []
-						# add ethnicity
-						list = ethnicity.split(', ')
-						for item in list:
-							item = item.strip()
-							try:
-								q1 = Ethnicity.objects.get(name=item)
-								if q1.id not in added:
-									r1 = EthnicityRecipe(y, recipe.id, q1.id)
-									r1.save()
-									y = y + 1
-									added.append(q1.id)
-									print('add ethnicity', item)
-							except ObjectDoesNotExist:
-								pass
-						
-						
-						pair = []
-						single = []
-						added = []
-						# add ingredient search
-						list = ingredientList.split(', ')
-						for item in list:
-							if '|' in item:
-								pair.append(item.strip())
-							else:
-								single.append(item.strip())
-						
-						# add pairs
-						for item in pair: 
-							list = item.split('|')
-							first = list[0].strip().replace('_', ' ')
-							second = list[1].strip().replace('_', ' ')
-							
-							# (A, -) -> (A, Rec)
-							try:
-								q1 = Ingredient.objects.get(name=first)
-								if q1.id not in added:
-									r1 = IngredientRecipe(k, recipe.id, q1.id)
-									r1.save()
-									k = k + 1
-									added.append(q1.id)
-							except ObjectDoesNotExist:
-								
-								# (-, A) -> (A.similar, Rec)
-								try:
+										
+def addRecipeMeal(recipe, mealType):
+	added = []
+	list = mealType.split(', ')
+	for item in list:
+		item = item.strip()
+		qItem = MealType.objects.filter(type__icontains=item)
+		for type in qItem:
+			if type.type not in added:
+				r1 = MealTypeRecipe(recipe=recipe, type=type)
+				r1.save()
+				added.append(type.type)
+
+
+def addRecipeCuisine(recipe, cuisine):
+	added = []
+	list = cuisine.split(', ')
+	for item in list:
+		item = item.strip()
+		qItem = Cuisine.objects.filter(name__iexact=item)
+		for name in qItem:
+			if name.name not in added:
+				r1 = CuisineRecipe(recipe=recipe, name=name)
+				r1.save()
+				added.append(name.name)
+
+
+def addRecipeIngredients(recipe, ingredientList):
+	single, pair, added  = [], [], []
+	list = ingredientList.split(', ')
+	for item in list:
+		if '|' in item:
+			pair.append(item.strip())
+		else:
+			single.append(item.strip())
+	
+	for item in pair: 
+		list = item.split('|')
+		A = list[0].strip().replace('_', ' ')
+		B = list[1].strip().replace('_', ' ')
 		
-									q2 = SimilarIngredient.objects.filter(name=first)
-									if len(q2) > 0:
-										for item in q2:
-											if item.similar.id not in  added:
-												r2 = IngredientRecipe(k, recipe.id, item.similar.id)
-												r2.save()
-												k = k + 1
-												added.append(item.similar.id)
-												
-									else:
-										print(first, second)
-										print('WARNING!')
-										sleep(10)
-								except ObjectDoesNotExist:
-									pass
-							
-						# add single
-						for item in single:
-							item = item.strip().replace('_',' ')
-							try:
-								q1 = Ingredient.objects.get(name=item)
-								if q1.id not in added:
-									r1 = IngredientRecipe(k, recipe.id, q1.id)
-									r1.save()
-									k = k + 1
-									added.append(q1.id)
-							except ObjectDoesNotExist:
-								# (-, A) -> (A.similar, Rec)
-								try:
+		# (A, -) -> (A, Rec)
+		qA1 = Ingredient.objects.filter(name__iexact=A)
+		if len(qA1) > 0:
+			for ingredient in qA1:
+				if ingredient.id not in added:
+					addIngredientRecipe(recipe, ingredient)
+					added.append(ingredient.id)
+	
+	
+		# (-, A) -> (A.similar, Rec)
+		qA2 = SimilarIngredient.objects.filter(name__iexact=A)
+		if len(qA2) > 0:
+			for ingredient in qA2:
+				if ingredient.similar.id not in added:
+					addIngredientRecipe(recipe, ingredient.similar)
+					added.append(ingredient.similar.id)
+	
+		# (B, -) -> (B, Rec)
+		qB1 = Ingredient.objects.filter(name__iexact=B)
+		if len(qB1) > 0:
+			for ingredient in qB1:
+				if ingredient.id not in added:
+					addIngredientRecipe(recipe, ingredient)
+					added.append(ingredient.id)
+	
+	
+		# (-, B) -> (B.similar, Rec)
+		qB2 = SimilarIngredient.objects.filter(name__iexact=B)
+		if len(qB2) > 0:
+			for ingredient in qB2:
+				if ingredient.similar.id not in added:
+					addIngredientRecipe(recipe, ingredient.similar)
+					added.append(ingredient.similar.id)
 		
-									q2 = SimilarIngredient.objects.filter(name=item)
-									if len(q2) > 0:
-										for result in q2:
-											if result.similar.id not in  added:
-												r2 = IngredientRecipe(k, recipe.id, result.similar.id)
-												r2.save()
-												k = k + 1
-												added.append(result.similar.id)
-												
-									else:
-										print(first, second)
-										print('WARNING!')
-										sleep(10)
-								except ObjectDoesNotExist:
-									pass
+	for A in single:
+		A = A.strip().replace('_',' ')
+		
+		# (A, -) -> (A, Rec)
+		qA1 = Ingredient.objects.filter(name__iexact=A)
+		if len(qA1) > 0:
+			for ingredient in qA1:
+				if ingredient.id not in added:
+					addIngredientRecipe(recipe, ingredient)
+					added.append(ingredient.id)
+	
+	
+		# (-, A) -> (A.similar, Rec)
+		qA2 = SimilarIngredient.objects.filter(name__iexact=A)
+		if len(qA2) > 0:
+			for ingredient in qA2:
+				if ingredient.similar.id not in added:
+					addIngredientRecipe(recipe, ingredient.similar)
+					added.append(ingredient.similar.id)
+
+	
+def addIngredientRecipe(rec, ing):
+	record = IngredientRecipe(recipe=rec, ingredient=ing)
+	record.save()
+
 	
 # --- Helper functions --- #
 
@@ -371,12 +370,28 @@ class Command(BaseCommand):
 			print('\n Adding meal types...')
 			addAllMealTypes()
 			
-			print('\n Adding ethnicities...')
-			addAllEthnicities()
-		
+			print('\n Adding cuisines...')
+			addAllCuisines()
 		
 		# --- Add Recipes ---	#
 		if arg1 == 'rec':
-			`
 			
-		print('done')
+			print('\n Adding recipes...')
+			addAllRecipes()
+		
+		# --- Add Ingredients, Tags and Recipes --- #
+		if arg1 == 'all':
+		
+			print('\n Adding ingredients...')
+			addAllIngredients()
+
+			print('\n Adding meal types...')
+			addAllMealTypes()
+			
+			print('\n Adding cuisines...')
+			addAllCuisines()
+		
+			print('\n Adding recipes...')
+			addAllRecipes()
+			
+		print('\n Done')

@@ -38,8 +38,13 @@ python manage.py runserver
 #### Set limit
 To set number of recipes to add to database, modify last-recipe.txt [max = 1528].
 
-#### Run in sequence
+#### Choose populate option:
+A) For populate all (Quick):
+'''
+python manage.py populate all
+'''
 
+B) For populate with debug:
 ```
 python manage.py populate ing
 python manage.py populate tag
