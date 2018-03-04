@@ -60,7 +60,7 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 # --- Main program --- #
 
 # input files
-ethnicities = fileLinesToList('found-nationalities.txt')
+cuisines = fileLinesToList('found-nationalities.txt')
 types = fileLinesToList('meal-types.txt')
 filters = fileLinesToList('filters.txt')
 
@@ -272,24 +272,24 @@ for page in wikimedia:
 									cleanPrint(string, f)
 								f.write('\n</tags>')
 
-								# ethnicity
-								f.write('\n<ethnicity>\n')
+								# cuisine
+								f.write('\n<cuisine>\n')
 								found = []
 								list = [item.lower() for item in list]
 								if len(list) == 0:
 									f.write('none')
 								else:
-									for ethnicity in ethnicities:
+									for cuisine in cuisines:
 										for item in list:
-											if re.search(ethnicity, item) != None:
-												if ethnicity not in found:
-													found.append(ethnicity)
+											if re.search(cuisine, item) != None:
+												if cuisine not in found:
+													found.append(cuisine)
 									if len(found) == 0:
 										f.write('none')
 									else:
 										string = ', '.join(map(str, found))
 										cleanPrint(string, f)
-								f.write('\n</ethnicity>')
+								f.write('\n</cuisine>')
 
 								# meal-type
 								f.write('\n<mealType>\n')
