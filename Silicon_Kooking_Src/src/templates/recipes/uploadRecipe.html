@@ -72,6 +72,11 @@
 
   {{ form.source.errors }}
   {{ form.source }}
+  
+   {{ imageForm.non_field_errors }}
+
+  {{ imageForm.source.errors }}
+  {{ imageForm.source }}
 
   <table border="0">
 <div class="form-group">
@@ -91,10 +96,59 @@
         </td>
       </tr>
 	  
+	   <tr>
+        <th>{{ form.image.label_tag }}</th>
+        <td>
+         
+          {{ form.image }}
+          <br />
+          {{ form.image.help_text }}
+        </td>
+      </tr>
 	  
-	 
-	
 		
+	  
+	  <!--
+	  <tr>
+        <th>{{ imageForm.image.label_tag }}</th>
+        <td>
+         
+          {{ imageForm.image }}
+          <br />
+          {{ imageForm.image.help_text }}
+        </td>
+      </tr>
+	  -->
+	 
+	 <tr>
+        <th>{{ "Ingredients:" }}</th>
+        <td>
+          {{ form.ingredients.errors }}
+          {{ form.ingredients }}
+          <br />
+          {{ form.ingredients.help_text }}
+        </td>
+      </tr>
+	
+		<tr>
+        <th>{{ "Cuisine:" }}</th>
+        <td>
+          {{ form.cuisine.errors }}
+          {{ form.cuisine }}
+          <br />
+          {{ form.cuisine.help_text }}
+        </td>
+      </tr>
+	  <tr>
+        <th>{{ "Meal Type:" }}</th>
+        <td>
+          {{ form.type.errors }}
+          {{ form.type }}
+          <br />
+          {{ form.type.help_text }}
+        </td>
+      </tr>
+	  
       <tr>
         <th>{{ "Instructions:" }}</th>
         <td>
@@ -105,20 +159,7 @@
         </td>
       </tr>
 	  
-	   
-	  
-		
-	  
-	  
-	  <tr>
-        <th>{{ form.image.label_tag }}</th>
-        <td>
-         
-          {{ form.image }}
-          <br />
-          {{ form.image.help_text }}
-        </td>
-      </tr>
+
 	  <tr>
         <th>{{ form.author.label_tag }}</th>
         <td>
@@ -138,7 +179,15 @@
         </td>
       </tr>
 
-	 
+	  <tr>
+        <th>{{ "Tags:" }}</th>
+        <td>
+          {{ form.tags.errors }}
+          {{ form.tags }}
+          <br />
+          {{ form.tags.help_text }}
+        </td>
+      </tr>
 	  
 	  
 	  <tr>

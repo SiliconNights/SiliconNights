@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
+from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient, Image
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -47,6 +47,7 @@ class UploadRecipeForm(forms.ModelForm):
     
     class Meta:
         model = Recipe
+        
         exclude = (
             'user',
             'time',
@@ -54,12 +55,19 @@ class UploadRecipeForm(forms.ModelForm):
         fields = (
             'name',
             'description',
+            'image',
+            'ingredients',
+            'cuisine',
+            'type',
             'instructions',
-            #'image',
             'author',
+            'tags',
             )
         
-   
+
+        
+class ImageUpload(forms.Form):
+    image = forms.ImageField(label = "Upload Photo")
 
 ##    recipeName = models.CharField(required=True, max_length = 100, label="Recipe Name")
 ##    description = models.CharField(required=True)
