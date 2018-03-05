@@ -125,18 +125,32 @@ def get_temp_page(request):
 def recipes_detail_display(request, pk):
     recipe = Recipe.objects.get(pk=pk)
 
-    if recipe.author == 'wikimedia':
-        # Parse Ingredients
-        ingredients_list = recipe.ingredients.split('\n')
-        ingredients_list = list(filter(lambda a: a != '', ingredients_list))
-        for i in range(len(ingredients_list)):
-            ingredients_list[i] = ingredients_list[i].strip()
+    
+    # Parse Ingredients
+    ingredients_list = recipe.ingredients.split('\n')
+    ingredients_list = list(filter(lambda a: a != '', ingredients_list))
+    for i in range(len(ingredients_list)):
+        ingredients_list[i] = ingredients_list[i].strip()
 
-        # Parse Instructions
-        instruction_list = recipe.instructions.split('\n')
-        instruction_list = list(filter(lambda a: a != '', instruction_list))
-        for i in range(len(instruction_list)):
-            instruction_list[i] = instruction_list[i].strip()
+    # Parse Instructions
+    instruction_list = recipe.instructions.split('\n')
+    instruction_list = list(filter(lambda a: a != '', instruction_list))
+    for i in range(len(instruction_list)):
+        instruction_list[i] = instruction_list[i].strip()
+    
+
+##    if recipe.author == 'wikimedia':
+##        # Parse Ingredients
+##        ingredients_list = recipe.ingredients.split('\n')
+##        ingredients_list = list(filter(lambda a: a != '', ingredients_list))
+##        for i in range(len(ingredients_list)):
+##            ingredients_list[i] = ingredients_list[i].strip()
+##
+##        # Parse Instructions
+##        instruction_list = recipe.instructions.split('\n')
+##        instruction_list = list(filter(lambda a: a != '', instruction_list))
+##        for i in range(len(instruction_list)):
+##            instruction_list[i] = instruction_list[i].strip()
 
 
     args = {'recipe': recipe,
