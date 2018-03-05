@@ -7,12 +7,16 @@ from django.utils import timezone
 from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Cuisine, CuisineRecipe
 import re, pytz
 from time import sleep
+from bs4 import UnicodeDammit
+from ftfy import fix_encoding, fix_text
 
 
 '''
 	NOTE: create one user first.
 	python manage.py createsuperuser
 '''
+
+
 
 
 # --- Add Ingredient functions (Pass Tests)--- #
@@ -32,12 +36,12 @@ def addAllIngredients():
 	iter1 = (len(pairs)*2)
 	iter2 = len(single)
 
-	i = 2		
-	for pair in pairs: 
+	i = 2
+	for pair in pairs:
 		addIngredientPair(pair)
 		printProgressBar(i, iter1, suffix = ' Pair Ingredients')
 		i = i + 2
-		
+
 	print()
 	i = 1
 	for ingredient in single:
@@ -45,49 +49,49 @@ def addAllIngredients():
 		printProgressBar(i, iter2, suffix = ' Single Ingredients')
 		i = i + 1
 
-	
+
 def addIngredientPair(pair):
-	list = pair.split('|')											
+	list = pair.split('|')
 	A = list[0].strip().replace('_', ' ')
 	B = list[1].strip().replace('_', ' ')
-	
-	qA = Ingredient.objects.filter(name__iexact=A) 					
-	qB = SimilarIngredient.objects.filter(name__iexact=B)			
-																	
+
+	qA = Ingredient.objects.filter(name__iexact=A)
+	qB = SimilarIngredient.objects.filter(name__iexact=B)
+
 	if len(qA) > 0 and len(qB) > 0 and qB[0].similar.id == qA[0].id:
-		pass		
-	
+		pass
+
 	elif len(qA) > 0 and len(qB) > 0 and qB[0].similar.id != qA[0].id:
 		addSimilarIngredient(qA[0], B)
-	
-	elif len(qA) > 0 and len(qB) == 0:								
-		addSimilarIngredient(qA[0], B)	
-		
+
+	elif len(qA) > 0 and len(qB) == 0:
+		addSimilarIngredient(qA[0], B)
+
 	elif len(qA) == 0 and (len(qB) > 0 or len(qB) == 0) :
 		rA = addIngredient(A)
 		addSimilarIngredient(rA, B)
-	
+
 
 def addSingleIngredient(A):
 	q1A = Ingredient.objects.filter(name__iexact=A)
-	
+
 	if len(q1A) == 0:
 		addIngredient(A)
 	else:
 		pass
-	
-	
+
+
 def addSimilarIngredient(similarTo, ingredient):
 	record = SimilarIngredient(similar=similarTo, name=ingredient)
 	record.save()
-	
-	
+
+
 def addIngredient(ingredient):
 	record = Ingredient(name=ingredient)
 	record.save()
 	return record
 
-	
+
 
 # --- Add Meal Type functions (Pass Tests)--- #
 
@@ -97,7 +101,7 @@ def addAllMealTypes():
 	with open(mealTypes) as f:
 		for line in f:
 			types.append(line.strip('\n'))
-			
+
 	iter1 = len(types)
 	i = 1
 	for type in types:
@@ -105,60 +109,61 @@ def addAllMealTypes():
 		addMealType(type)
 		printProgressBar(i, iter1, suffix = ' Meal Types')
 		i = i + 1
-	
-	
+
+
 def addMealType(type):
 	record = MealType(type=type)
 	record.save()
-	
-	
-	
-# --- Add Cuisines functions (Pass Tests)--- #	
+
+
+
+# --- Add Cuisines functions (Pass Tests)--- #
 
 def addAllCuisines():
-	cuisinesFile = getFile('found-nationalities.txt')		
+	cuisinesFile = getFile('found-nationalities.txt')
 	cuisines = []
 	with open(cuisinesFile) as f:
 		for line in f:
 			cuisines.append(line.strip('\n'))
-	
+
 	iter1 = len(cuisines)
-	
+
 	i = 1
 	for cuisine in cuisines:
 		cuisine = cuisine.strip()
 		addCuisine(cuisine)
 		printProgressBar(i, iter1, suffix = ' Cuisines')
 		i = i + 1
-		
+
 def addCuisine(cuisine):
 	record = Cuisine(name=cuisine)
 	record.save()
-	
-	
-# --- Add Recipe functions --- #	
+
+
+# --- Add Recipe functions --- #
 
 def addAllRecipes():
 	recipeFile = getFile('recipe-data.xml')
 	imageFile = getFile('title-images.xml')
 	skipFile = getFile('0-images.txt')
 	count = getFile('last-recipe.txt')
-	
+
 	max = 0
 	j = 0
 	with open(count) as f:
 			for line in f:
 				max = int(line)
-				
+
+	
 	skipList = []
-	with open(skipFile) as f:
+	with open(skipFile, 'r', encoding='utf-8') as f:
 		for line in f:
 			line = re.sub(r'[0-9]+ ', '', line)
 			skipList.append(line.strip('\n'))
 
 	with open(imageFile, 'r', encoding='utf-8') as f1:
 		with open(recipeFile, 'r', encoding='utf-8') as f2:
-					
+
 			tree1 = ET.parse(f1)
 			tree2 = ET.parse(f2)
 			images = tree1.getroot()
@@ -166,8 +171,8 @@ def addAllRecipes():
 
 			name, imageUrl, description, ingredients, ingredientList, instructions, tags = '', '', '', '', '', '', ''
 			mealType, cuisine = '', ''
-							
-			
+
+
 			for i in range(0, (max+1)):
 				add = False
 				for element in images[i]:
@@ -188,9 +193,9 @@ def addAllRecipes():
 						imageUrl = element.text.strip()
 						i = i + 1
 						break
-				
+
 				printProgressBar(i, max, suffix = ' Recipes')
-	
+
 				if add:
 					for element in data[j]:
 						if element.tag == 'title':
@@ -209,23 +214,23 @@ def addAllRecipes():
 							cuisine = element.text
 						elif element.tag == 'mealType':
 							mealType = element.text
-					
+
 					author = 'wikimedia'
 					publisher = User.objects.get(id='1')
 					time = timezone.now()
-					recipe = Recipe(name=name, description=description, image=imageUrl, 
-										ingredients=ingredients, ingredientList=ingredientList, 
+					recipe = Recipe(name=name, description=description, image=imageUrl,
+										ingredients=ingredients, ingredientList=ingredientList,
 										instructions=instructions, cuisine=cuisine, type=mealType,
-										author=author, publisher=publisher,	time=time, tags=tags)
+										author=author, time=time, tags=tags)
 					recipe.save()
-						
+
 					addRecipeMeal(recipe, mealType)
-						
+
 					addRecipeCuisine(recipe, cuisine)
-						
+
 					addRecipeIngredients(recipe, ingredientList)
 
-										
+
 def addRecipeMeal(recipe, mealType):
 	added = []
 	list = mealType.split(', ')
@@ -260,12 +265,12 @@ def addRecipeIngredients(recipe, ingredientList):
 			pair.append(item.strip())
 		else:
 			single.append(item.strip())
-	
-	for item in pair: 
+
+	for item in pair:
 		list = item.split('|')
 		A = list[0].strip().replace('_', ' ')
 		B = list[1].strip().replace('_', ' ')
-		
+
 		# (A, -) -> (A, Rec)
 		qA1 = Ingredient.objects.filter(name__iexact=A)
 		if len(qA1) > 0:
@@ -273,8 +278,8 @@ def addRecipeIngredients(recipe, ingredientList):
 				if ingredient.id not in added:
 					addIngredientRecipe(recipe, ingredient)
 					added.append(ingredient.id)
-	
-	
+
+
 		# (-, A) -> (A.similar, Rec)
 		qA2 = SimilarIngredient.objects.filter(name__iexact=A)
 		if len(qA2) > 0:
@@ -282,7 +287,7 @@ def addRecipeIngredients(recipe, ingredientList):
 				if ingredient.similar.id not in added:
 					addIngredientRecipe(recipe, ingredient.similar)
 					added.append(ingredient.similar.id)
-	
+
 		# (B, -) -> (B, Rec)
 		qB1 = Ingredient.objects.filter(name__iexact=B)
 		if len(qB1) > 0:
@@ -290,8 +295,8 @@ def addRecipeIngredients(recipe, ingredientList):
 				if ingredient.id not in added:
 					addIngredientRecipe(recipe, ingredient)
 					added.append(ingredient.id)
-	
-	
+
+
 		# (-, B) -> (B.similar, Rec)
 		qB2 = SimilarIngredient.objects.filter(name__iexact=B)
 		if len(qB2) > 0:
@@ -299,10 +304,10 @@ def addRecipeIngredients(recipe, ingredientList):
 				if ingredient.similar.id not in added:
 					addIngredientRecipe(recipe, ingredient.similar)
 					added.append(ingredient.similar.id)
-		
+
 	for A in single:
 		A = A.strip().replace('_',' ')
-		
+
 		# (A, -) -> (A, Rec)
 		qA1 = Ingredient.objects.filter(name__iexact=A)
 		if len(qA1) > 0:
@@ -310,8 +315,8 @@ def addRecipeIngredients(recipe, ingredientList):
 				if ingredient.id not in added:
 					addIngredientRecipe(recipe, ingredient)
 					added.append(ingredient.id)
-	
-	
+
+
 		# (-, A) -> (A.similar, Rec)
 		qA2 = SimilarIngredient.objects.filter(name__iexact=A)
 		if len(qA2) > 0:
@@ -320,78 +325,83 @@ def addRecipeIngredients(recipe, ingredientList):
 					addIngredientRecipe(recipe, ingredient.similar)
 					added.append(ingredient.similar.id)
 
-	
+
 def addIngredientRecipe(rec, ing):
 	record = IngredientRecipe(recipe=rec, ingredient=ing)
 	record.save()
 
-	
+
 # --- Helper functions --- #
 
 def getFile(name):
 	scriptpath = os.path.dirname(__file__)
 	return os.path.join(scriptpath, name)
-	
+
 # Author: https://stackoverflow.com/users/2206251/greenstick
 def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     filledLength = int(length * iteration // total)
     bar = fill * filledLength + '-' * (length - filledLength)
     print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
-    if iteration == total: 
+    if iteration == total:
         print()
-	
 
 
-# --- Main function --- #	
+def cleanEncoding(line):
+	line = fix_encoding(line)
+	line = fix_text(line)
+	line = UnicodeDammit(line).unicode_markup
+	return line
+
+# --- Main function --- #
 
 class Command(BaseCommand):
 	args = '<arg1>'
 	help = 'first run with "ing", "tag", then "rec" argument'
-	
+
 	def add_arguments(self, parser):
 			parser.add_argument('arg1')
 
 	def handle(self, *args, **options):
 
-		arg1 = options['arg1']	
-		
-		
+		arg1 = options['arg1']
+
+
 		# --- Add Ingredients --- #
 		if arg1 == 'ing':
-			
+
 			print('\n Adding ingredients...')
 			addAllIngredients()
-				
-							
-		# --- Add Tags ---	#						
+
+
+		# --- Add Tags ---	#
 		if arg1 == 'tag':
-			
+
 			print('\n Adding meal types...')
 			addAllMealTypes()
-			
+
 			print('\n Adding cuisines...')
 			addAllCuisines()
-		
+
 		# --- Add Recipes ---	#
 		if arg1 == 'rec':
-			
+
 			print('\n Adding recipes...')
 			addAllRecipes()
-		
+
 		# --- Add Ingredients, Tags and Recipes --- #
 		if arg1 == 'all':
-		
+
 			print('\n Adding ingredients...')
 			addAllIngredients()
 
 			print('\n Adding meal types...')
 			addAllMealTypes()
-			
+
 			print('\n Adding cuisines...')
 			addAllCuisines()
-		
+
 			print('\n Adding recipes...')
 			addAllRecipes()
-			
+
 		print('\n Done')

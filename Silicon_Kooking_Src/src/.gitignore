@@ -1,10 +1,10 @@
 Silicon_Kooking/__pyache__
 Silicon_Kooking/settings.py
-Silicon_Kooking/migrations
+Silicon_Kooking/migrations/*
 home/__pycache__
-home/migrations
+home/migrations/*
 recipes/__pycache__
-recipes/migrations
+recipes/migrations/*
 accounts/__pycache__
-accounts/migrations
+accounts/migrations/*
 ../models/data/clean-parse-data/images/last-recipe.txt

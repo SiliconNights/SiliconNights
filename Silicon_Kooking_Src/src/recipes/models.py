@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Recipe(models.Model):
 	name = models.CharField(db_column='name', max_length=200, null=True)
-	description = models.CharField(db_column='description',max_length=200, null=True)
+	description = models.TextField(db_column='description', null=True)
 	image = models.CharField(db_column='image', max_length=1000, null=True)
 	#image = models.ImageField(upload_to = 'static/images',)
 	#image = models.ImageField(upload_to = 'static/images/')
@@ -18,7 +18,7 @@ class Recipe(models.Model):
 	user = models.CharField(max_length=11)
 	time = models.DateTimeField(auto_now_add=True)
 	tags = models.TextField(db_column='tags', null=True)
-        
+
 	class Meta:
 		managed = True
 		db_table = 'recipe'
@@ -28,7 +28,7 @@ class Image(models.Model):
 
         class Meta:
                 db_table = "recipe_image"
-## David's 
+## David's
 #	 name = models.CharField(db_column='name', max_length=200, null=True)
 #	 description = models.CharField(max_length = 200,verbose_name="Description")
 #	 image = models.CharField(db_column='image', max_length=1000, null=True)
@@ -113,7 +113,7 @@ class CuisineRecipe(models.Model):
 ##	  ingredients = models.TextField(db_column='ingredients', null=True)
 ##	  user = models.CharField(max_length=11)
 ##	  time = models.DateTimeField(auto_now_add=True)
-##	 
+##
 ##	  class Meta:
 ##		  managed = True
 ##		  db_table = 'recipe'
