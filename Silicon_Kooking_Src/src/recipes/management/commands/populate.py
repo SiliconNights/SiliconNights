@@ -154,7 +154,7 @@ def addAllRecipes():
 			for line in f:
 				max = int(line)
 
-	
+
 	skipList = []
 	with open(skipFile, 'r', encoding='utf-8') as f:
 		for line in f:
