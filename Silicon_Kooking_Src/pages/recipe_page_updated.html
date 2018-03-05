@@ -1,0 +1,117 @@
+{% extends "header.html" %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static '/css/recipe.css' %}/>
+
+{% block head_css %}
+
+	<style type="text/css">
+
+.recipe .directions{width:48%;float:right;text-align:left;margin-bottom:150px}
+.recipe h3#extras{margin-top:200px}
+
+.recipe .image {
+	text-align: center;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.header {
+    display: block;
+}
+
+.wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    clear: both;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 15px;
+    padding-bottom: 0px;
+    padding-bottom: 1px;
+}
+
+.recipe .title{
+	font-size: 26px;
+	font-weight: 500;
+	line-height: 1.3;
+	box-sizing: border-box;
+}
+
+.recipe .publisher{
+    color: #a3a2a3;
+    letter-spacing: .05em;
+    font-size: 10px;
+    margin-bottom: 15px;
+}
+</style>
+{%endblock%}
+
+
+
+
+{% block body %}
+
+<body class="body" style="background-color:white">
+	
+<div class='wrapper'>
+	
+	<header>
+		<div class="recipe">
+
+			<h2 class="title">{{recipe.name}}</h2>
+
+			<div class="publisher">
+				<em> Posted by </em> {{recipe.publisher}} 
+				<br>
+				<em> Authored by </em> {{recipe.author}}
+			</div>
+
+		</div>
+	</header>
+	
+	
+		<img src={{recipe.image}} itemprop="image" align="left" width="600" height="400">
+
+		<h3 id="ingredients">Ingredients:</h3>
+		
+		<div class="ingredients">
+			{% for header, body in ingredients_sections %}
+				
+				{% if header != 'none' %}
+					<h4><strong>{{header}}</strong></h4>
+				{% endif %}
+				
+				<ul>
+				{% for line in body %}
+						<li class="ingredient" itemprop="ingredients">{{line}}</li>
+				{% endfor %}
+				</ul> 
+				
+			{% endfor %}
+		</div>
+		
+		
+		<h3 id="instructions">Instructions:</h3>
+		
+		<div class="instructions">
+			{% for header, body in instructions_sections %}
+				
+				{% if header != 'none' %}
+					<h4><strong>{{header}}</strong></h4>
+				{% endif %}
+				
+				<ul>
+				{% for line in body %}
+						<li class="instructions" itemprop="instructions">{{line}}</li>
+				{% endfor %}
+				</ul> 
+				
+			{% endfor %}
+		</div>
+</div>
+	
+	
+</body>
+{% endblock %}
