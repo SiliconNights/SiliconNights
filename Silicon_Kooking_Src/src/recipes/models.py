@@ -10,7 +10,11 @@ class Recipe(models.Model):
 	static_image = models.ImageField(db_column="static_image", upload_to = 'images', default = 'images/default/default.jpg', blank=True)
 =======
 	web_image = models.CharField(db_column='web_image', max_length=1000, null=True, blank=True)
+<<<<<<< HEAD
 	static_image = models.ImageField(db_column="static_image", upload_to = 'recipe-img/', default = 'images/recipe-img/default.png', blank=True)
+>>>>>>> local
+=======
+	static_image = models.ImageField(db_column="static_image", upload_to = 'recipe-img/', default = 'recipe-img/default.png', blank=True)
 >>>>>>> local
 	ingredients = models.TextField(db_column='ingredients', null=True)
 	ingredientList = models.TextField(db_column='ingredientList', null=True)
