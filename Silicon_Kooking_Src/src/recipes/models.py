@@ -6,12 +6,7 @@ class Recipe(models.Model):
 	name = models.CharField(db_column='name', max_length=200, null=True)
 	description = models.TextField(db_column='description', null=True)
 	image = models.CharField(db_column='image', max_length=1000, null=True)
-<<<<<<< HEAD
-	static_image = models.ImageField(db_column='static_image',upload_to = 'images', default='images/default.jpg')
-	#image = models.ImageField(upload_to = 'static/images/')
-=======
 	static_image = models.ImageField(upload_to = 'images', default = 'images/default/default.jpg', null=True)
->>>>>>> 496cd98dc516b392ab27ba116e1486020a3bc5b8
 	ingredients = models.TextField(db_column='ingredients', null=True)
 	ingredientList = models.TextField(db_column='ingredientList', null=True)
 	instructions = models.TextField(db_column='instructions', null=True)

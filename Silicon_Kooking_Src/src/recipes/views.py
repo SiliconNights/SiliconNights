@@ -170,11 +170,6 @@ def upload_recipe(request):
                 #Image.image = ImageUpload.cleaned_data["image"]
                 #Image.save()
             form.save()
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 496cd98dc516b392ab27ba116e1486020a3bc5b8
             return redirect('/recipes/upload')
     else:
         form = UploadRecipeForm()
