@@ -95,14 +95,23 @@
           {{ form.description }}
         </td>
       </tr>
+<<<<<<< HEAD
 
+=======
+	   
+      </tr>
+>>>>>>> 496cd98dc516b392ab27ba116e1486020a3bc5b8
 	   <tr>
-        <th>{{ form.image.label_tag }}</th>
+        <th>{{ "Upload Photo:" }}</th>
         <td>
+<<<<<<< HEAD
 					{% load staticfiles %}
+=======
+         
+>>>>>>> 496cd98dc516b392ab27ba116e1486020a3bc5b8
           {{ form.static_image }}
           <br />
-          {{ form.image.help_text }}
+          {{ form.static_image.help_text }}
         </td>
       </tr>
 
@@ -188,8 +197,22 @@
           {{ form.tags.help_text }}
         </td>
       </tr>
+<<<<<<< HEAD
 
 
+=======
+	   <tr>
+     
+        <td>
+          {{ form.ingredientList.errors }}
+          {{ form.ingredientList }}
+          <br />
+          {{ form.ingredientList.help_text }}
+        </td>
+      </tr>
+	  
+	  
+>>>>>>> 496cd98dc516b392ab27ba116e1486020a3bc5b8
 	  <tr>
 	   <th>{{ form.quantity1.label_tag }}</th>
 	   <th>{{ form.ingredient1.label_tag }}</th>

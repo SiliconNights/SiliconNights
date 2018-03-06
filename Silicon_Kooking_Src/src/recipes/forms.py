@@ -52,15 +52,17 @@ class UploadRecipeForm(forms.ModelForm):
             'user',
             'image',
             'time',
+            'image',
+            'ingredientList',
             )
         fields = (
             'name',
             'description',
             'static_image',
             'ingredients',
+            'instructions',
             'cuisine',
             'type',
-            'instructions',
             'author',
             'tags',
             )
