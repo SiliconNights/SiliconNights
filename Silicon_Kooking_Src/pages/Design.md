@@ -29,3 +29,7 @@ https://www.recipegirl.com/
 1) Clean and minimal 
 
 https://www.recipegirl.com/dutch-oven-bread/
+
+## Bootstrap samples
+
+1) https://bootsnipp.com/
