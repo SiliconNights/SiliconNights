@@ -7,8 +7,8 @@ from django.utils import timezone
 from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Cuisine, CuisineRecipe
 import re, pytz
 from time import sleep
-from bs4 import UnicodeDammit
-from ftfy import fix_encoding, fix_text
+#from bs4 import UnicodeDammit
+#from ftfy import fix_encoding, fix_text
 
 
 '''

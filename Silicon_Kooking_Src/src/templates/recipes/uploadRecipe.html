@@ -95,14 +95,15 @@
           {{ form.description }}
         </td>
       </tr>
-	  
+	   
+      </tr>
 	   <tr>
-        <th>{{ form.image.label_tag }}</th>
+        <th>{{ "Upload Photo:" }}</th>
         <td>
          
-          {{ form.image }}
+          {{ form.static_image }}
           <br />
-          {{ form.image.help_text }}
+          {{ form.static_image.help_text }}
         </td>
       </tr>
 	  
@@ -186,6 +187,15 @@
           {{ form.tags }}
           <br />
           {{ form.tags.help_text }}
+        </td>
+      </tr>
+	   <tr>
+     
+        <td>
+          {{ form.ingredientList.errors }}
+          {{ form.ingredientList }}
+          <br />
+          {{ form.ingredientList.help_text }}
         </td>
       </tr>
 	  
