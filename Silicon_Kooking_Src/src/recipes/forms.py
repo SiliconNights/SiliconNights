@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient, Image
+from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -43,19 +43,20 @@ class EditProfileForm(UserChangeForm):
         )
 
 class UploadRecipeForm(forms.ModelForm):
-    
-    
+
+
     class Meta:
         model = Recipe
-        
+
         exclude = (
             'user',
+            'image',
             'time',
             )
         fields = (
             'name',
             'description',
-            'image',
+            'static_image',
             'ingredients',
             'cuisine',
             'type',
@@ -63,12 +64,12 @@ class UploadRecipeForm(forms.ModelForm):
             'author',
             'tags',
             )
-        
 
-        
+
+'''
 class ImageUpload(forms.Form):
     image = forms.ImageField(label = "Upload Photo")
-
+'''
 ##    recipeName = models.CharField(required=True, max_length = 100, label="Recipe Name")
 ##    description = models.CharField(required=True)
 ##    instructions =  models.CharField(
@@ -98,8 +99,8 @@ class ImageUpload(forms.Form):
 ##    ingredient9 = forms.CharField(label='ingredient')
 ##    quantity10 = forms.CharField(label='quantity')
 ##    ingredient10 = forms.CharField(label='ingredient')
-  
- 
+
+
 ##    def clean(self):
 ##        cleaned_data = super(UploadRecipeForm, self).clean()
 ##        recipeName = cleaned_data.get('recipeName')
@@ -107,8 +108,5 @@ class ImageUpload(forms.Form):
 ##        instructions = cleaned_data.get('instructions')
 ##        author = cleaned_data.get('author')
 ##        if not recipeName and not description and not instructions and not author:
-##            raise forms.ValidationError('You have to write something!')    
+##            raise forms.ValidationError('You have to write something!')
 ##
-    
-        
-    

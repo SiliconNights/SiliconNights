@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient, Image
-from .forms import UploadRecipeForm, ImageUpload
+from .models import Recipe, IngredientRecipe, Ingredient, SimilarIngredient
+from .forms import UploadRecipeForm
 from django.shortcuts import render, redirect
 import re
 from django.shortcuts import render_to_response
@@ -125,7 +125,7 @@ def get_temp_page(request):
 def recipes_detail_display(request, pk):
     recipe = Recipe.objects.get(pk=pk)
 
-    
+
     # Parse Ingredients
     ingredients_list = recipe.ingredients.split('\n')
     ingredients_list = list(filter(lambda a: a != '', ingredients_list))
@@ -137,7 +137,7 @@ def recipes_detail_display(request, pk):
     instruction_list = list(filter(lambda a: a != '', instruction_list))
     for i in range(len(instruction_list)):
         instruction_list[i] = instruction_list[i].strip()
-    
+
 
 ##    if recipe.author == 'wikimedia':
 ##        # Parse Ingredients
@@ -159,42 +159,42 @@ def recipes_detail_display(request, pk):
     return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
-   
+
     if request.method == 'POST':
         form = UploadRecipeForm(request.POST)
         #imageForm = ImageUpload(request.POST, request.FILES)
-       
+
         if form.is_valid():
             form.instance.user = request.user.id
                 #image = Image()
                 #Image.image = ImageUpload.cleaned_data["image"]
                 #Image.save()
             form.save()
-               
+
 
             return redirect('/recipes/upload')
     else:
         form = UploadRecipeForm()
         #imageForm = ImageUpload()
     return render(request,'recipes/uploadRecipe.html',{'form':form})
-    
+
 
 
 ##    if request.method == 'POST':
-##        
+##
 ##        imageForm = ImageUpload(request.POST, request.FILES)
-##       
-##       
+##
+##
 ##        if imageForm.is_valid():
-##             
+##
 ##            image = Image(image = request.FILES['image'])
 ##            #Image.image = ImageUpload.cleaned_data["image"]
 ##            Image.save()
-##                
-##               
+##
+##
 ##            return HttpResponseRedirect(reverse(''))
-##            
+##
 ##    else:
 ##        imageForm = ImageUpload()
-##    
+##
 ##    return render(request,'recipes/uploadRecipe.html',{'imageForm':imageForm})
