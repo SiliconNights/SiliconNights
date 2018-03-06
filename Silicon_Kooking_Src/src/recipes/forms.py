@@ -50,7 +50,7 @@ class UploadRecipeForm(forms.ModelForm):
 
         exclude = (
             'user',
-            'image',
+            'web_image',
             'time',
             )
         fields = (

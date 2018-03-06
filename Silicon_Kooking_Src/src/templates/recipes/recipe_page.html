@@ -86,7 +86,9 @@ img{
 	     <div class = "boxLeft" style = " margin-left: 5%; width: 45%;border-radius: 25px;">
 		     <div class = "BackColor " style = "border-radius: 25px;">
 			     <p style = "padding-bottom: 5%">
-			         <img src={{recipe.image}} width= "100%">
+						 <object data={{recipe.static_image.url}} width="100%">
+				         <img src={{recipe.web_image}} width= "100%">
+					   </object>
 			         <p style= "padding-top: 10px; text-align:center"><b>{{recipe.name}}</b></p> <br>
 
 		         </p>
