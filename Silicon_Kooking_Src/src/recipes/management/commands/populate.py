@@ -218,10 +218,10 @@ def addAllRecipes():
 					author = 'wikimedia'
 					publisher = User.objects.get(id='1')
 					time = timezone.now()
-					recipe = Recipe(name=name, description=description, image=imageUrl,
+					recipe = Recipe(name=name, description=description, web_image=imageUrl,
 										ingredients=ingredients, ingredientList=ingredientList,
 										instructions=instructions, cuisine=cuisine, type=mealType,
-										author=author, time=time, tags=tags)
+										author=author, time=time, tags=tags, user=publisher)
 					recipe.save()
 
 					addRecipeMeal(recipe, mealType)

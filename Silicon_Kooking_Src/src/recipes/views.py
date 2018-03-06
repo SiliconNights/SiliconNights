@@ -165,7 +165,7 @@ def upload_recipe(request):
         #imageForm = ImageUpload(request.POST, request.FILES)
 
         if form.is_valid():
-            form.instance.user = request.user.id
+            form.instance.user = request.user
                 #image = Image()
                 #Image.image = ImageUpload.cleaned_data["image"]
                 #Image.save()
