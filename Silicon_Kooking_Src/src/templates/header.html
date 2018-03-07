@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,9 +40,9 @@
 
 											<input type="text" class="f-control" placeholder="Search" name="query">
 
-												<button type="Search" class="btn btn-default">Search</button>
-											</div>
-										</form>
+											<button type="Search" class="btn btn-default">Search</button>
+										</div>
+									</form>
 										<li><a href="#">Advanced Search</a></li>
 										{% if user.is_authenticated %}
 											<li><a href="/accounts/profile/">Profile</a></li>
@@ -52,56 +51,12 @@
 											<li><a href="/accounts/login/">Login</a></li>
 											<li><a href="/accounts/register/">Register</a></li>
 										{% endif %}
-
-
-									</ul>
-
-
-
-						<nav class="navbar navbar-inverse navbar-fixed-top">
-							<div class="container-fluid">
-								<div class="navbar-header">
-									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</button>
-									<a class="navbar-brand" href="/">Silicon Kooking</a>
-
-								</div>
-								<div class="collapse navbar-collapse" id="myNavbar">
-									<div class="container text-center">
-										<ul class="nav navbar-nav">
-
-											<li><a href="/">Home</a></li>
-											<form class="navbar-form navbar-left" action="search" method="get">
-
-												<div class="form-group">
-
-													<input type="text" class="f-control" placeholder="Search" name="query">
-
-														<button type="Search" class="btn btn-default">Search</button>
-													</div>
-												</form>
-												<li><a href="#">Advanced Search</a></li>
-
-										{% if user.is_authenticated %}
-											<li><a href="/accounts/profile/">Profile</a></li>
-											<li><a href="/accounts/logout/">Logout</a></li>
-										{% else %}
-											<li><a href="/accounts/login/">Login</a></li>
-											<li><a href="/accounts/register/">Register</a></li>
-										{% endif %}
-
-
-
-											</ul>
-
-										</div>
-									</div
-									</div>
-								</nav>
-		  			</div>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</nav>
+		  	</div>
 </header>
 <br>
 <br>
