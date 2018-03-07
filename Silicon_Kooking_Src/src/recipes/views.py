@@ -6,6 +6,7 @@ import re
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+import json
 
 
 # Use for listing recipes and querying
@@ -196,3 +197,18 @@ def upload_recipe(request):
 ##        imageForm = ImageUpload()
 ##
 ##    return render(request,'recipes/uploadRecipe.html',{'imageForm':imageForm})
+def get_recipes(request):
+	if request.is_ajax():
+		q = request.GET.get('term', '')
+		recipes = Recipe.objects.filter(name__icontains=q)
+		results = []
+		
+		for re in recipes:
+			recipe_json = {}
+			recipe_json = re.name 
+			results.append(recipe_json)
+			data = json.dumps(results)
+	else:
+		data = 'fail'
+	mimetype = 'application/json'
+	return HttpResponse(data, mimetype)	
