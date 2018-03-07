@@ -38,9 +38,26 @@
 
 										<div class="form-group">
 
-											<input type="text" class="f-control" placeholder="Search" name="query">
+											<input id = "recipes" type="text" class="f-control" placeholder="Search" name="query">
 
 											<button type="Search" class="btn btn-default">Search</button>
+<script>
+  $(function() {
+    $("#recipes").autocomplete({
+      source: "/api/get_recipes/",
+      select: function (event, ui) { //item selected
+        AutoCompleteSelectHandler(event, ui)
+      },
+      minLength: 2,
+    });
+  });
+
+  function AutoCompleteSelectHandler(event, ui)
+  {
+    var selectedObj = ui.item;
+  }
+
+</script>											
 										</div>
 									</form>
 										<li><a href="#">Advanced Search</a></li>
