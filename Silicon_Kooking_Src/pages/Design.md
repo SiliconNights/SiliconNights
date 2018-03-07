@@ -33,3 +33,7 @@ https://www.recipegirl.com/dutch-oven-bread/
 ## Bootstrap samples
 
 1) https://bootsnipp.com/
+
+## Ingredient Page
+
+https://bootsnipp.com/snippets/M52gX
