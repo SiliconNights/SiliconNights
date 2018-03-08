@@ -347,12 +347,6 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
 
 
-def cleanEncoding(line):
-	line = fix_encoding(line)
-	line = fix_text(line)
-	line = UnicodeDammit(line).unicode_markup
-	return line
-
 # --- Main function --- #
 
 class Command(BaseCommand):

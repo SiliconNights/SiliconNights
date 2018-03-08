@@ -22,6 +22,7 @@ Silicion_Kooking_Src/src/home/migrations/*
 
 # ignore settings
 Silicon_Kooking_Src/src/Silicon_Kooking/settings.py
+**/admin/**
 
 # misc
 **/__pycache__/**
