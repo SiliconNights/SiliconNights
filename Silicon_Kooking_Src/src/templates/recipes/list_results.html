@@ -30,17 +30,21 @@
 <div class="container-fluid">
   <div class="row">
     <center>
-      {% for recipe in object_list %}
-         <div class="col-md-4">
-           <a href=/recipes/{{recipe.id}}>
-             <object data={{recipe.static_image.url}} width="250" height="250">
-                <img src={{recipe.web_image}} height=250 width=250><br>
-             </object>
-           </a>
-           <br>
-           <a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
-         </div>
-      {% endfor %}
+		{% for recipe in object_list %}
+			<div class="col-md-4">
+				<a href=/recipes/{{recipe.id}}>
+					{% if  recipe.author == 'wikimedia'%}
+						<img src={{recipe.web_image}} height=250 width=250><br>
+					{% else %}
+						<object data={{recipe.static_image.url}} width="250" height="250">
+							<img src={{recipe.web_image}} height=250 width=250><br>
+						</object>
+					{% endif %}
+				</a>
+				<br>
+				<a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
+			</div>
+		{% endfor %}
     </center>
   </div>
 </div>
