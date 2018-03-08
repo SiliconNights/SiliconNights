@@ -33,7 +33,7 @@
 
 <style type="text/css">
 	#result{        
-		width: 425px; 
+		width: 300px; 
 		height: 300px;
 		margin-right:80px;
 		margin-bottom:20px;
@@ -42,6 +42,13 @@
 	.imageCrop { 
 		width: 300px; 
 		height: 250px; 
+		overflow: hidden; 
+	}
+	
+	.title { 
+		width: 300px; 
+		height: 30px; 
+		text-align: center;
 		overflow: hidden; 
 	}
 	
@@ -56,20 +63,20 @@
 	  <div class="row text-center text-lg-left">
 			{% for recipe in object_list %}
 				<div class="col-lg-3 col-md-4 col-xs-6" id="result">
-					<center>
-						<a href=/recipes/{{recipe.id}}>
-							<div class="imageCrop" >
-								{% if  recipe.author == 'wikimedia'%}
-									<img src={{recipe.web_image}}><br>
-								{% else %}
-									<object data={{recipe.static_image.url}} width="250" height="250">
-										<img src={{recipe.web_image}} height=250 width=250><br>
-									</object>
-								{% endif %}
-							</div>
-						</a>
+					<a href=/recipes/{{recipe.id}}>
+					<div class="imageCrop" >
+						{% if  recipe.author == 'wikimedia'%}
+							<img src={{recipe.web_image}}><br>
+						{% else %}
+							<object data={{recipe.static_image.url}} width="250" height="250">
+								<img src={{recipe.web_image}} height=250 width=250><br>
+							</object>
+						{% endif %}
+						<a href=/recipes/{{recipe.id}}><span style="text-align:left">{{recipe.name}}</span></a>
+					</div>
+					<div class="title">	
 						<a href=/recipes/{{recipe.id}}>{{recipe.name}}</a>
-					</center>
+					</div>
 				</div>
 			{% endfor %}
 	  </div>
