@@ -11,8 +11,27 @@
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 			<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-		{% block head_css %} 
-		{% endblock %}
+			
+			<script language="javascript">
+				$(document).ready(function(e){
+					$('.search-panel .dropdown-menu').find('a').click(function(e) {
+						e.preventDefault();
+						var param = $(this).attr("href").replace("#","");
+						var concept = $(this).text();
+						$('.search-panel span#search_concept').text(concept);
+						$('.input-group #search_param').val(param);
+					});
+				});
+				
+			</script>
+			<style type="text/css">
+				#recipe-search{
+					padding-left: 25px;
+					padding-right: 70px;
+					width: 60%;
+				}
+			</style>
+		
 	</head>
     <header>
         <div id="header">
@@ -24,21 +43,43 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <div class="container text-center">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                            <form class="form-inline " action="search" method="get">
-                                <div class="form-group">
-                                    <input id="recipes" type="text" class="f-control" placeholder="Search" name="query">
-                                    <button type="Search" class="btn btn-secondary">Search</button>
-                                </div>
-                            </form>
-                            <li class="nav-item"><a href="#" class="nav-link">Advanced Search</a> </li>
+							
+							<div id="recipe-search">
+								<form class="form-inline" action="search" method="get">
+									<div class="input-group">
+										<div class="input-group-btn search-panel">
+											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">	<span id="search_concept">Filter by</span>  <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li class="dropdown-item"><a href="#Recipe">Recipe</a>
+												</li>
+												<li class="dropdown-item"><a href="#Ingredients">Ingredients</a>
+												</li>
+												<li class="dropdown-item"><a href="#Cuisine">Cuisine</a>
+												</li>
+												<li class="dropdown-item"><a href="#Meal type">Meal Type</a>
+												</li>
+												<li class="divider dropdown-item"></li>
+												<li class="dropdown-item"><a href="#All">Anything</a>
+												</li>
+											</ul>
+										</div>
+										<input id="recipes" type="text" class="f-control" placeholder="Search" name="query" style="width:300px;">
+										<button type="Search" class="btn btn-secondary">Search</button>
+									</div>
+								</form>
+							</div>
+							
+							<li class="nav-item"><a href="#" class="nav-link">Advanced Search</a> </li>
 							{% if user.is_authenticated %}
 								<li class="nav-item"><a href="/accounts/profile/" class="nav-link">Profile</a></li>
 								<li class="nav-item"><a href="/accounts/logout" class="nav-link">Logout</a></li>
 							{% else %}
 								<li class="nav-item"><a href="/accounts/login/" class="nav-link">Login</a></li>
 								<li class="nav-item"><a href="/accounts/register/" class="nav-link">Register</a></li>
-							{% endif %}</ul>
+							{% endif %}
+						
+						</ul>
                     </div>
 				</div>
 			</nav>
