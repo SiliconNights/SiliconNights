@@ -12,14 +12,33 @@ import json
 # Use for listing recipes and querying
 # Generic Search
 def recipes_detail_list(request):
+    request_url = request.build_absolute_uri()
+    type = re.findall(r'\?(.*?)\=', request_url)
+    
+    if type[0] == 'all':
+        query = request.GET['all']
+        queryset = generic_search(query)
+    
+    elif type[0] == 'recipe':
+        query = request.GET['recipe']
+        query = query.split(' ')
+        queryset = search_by_recipe_name(query)
 
-    query = request.GET
-    query = query['query']
+ 
+	# Needs to be refined returning ingredients and recipes as results 
+    elif type[0] == 'ingredients':
+        query = request.GET['ingredients']
+        query = query.split(' ')
+        queryset = search_by_ingredient_name(query)
 
-    queryset = generic_search(query)
-
-    print(queryset)
-
+    elif type[0] == 'cuisine':
+        query = request.GET['cuisine']
+        query = query.split(' ')
+        
+    elif type[0] == 'meal+type':
+        query = request.GET['meal type']
+        query = query.split(' ')
+        
     if len(queryset) == 0:
         return render(request, 'recipes/no_results.html')
 
@@ -81,6 +100,7 @@ def parse_query(query):
 def search_by_recipe_name(list_of_queries):
     queryset = set()
     for q in list_of_queries:
+        print(q)
         # Search By Recipe Name
         for recipe in Recipe.objects.filter(name__icontains=q):
             queryset.add(recipe)
@@ -198,17 +218,17 @@ def upload_recipe(request):
 ##
 ##    return render(request,'recipes/uploadRecipe.html',{'imageForm':imageForm})
 def get_recipes(request):
-	if request.is_ajax():
-		q = request.GET.get('term', '')
-		recipes = Recipe.objects.filter(name__icontains=q)
-		results = []
-		
-		for re in recipes:
-			recipe_json = {}
-			recipe_json = re.name 
-			results.append(recipe_json)
-			data = json.dumps(results)
-	else:
-		data = 'fail'
-	mimetype = 'application/json'
-	return HttpResponse(data, mimetype)	
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        recipes = Recipe.objects.filter(name__icontains=q)
+        results = []
+        
+        for re in recipes:
+            recipe_json = {}
+            recipe_json = re.name 
+            results.append(recipe_json)
+            data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype) 
