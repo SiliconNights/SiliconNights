@@ -1,0 +1,144 @@
+{% extends "header.html" %}
+
+{% block head_css %}
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Raleway" rel="stylesheet">
+
+	<style type="text/css">
+
+    body {
+	    font-family: 'Raleway', sans-serif;
+        background-image:  url("http://www.thekingandqueenpub.com/Images/Food-Background.jpg");
+		background-repeat: no-repeat;
+		background-position: right top;
+        background-attachment: fixed;
+		background-size: cover;
+	}
+	.containerBox {
+	    position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+		height: auto;
+		background-color: rgba(19,20,20, 0.47);
+		border-radius: 25px;
+		display: inline-block;
+    }
+	.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+	div.boxLeft {
+        width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-bottom: 5%;
+		float: center;
+       <!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: left;
+		-->
+    }
+	div.boxRight {
+        width: 37%;
+        float: right;
+
+    }
+	div.BackColor {
+       background-color: rgba(252, 242, 242, 0.92);
+	   color: black;
+}
+#clear {
+    clear: both;
+}
+@media only screen and (min-width:1070px){
+   div.boxLeft{
+      float:center;
+      width: 30%;
+	  padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+   }
+
+}
+img{
+      border-top-right-radius: 25px;
+      border-top-left-radius: 25px;
+}
+
+	</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="body" style="background-color:white">
+
+	<div class = "containerBox" >
+         <h1 style = "font-size:60px; text-align:center; padding-top:30px; color:white; font-family:
+	  'Dancing Script', cursive ">{{recipe.name}}</h1>
+		 <p style = "text-align:center;color:white"> Author: {{recipe.author}}</p>
+		 <p style = "text-align:center;color:white"> Publiser: {{recipe.publisher}}</p>
+		 <p style = "text-align:center;color:white"> Time & Date Published: {{recipe.time}}</p>
+		 <hr>
+	     <div class = "boxLeft" style = " margin-left: 5%; width: 45%;border-radius: 25px;">
+		     <div class = "BackColor " style = "border-radius: 25px;">
+			     <p style = "padding-bottom: 5%">
+						 <object data={{recipe.static_image.url}} width="100%">
+				         <img src={{recipe.web_image}} width= "100%">
+					   </object>
+			         <p style= "padding-top: 10px; text-align:center"><b>{{recipe.name}}</b></p> <br>
+
+		         </p>
+	         </div>
+	     </div>
+		 <div class = "boxRight" style= "border-radius: 25px; margin-right: 5%">
+
+		    <div class = "boxRight" style = "border-radius: 25px; margin-right: 5%; width: 100%">
+		       <div class = "BackColor" style = "border-radius: 25px; ">
+		        <p style = "text-align:center; padding: 15px ; background-color: clear" width = "100%;
+			    margin-top: 5%;">
+				<br/>
+				<b>Ingredients:</b>
+				 <hr style = "border-color: black">
+				</p>
+				<ul>
+					{% for ingredient in ingredients_list %}
+						<li>{{ingredient}}</li>
+					{% endfor %}
+				</ul>
+
+			      <br/>
+                  <br/>
+			   </div>
+		    </div>
+		    <div id = "clear"></div>
+		    <br>
+		    <br>
+		    <div class = "boxRight" style = "border-radius: 25px; margin-right: 5%; width: 100%">
+		        <div class = "BackColor" style = "border-radius: 25px">
+			        		     <div style = "text-align:center; padding: 15px; background-color: clear" width = "100%" >
+								 <br/>
+								 <b>Instructions:</b>
+								 <hr style = "border-color:black;" >
+								 </div>
+					   		    <ul>
+											{% for instruction in instruction_list %}
+												<li>{{instruction}}</li>
+											{% endfor %}
+										</ul>
+							    <br/>
+							    <br/>
+			    </div>
+		    </div>
+         </div>
+
+		 <div id = "clear">
+		 <br>
+		 <br>
+	</div>
+	</div>
+</body>
+{% endblock %}

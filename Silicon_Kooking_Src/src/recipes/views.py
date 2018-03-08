@@ -8,6 +8,22 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 import json
 
+# --- Helper --- #
+def get_between(str, first, last):
+    try:
+        start = str.index(first) + len(first)
+        end = str.index(last, start)
+        return str[start:end]
+    except ValueError:
+        return ""
+        
+def get_from(str, first):
+    try:
+        start = str.index(first) + len(first)
+        return str[start:]
+    except ValueError:
+        return ""
+
 
 # Use for listing recipes and querying
 # Generic Search
@@ -145,20 +161,150 @@ def get_temp_page(request):
 
 def recipes_detail_display(request, pk):
     recipe = Recipe.objects.get(pk=pk)
+    
+    # Wikimedia Recipes
+    if recipe.author == 'wikimedia':
+
+        ingredients = recipe.ingredients.strip('\n') 
+        headers = re.findall(r'(\=\=\=.*?\=\=\=)', ingredients)
+        
+        # Get ingredient sections
+        ingredients_sections = []
+        ingredients_header = []
+        ingredients_body = []
+        
+        if len(headers) > 0:
+        
+            if ingredients.index(headers[0]) != 0:
+                headers.insert(0, 'none')
+                ingredients_header.append('none')
+                
+            for i in range(0, len(headers)):
+                if i == 0 and headers[i] == 'none':
+                        section_ingredients = ingredients[0:ingredients.index(headers[1])].strip('\n')
+                        list = section_ingredients.split('\n')
+                        ingredients_body.append(list)
+                
+                elif i == 0:
+                        section_ingredients = get_between(ingredients, headers[0], headers[1]).strip('\n')
+                        ingredients_header.append(headers[0])
+                        list = section_ingredients.split('\n')
+                        ingredients_body.append(list)
+                        
+                elif i < len(headers) - 1:
+                    section_ingredients = get_between(ingredients, headers[i], headers[i1]).strip('\n')
+                    ingredients_header.append(headers[i])
+                    list = section_ingredients.split('\n')
+                    ingredients_body.append(list)
+            
+                elif i == len(headers) - 1:
+                    section_ingredients = get_from(ingredients, headers[i]).strip('\n')
+                    ingredients_header.append(headers[i])
+                    list = section_ingredients.split('\n')
+                    ingredients_body.append(list)
+
+            
+            ingredients_header = [item.strip('=') for item in ingredients_header]
+            ingredients_sections = zip(ingredients_header, ingredients_body)
+        
+            
+        else: 
+            ingredients_header.append('none')
+            list = ingredients.split('\n')
+            ingredients_body.append(list)
+            ingredients_sections = zip(ingredients_header, ingredients_body)
+            
 
 
-    # Parse Ingredients
-    ingredients_list = recipe.ingredients.split('\n')
-    ingredients_list = list(filter(lambda a: a != '', ingredients_list))
-    for i in range(len(ingredients_list)):
-        ingredients_list[i] = ingredients_list[i].strip()
+        instructions = recipe.instructions.strip('\n') 
+        headers = re.findall(r'(\=\=\=.*?\=\=\=)', instructions)
 
-    # Parse Instructions
-    instruction_list = recipe.instructions.split('\n')
-    instruction_list = list(filter(lambda a: a != '', instruction_list))
-    for i in range(len(instruction_list)):
-        instruction_list[i] = instruction_list[i].strip()
+        # Get instruction sections
+        instructions_sections = []
+        instructions_header = []
+        instructions_body = []
+        if len(headers) > 0:
+            
+            if instructions.index(headers[0]) != 0:
+                headers.insert(0, 'none')
+                instructions_header.append('none')
+                
+            for i in range(0, len(headers)):
+                if i == 0 and headers[i] == 'none':
+                        section_instructions = instructions[0:instructions.index(headers[1])].strip('\n')
+                        list = section_instructions.split('\n')
+                        instructions_body.append(list)
+                
+                elif i == 0:
+                        section_instructions = get_between(instructions, headers[0], headers[1]).strip('\n')
+                        instructions_header.append(headers[0])
+                        list = section_instructions.split('\n')
+                        instructions_body.append(list)
+                        
+                elif i < len(headers) - 1:
+                    section_instructions = get_between(instructions, headers[i], headers[i1]).strip('\n')
+                    instructions_header.append(headers[i])
+                    list = section_instructions.split('\n')
+                    instructions_body.append(list)
+            
+                elif i == len(headers) - 1:
+                    section_instructions = get_from(instructions, headers[i]).strip('\n')
+                    instructions_header.append(headers[i])
+                    list = section_instructions.split('\n')
+                    instructions_body.append(list)
 
+            
+            instructions_header = [item.strip('=') for item in instructions_header]
+            instructions_sections = zip(instructions_header, instructions_body)
+        
+        else: 
+            instructions_header.append('none')
+            list = instructions.split('\n')
+            instructions_body.append(list)
+            instructions_sections = zip(instructions_header, instructions_body)
+                
+
+    
+    
+    # Uploaded recipes
+    else:
+        # Get ingredient sections
+        ingredients_sections = []
+        ingredients_header = []
+        ingredients_body = []
+        
+        ingredients = recipe.ingredients.strip('\n') 
+        
+        ingredients_header.append('none')
+        list = ingredients.split('\n')
+        ingredients_body.append(list)
+        ingredients_sections = zip(ingredients_header, ingredients_body)
+
+        
+        # Get instruction sections
+        instructions_sections = []
+        instructions_header = []
+        instructions_body = []
+    
+        instructions = recipe.instructions.strip('\n') 
+        
+        instructions_header.append('none')
+        list = instructions.split('\n')
+        instructions_body.append(list)
+        instructions_sections = zip(instructions_header, instructions_body)
+        
+        
+##      # Parse Ingredients
+##      ingredients_list = recipe.ingredients.split('\n')
+##      ingredients_list = list(filter(lambda a: a != '', ingredients_list))
+##      for i in range(len(ingredients_list)):
+##          ingredients_list[i] = ingredients_list[i].strip()
+
+##      # Parse Instructions
+##      instruction_list = recipe.instructions.split('\n')
+##      instruction_list = list(filter(lambda a: a != '', instruction_list))
+##      for i in range(len(instruction_list)):
+##          instruction_list[i] = instruction_list[i].strip()
 
 ##    if recipe.author == 'wikimedia':
 ##        # Parse Ingredients
@@ -175,8 +321,8 @@ def recipes_detail_display(request, pk):
 
 
     args = {'recipe': recipe,
-            'ingredients_list': ingredients_list,
-            'instruction_list': instruction_list}
+                'ingredients_sections': ingredients_sections,
+                'instructions_sections': instructions_sections}
     return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
