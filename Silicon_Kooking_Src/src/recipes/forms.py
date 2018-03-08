@@ -52,7 +52,7 @@ class UploadRecipeForm(forms.ModelForm):
             'user',
             'web_image',
             'time',
-            'image',
+            'web_image',
             'ingredientList',
             )
         fields = (
