@@ -7,8 +7,6 @@ from django.utils import timezone
 from recipes.models import Recipe, SimilarIngredient, Ingredient, IngredientRecipe, MealType, MealTypeRecipe, Cuisine, CuisineRecipe
 import re, pytz
 from time import sleep
-#from bs4 import UnicodeDammit
-#from ftfy import fix_encoding, fix_text
 
 
 '''
@@ -156,7 +154,7 @@ def addAllRecipes():
 
 
 	skipList = []
-	with open(skipFile, 'r', encoding='utf-8') as f:
+	with open(skipFile, 'r') as f:
 		for line in f:
 			line = re.sub(r'[0-9]+ ', '', line)
 			skipList.append(line.strip('\n'))
