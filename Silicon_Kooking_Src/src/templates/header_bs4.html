@@ -13,13 +13,16 @@
 			<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 			
 			<script language="javascript">
+				
 				$(document).ready(function(e){
 					$('.search-panel .dropdown-menu').find('a').click(function(e) {
 						e.preventDefault();
 						var param = $(this).attr("href").replace("#","");
 						var concept = $(this).text();
 						$('.search-panel span#search_concept').text(concept);
-						$('.input-group #search_param').val(param);
+						$('.input-group #search_param').val(param); 
+						var choice = param.toLowerCase();
+						$('#typeSearch').attr( 'name', choice );
 					});
 				});
 				
@@ -45,7 +48,7 @@
                         <ul class="nav navbar-nav">
 							
 							<div id="recipe-search">
-								<form class="form-inline" action="search" method="get">
+								<form class="form-inline" action="search" id="recipeSearch" method="get">
 									<div class="input-group">
 										<div class="input-group-btn search-panel">
 											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">	<span id="search_concept">Filter by</span>  <span class="caret"></span>
@@ -64,7 +67,7 @@
 												</li>
 											</ul>
 										</div>
-										<input id="recipes" type="text" class="f-control" placeholder="Search" name="query" style="width:300px;">
+										<input id="typeSearch" type="text" class="f-control" placeholder="Search" name="all">
 										<button type="Search" class="btn btn-secondary">Search</button>
 									</div>
 								</form>
