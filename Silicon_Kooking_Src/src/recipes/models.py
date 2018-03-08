@@ -5,28 +5,16 @@ from django.conf import settings
 class Recipe(models.Model):
 	name = models.CharField(db_column='name', max_length=200, null=True)
 	description = models.TextField(db_column='description', null=True)
-<<<<<<< HEAD
-	image = models.CharField(db_column='image', max_length=1000, null=True)
+	#image = models.CharField(db_column='image', max_length=1000, null=True)
 	static_image = models.ImageField(db_column="static_image", upload_to = 'images', default = 'images/default/default.jpg', blank=True)
-=======
 	web_image = models.CharField(db_column='web_image', max_length=1000, null=True, blank=True)
-<<<<<<< HEAD
-	static_image = models.ImageField(db_column="static_image", upload_to = 'recipe-img/', default = 'images/recipe-img/default.png', blank=True)
->>>>>>> local
-=======
-	static_image = models.ImageField(db_column="static_image", upload_to = 'recipe-img/', default = 'recipe-img/default.png', blank=True)
->>>>>>> local
 	ingredients = models.TextField(db_column='ingredients', null=True)
 	ingredientList = models.TextField(db_column='ingredientList', null=True)
 	instructions = models.TextField(db_column='instructions', null=True)
 	cuisine = models.CharField(db_column='cuisine', max_length=1000, null=True)
 	type = models.CharField(db_column='type', max_length=1000, null=True)
 	author = models.CharField(db_column='author', max_length=200, null=True)
-<<<<<<< HEAD
 	user = models.CharField(max_length=11)
-=======
-	user = models.ForeignKey(User, db_column='user' , on_delete=models.PROTECT)
->>>>>>> local
 	time = models.DateTimeField(auto_now_add=True)
 	tags = models.TextField(db_column='tags', null=True)
 

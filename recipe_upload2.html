@@ -1,0 +1,279 @@
+{% extends "header.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upload Recipe</title>
+<script src="jquery/jquery.js"></script>
+<script type="text/javascript" src='js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+ 
+   <style type="text/css">
+    body {
+                  font-family: 'Raleway', sans-serif;                 
+        background-image:  url("http://www.thekingandqueenpub.com/Images/Food-Background.jpg");
+                           background-repeat: no-repeat;
+                           background-position: right top;
+        background-attachment: fixed;
+                           background-size: cover;                       
+              }
+              .containerBox {
+                  position: absolute;
+        width:70%;
+        left: 50%;
+        margin-left: -35%;
+                           height: auto;
+                           background-color: rgba(19,20,20, 0.47);
+                           border-radius: 25px;
+                           display: inline-block;
+    }
+              .clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+    spaceLine {
+        white-space:pre-line;
+    }
+              div.boxLeft {
+        width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-bottom: 5%;                   
+       <!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: left;
+                           -->
+    }
+              div.boxRight {
+        width: 37%;
+        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        float: right;
+    }
+              div.BackColor {
+    background-color: white;
+}
+#clear {
+    clear: both;
+}
+@media only screen and (min-width:1070px){
+   div.boxLeft{
+      float:center;
+      width: 30%;
+                padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;       
+   }
+}
+ul{
+list-style-type:none;
+ 
+float:left;
+margin-top:5px;
+margin:5px;
+text-align:center;
+color: black;
+ 
+}
+.headerMargin{
+height: 100px;
+width:100%;
+overflow:hidden;
+float:center;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+             
+}
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+ 
+.button4:hover {background-color: #e7e7e7;}
+ 
+   </style> 
+<body class="body" style="background-color:white">
+   <div class = "headerMargin">
+   </div>
+   <div class = "containerBox clearfix" >
+   <h1 style="font-size: 72px; text-align: center; padding-bottom:5%;padding: 5%; color:white; font-family:
+                'Dancing Script', cursive" >Upload a Recipe</h1>
+   <hr style = "padding-bottom: 5%">
+
+   <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Recipe Name:</p>
+      <input type="text" id="recipeName" autofocus="true">
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+    <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Description:</p>
+      <textarea id="description" cols="40" rows="10"></textarea>
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+    <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Image:</p>
+      <input type="text" id="recipeImage">
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+    <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Author:</p>
+      <input type="text" id="recipeAuthor">
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+    <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Publisher:</p>
+      <td>user.username</td>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+  
+   <div class = "boxLeft" style = "width: 100%">
+   <br>
+         <div class="dropdown" style = "text-align: center" >
+          <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Meal Type
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Breakfast</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Lunch</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dinner</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other</a></li>
+          </ul>
+        </div>
+   </div>
+   <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Country of Origin:</p>
+      <input type="text" id="country">
+                <input  class = "button button4"type='button' onclick='changeText1()' value='Add' style = "height: 35px; width: 45px; text-align: center; padding: 5px" />
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+      <p style = " color: white">List of Countries:</p>
+               
+      <ul id="countries" style = " color: white"></ul>
+                   <script>
+var list1 = document.getElementById('countries');
+var lastid1 = 0;
+ 
+function changeText1() {
+    var country = document.getElementById('country').value;
+    document.getElementById('boldStuff2').innerHTML = country;
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(country));
+    entry.setAttribute('id','item1'+lastid1);
+    var removeButton = document.createElement('button');
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute('onClick','removecountry("'+'item1'+lastid1+'")');
+    entry.appendChild(removeButton);
+    lastid1+=1;
+    list1.appendChild(entry);
+}
+function removecountry(itemid) {
+  var item1 = document.getElementById(itemid);
+  list1.removeChild(item1);
+}
+ 
+   </script>
+  
+   </div>
+   <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Ingredients:</p>
+                <form>
+      <input type="text" id="itemInput" name = "itemInput" onblur="if(this.value == '')" >
+               
+                  <input class = "button button4" type='button' onclick='changeText2()' value='Add' style = "height: 35px; width: 45px; text-align: center; padding: 5px"/>
+                          
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+      <p style = " color: white" >List of ingredients:</p>
+      <ul id="items" style = " color: white" ></ul>
+                </form>
+   <script>
+   
+var list = document.getElementById('items');
+var lastid = 0;
+ 
+function changeText2() {
+    var itemInput = document.getElementById('itemInput').value;
+    document.getElementById('boldStuff2').innerHTML = itemInput;
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(itemInput));
+    entry.setAttribute('id','item'+lastid);
+    var removeButton = document.createElement('button');
+    removeButton.appendChild(document.createTextNode("X"));
+    removeButton.setAttribute('onClick','removeItemInput("'+'item'+lastid+'")');
+    entry.appendChild(removeButton);
+    lastid+=1;
+    list.appendChild(entry);
+              document.getElementById('itemInput').value = "";
+}
+function removeItemInput(itemid) {
+  var item = document.getElementById(itemid);
+  list.removeChild(item);
+}
+ 
+   </script>
+   </div>
+
+   <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Instructions:</p>
+      <textarea id="instructions" cols="40" rows="10"></textarea>
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+    <div class = "boxLeft" style = "width: 100%; text-align: center">
+      <p style = " color: white">Tags:</p>
+      <textarea id="tags" cols="40" rows="10"></textarea>
+      <br>
+      <p style = "visibility: hidden">entered: <b id='boldStuff2'></b>
+      </p>
+    </div>
+
+<div class = " boxLeft" style = "width: 100%; text-align: center">
+          <button class = " button button4" >Upload</button>
+        </div>
+<div style = "padding-top: 30%">
+</div>
+   </div>
+  
+   
+</body>
+</html>
+
+{% endblock %}
