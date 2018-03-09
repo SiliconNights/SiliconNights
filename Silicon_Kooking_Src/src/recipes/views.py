@@ -192,7 +192,7 @@ def recipes_detail_display(request, pk):
                         ingredients_body.append(list)
                         
                 elif i < len(headers) - 1:
-                    section_ingredients = get_between(ingredients, headers[i], headers[i1]).strip('\n')
+                    section_ingredients = get_between(ingredients, headers[i], headers[i+1]).strip('\n')
                     ingredients_header.append(headers[i])
                     list = section_ingredients.split('\n')
                     ingredients_body.append(list)
@@ -242,7 +242,7 @@ def recipes_detail_display(request, pk):
                         instructions_body.append(list)
                         
                 elif i < len(headers) - 1:
-                    section_instructions = get_between(instructions, headers[i], headers[i1]).strip('\n')
+                    section_instructions = get_between(instructions, headers[i], headers[i+1]).strip('\n')
                     instructions_header.append(headers[i])
                     list = section_instructions.split('\n')
                     instructions_body.append(list)
