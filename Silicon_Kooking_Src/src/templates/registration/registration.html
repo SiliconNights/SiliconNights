@@ -1,11 +1,11 @@
 {% extends "header.html" %}
 
 {% block body %}
-
+<div class = "box" style = "position: absolute;width:70%;left: 50%;margin-left: -35%;height: auto;">
 <form method="post">
   {% csrf_token %}
   <h1>Register</h1>
     <p>{{form.as_p}}</p>
     <input type="submit" value="login" />
-
+</div>
 {% endblock %}
