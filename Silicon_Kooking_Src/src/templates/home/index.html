@@ -1,4 +1,5 @@
 
+
 {% extends "header.html" %}
 {% block head_css %}
 
@@ -14,113 +15,7 @@
 -->
 
    <style type="text/css">
-    body {
-    font-family: 'Raleway', sans-serif;
-        background-image:  url("http://www.thekingandqueenpub.com/Images/Food-Background.jpg");
-background-repeat: no-repeat;
-background-position: right top;
-        background-attachment: fixed;
-background-size: cover;
-}
-.containerBox {
-    position: absolute;
-        width:70%;
-        left: 50%;
-        margin-left: -35%;
-height: auto;
-background-color: rgba(19,20,20, 0.47);
-border-radius: 25px;
-display: block;
-    }
-.clearfix:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    line-height: 0;
-    visibility: hidden;
-}
-    spaceLine {
-        white-space:pre-line;
-    }
-div.boxMid{
-    width: 100%;
-        padding-left: 20%;
-        padding-right: 20%;
-        padding-bottom: 5%;
-        background-color: rgba(220,220,220, 0.9);
-}
-div.boxLeft {
-        width: 100%;
-       padding-left: 20%;
-        padding-right: 20%;
-        padding-bottom: 5%;
-       <!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        float: left;
--->
-    }
-div.boxRight {
-        width: 37%;
-        box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        float: right;
-    }
-div.boxCenter{
-width:100%;
-height: 400px;
-}
-div.BackColor {
-    background-color: black;
-}
-#clear {
-    clear: both;
-}
-@media only screen and (min-width:1070px){
-   div.boxLeft{
-      float:center;
-      width: 30%;
-  padding-left: 0px;
-      padding-right: 0px;
-      padding-bottom: 0px;
-   }
-}
-ul{
-list-style-type:none;
 
-float:left;
-margin-top:5px;
-margin:5px;
-text-align:center;
-color: black;
-
-}
-.headerMargin{
-height: 45px;
-width:100%;
-overflow:hidden;
-float:center;
-}
-img{
-border-radius: 25px;
-display: block;
-vertical-align: text-bottom;
-line-height: 0;
-float:left;
-width: 100%;
-height: 400px;
-white-space: nowrap;
-}
-
-ul li {
-    float:left;
-    display:inline;
-    list-style:none;
-}
-ul li img {
-    border: 1px solid #000;
-    display:block;
-    padding: 0;
-    width: 300px;
-}
    </style>
    {% endblock %}
  {% block body %}
@@ -134,67 +29,161 @@ ul li img {
 
    <br>
    <br>
-   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
-   background-color: rgba(19,20,20, 0.47); border-radius: 25px;
-
-" >
-      <h2 style = " color: white">Recipe of the Week<h2>
-  <hr>
-  <div class = "boxCenter"  style = "padding: 0px;margin: 0px;  font-size: 0px; ">
-       <div class = "boxLeft" style = "float:left;width: 50%; height: 400px; ">
-           <img src = "http://images.media-allrecipes.com/userphotos/960x960/3758842.jpg" >
-    </div>
-<div class = "boxLeft" style = "text-align:right;width: 50%; height:400px ">
-  <p style="color:white; text-align: right; font-size: 24px;">Recipe name goes here...</p>
-  <br><br>
-  <p style="color:white; text-align: right; font-size: 16px;">Author goes here...</p>
-  <br><br><br><br>
-  <p style="color:white; text-align: right; font-size: 16px;">Description of recipe goes here...</p>
-</div>
-
-   <ul>
-      <li> </li>
-   </ul>
-  </div>
+   <div class = "piece clearfix" style = "background-color:rgba(19,20,20, 0.47);">
+		<br>
+		<h2 style = "text-align:center; color:white">Recipe of the Week</h2>
+		<hr style = "border-color: white">
+		<div class = "boxPic">
+		<!--picture goes below-->
+		<img src = "data:image/jpeg;base64,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">
+		</div>
+		
+		<div class = "boxWord">
+		<center>
+		<p style = "color:white">Author:<br> name of author...<br> <br><br><br>Recipe: <br>name of recipe...</p>
+		</center>
+		</div>	
+   
+   
    </div>
-
-      <div class = "headerMargin">
+     <div class = "headerMargin">
    </div>
-   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
-   border-radius: 25px;background-color:rgba(19,20,20, 0.47);
-
-" >
-      <h2 style = " color: white">Featured Chef<h2>
-  <hr>
-  <div class = "boxCenter"  style = "padding: 0px;margin: 0px;  font-size: 0px; ">
-       <div class = "boxLeft" style = "float:center;width: 50%; height: 400px; vertical-align: top;">
-           <img src = "https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" >
+    <div class = "piece clearfix" style = "background-color:rgba(19,20,20, 0.47);">
+		<br>
+		<h2 style = "text-align:center; color:white">Featured Chef</h2>
+		<hr style = "border-color: white">
+		<div class = "boxPic">
+		<!--picture goes below-->
+		<img src = "https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" >
+		</div>
+		
+		<div class = "boxWord">
+		<center>
+		<p style = "color:white">Author:<br> name of author...<br> <br><br><br>Number of Recipes: <br>name of recipe...<br><br><br>Bio:<br> here goes the bio</p>
+		</center>
+		</div>	
+   
+   
     </div>
-<div class = "boxLeft" style = "text-align:right;width: 50%; height:400px ">
-  <p style="color:white; text-align: center; font-size: 24px;">Author name goes here...</p>
-  <br><br>
-  <p style="color:white; text-align: center; font-size: 16px;">Number of recipes goes here...</p>
-  <br><br>
-  <p style="color:white; text-align: center; font-size: 16px;">Brief bio goes here...</p>
-</div>
 
-   <ul>
-      <li> </li>
-   </ul>
-  </div>
+
+   <div class = "headerMargin">
+   </div>
+   <div class = "piece clearfix" style = "background-color:rgba(19,20,20, 0.47);">
+		<br>
+		<h2 style = "text-align:center; color:white">Food by Country</h2>
+		<hr style = "border-color: white">
+<!----------------------------------------------------------------copied from that one website---------------------------------------------------------------------------------------->
+
+
+
+<span class="hm-gradient">
+    
+    <main>
+        
+        <!--MDB Shadows-->
+        <div class="container mt-4">
+
+            <!-- Grid row -->
+            <div class="row">
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-12 mb-5">
+            
+                    <div class="z-depth-1">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (59).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-5">
+            
+                    <div class="z-depth-1-half">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (64).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-5">
+            
+                    <div class="z-depth-2">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (63).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+            </div>
+            <!-- Grid row -->
+
+            <!-- Grid row -->
+            <div class="row">
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-12 mb-5">
+            
+                    <div class="z-depth-3">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (62).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-5">
+            
+                    <div class="z-depth-4">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (61).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-5">
+            
+                    <div class="z-depth-5">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/6-col/img (60).jpg" class="img-fluid" alt="sample image">
+                    </div>
+            
+                </div>
+                <!-- Grid column -->
+            
+            </div>
+            <!-- Grid row -->
+          
+            <hr class="my-4">
+          
+         
+
+        </div>
+        <!--MDB Shadows-->
+      
+    </main>
+  
+</span>
+
+
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
+   
    </div>
    <div class = "headerMargin">
    </div>
-   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
-   border-radius: 25px;background-color:rgba(19,20,20, 0.47);
+ 
 
-" >
-      <h2 style = " color: white">Silicon Nights: About Us<h2>
+   <div class = "boxLeft" style= " text-align: center;clear: both; content: '' ; width: 100%;
+   border-radius: 25px;background-color:rgba(19,20,20, 0.47); color:white" >
+      <h2 >Silicon Nights: About Us<h2>
   <hr>
   <div class = "boxCenter"  style = "padding: 0px;margin: 0px; font-size: 0px;">
-      <p style="color:white; text-align: center; font-size: 24px;">Our Story...</p>
+      <p style="text-align: center; font-size: 24px;">Our Story...</p>
       <br><br>
-      <p style="color:white; text-align: center; font-size: 16px;">Silicon Nights was founded one dark stormy night (actually it was a bright clear morning) barely eighteen years into the 21st century. The Founding Knights (David, Baldemar, Saif, Rafael and Brian) formed a brotherhood, and sought to create the Silicon Knights. Shortly thereafter, the name was changed due to an already existing company of the same name. The Founding Knights -- Nights? -- joined forces for one sole purpose: To create a cool little website and search for recipes based on ingredients a user may have, and also to get an A in a Software Engineering class. This is that website!</p>
+      <p style="text-align: center; font-size: 16px;">Silicon Nights was founded one dark stormy night (actually it was a bright clear morning) barely eighteen years into the 21st century. The Founding Knights (David, Baldemar, Saif, Rafael and Brian) formed a brotherhood, and sought to create the Silicon Knights. Shortly thereafter, the name was changed due to an already existing company of the same name. The Founding Knights -- Nights? -- joined forces for one sole purpose: To create a cool little website and search for recipes based on ingredients a user may have, and also to get an A in a Software Engineering class. This is that website!</p>
     </div>
 
    <ul>
