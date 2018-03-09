@@ -27,6 +27,9 @@
 						if (choice == 'All'){
 							$('#typeSearch').attr('placeHolder', 'Search all...');
 						}
+						else if (choice == 'recipe'){
+							$('#typeSearch').attr('placeHolder', '...');
+						}
 						else if (choice == 'ingredients'){
 							$('#typeSearch').attr('placeHolder', 'Chicken mushroom onion...');
 						}
@@ -41,12 +44,23 @@
 				
 			</script>
 			<style type="text/css">
-				#recipe-search{
-					padding-right: 70px;
-				}
 				
 				#typeSearch{
 					width:300px;
+				}
+				
+				#recipe-search{
+					padding-right: 300px;
+				}	
+				
+				@media (max-width:600px){ 
+					#recipe-search{
+						padding-right: 70px;
+					}	
+				
+					#typeSearch{
+						width:50%;
+					}	
 				}
 				
 			</style>
