@@ -23,6 +23,19 @@
 						$('.input-group #search_param').val(param); 
 						var choice = param.toLowerCase();
 						$('#typeSearch').attr( 'name', choice );
+						
+						if (choice == 'All'){
+							$('#typeSearch').attr('placeHolder', 'Search all...');
+						}
+						else if (choice == 'ingredients'){
+							$('#typeSearch').attr('placeHolder', 'Chicken mushroom onion...');
+						}
+						else if (choice == 'cuisine'){
+							$('#typeSearch').attr('placeHolder', 'Californian dutch chinese...');
+						}
+						else{
+							$('#typeSearch').attr('placeHolder', 'Vegetarian meat appetizer...');
+						}
 					});
 				});
 				
