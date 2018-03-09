@@ -14,7 +14,7 @@ class Recipe(models.Model):
 	cuisine = models.CharField(db_column='cuisine', max_length=1000, null=True)
 	type = models.CharField(db_column='type', max_length=1000, null=True)
 	author = models.CharField(db_column='author', max_length=200, null=True)
-	user = models.CharField(max_length=11)
+	user = models.ForeignKey(User, db_column='user', on_delete=models.PROTECT)
 	time = models.DateTimeField(auto_now_add=True)
 	tags = models.TextField(db_column='tags', null=True)
 
