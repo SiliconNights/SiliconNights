@@ -19,16 +19,22 @@
 						e.preventDefault();
 						var param = $(this).attr("href").replace("#","");
 						var concept = $(this).text();
-						$('.search-panel span#search_concept').text(concept);
-						$('.input-group #search_param').val(param); 
+						
 						var choice = param.toLowerCase();
 						$('#typeSearch').attr( 'name', choice );
 						
-						if (choice == 'All'){
+						while(concept.length < 11) {
+							concept += '\u00A0'
+						}
+						
+						$('.search-panel span#search_concept').text(concept);
+						$('.input-group #search_param').val(param); 
+						
+						if (choice == 'all'){
 							$('#typeSearch').attr('placeHolder', 'Search all...');
 						}
 						else if (choice == 'recipe'){
-							$('#typeSearch').attr('placeHolder', '...');
+							$('#typeSearch').attr('placeHolder', 'Lasgana cake burger...');
 						}
 						else if (choice == 'ingredients'){
 							$('#typeSearch').attr('placeHolder', 'Chicken mushroom onion...');
@@ -46,12 +52,16 @@
 			<style type="text/css">
 				
 				#typeSearch{
-					width:300px;
+					width:400px;
 				}
 				
 				#recipe-search{
-					padding-right: 300px;
+					padding-right: 200px;
 				}	
+				
+				.input-group-btn {
+					font-family: Consolas,monospace;
+				}
 				
 				@media (max-width:600px){ 
 					#recipe-search{
@@ -83,7 +93,7 @@
 								<form class="form-inline" action="search" id="recipeSearch" method="get">
 									<div class="input-group">
 										<div class="input-group-btn search-panel">
-											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">	<span id="search_concept">Filter by</span>  <span class="caret"></span>
+											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">	<span id="search_concept">Filter by&nbsp;<span>  <span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu" role="menu">
 												<li class="dropdown-item"><a href="#Recipe">Recipe</a>
