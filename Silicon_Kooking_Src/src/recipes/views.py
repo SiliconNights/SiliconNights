@@ -326,22 +326,18 @@ def recipes_detail_display(request, pk):
     return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
-
-    if request.method == 'POST':
-        form = UploadRecipeForm(request.POST, request.FILES or None)
-        #imageForm = ImageUpload(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.instance.user = request.user
-                #image = Image()
-                #Image.image = ImageUpload.cleaned_data["image"]
-                #Image.save()
-            form.save()
-            return redirect('/recipes/upload')
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UploadRecipeForm(request.POST, request.FILES or None)
+            if form.is_valid():
+                form.instance.user = request.user  
+                form.save()
+                return redirect('/recipes/upload')
+        else:
+            form = UploadRecipeForm()
+        return render(request,'recipes/uploadRecipe.html',{'form':form})
     else:
-        form = UploadRecipeForm()
-        #imageForm = ImageUpload()
-    return render(request,'recipes/uploadRecipe.html',{'form':form})
+        return redirect('/accounts/login')
 
 
 
