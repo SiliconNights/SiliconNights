@@ -328,7 +328,7 @@ def recipes_detail_display(request, pk):
 def upload_recipe(request):
 
     if request.method == 'POST':
-        form = UploadRecipeForm(request.POST, request.FILES)
+        form = UploadRecipeForm(request.POST, request.FILES or None)
         #imageForm = ImageUpload(request.POST, request.FILES)
 
         if form.is_valid():
