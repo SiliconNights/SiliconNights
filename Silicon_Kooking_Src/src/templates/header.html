@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
     <head>
         <title>Silicon Kooking</title>
         <meta charset="utf-8">
@@ -11,76 +11,76 @@
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 			<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-			
+
 			<script language="javascript">
-				
+
 				$(document).ready(function(e){
 					$('.search-panel .dropdown-menu').find('a').click(function(e) {
 						e.preventDefault();
 						var param = $(this).attr("href").replace("#","");
 						var concept = $(this).text();
-						
+
 						var choice = param.toLowerCase();
 						$('#typeSearch').attr( 'name', choice );
-						
+
 						while(concept.length < 11) {
 							concept += '\u00A0'
 						}
-						
+
 						$('.search-panel span#search_concept').text(concept);
-						$('.input-group #search_param').val(param); 
-						
+						$('.input-group #search_param').val(param);
+
 						if (choice == 'all'){
 							$('#typeSearch').attr('placeHolder', 'Search all...');
 						}
 						else if (choice == 'recipe'){
-							$('#typeSearch').attr('placeHolder', 'Lasgana cake burger...');
+							$('#typeSearch').attr('placeHolder', 'Chickpea Soup, Moroccan Carrot Salad, Japanese Spring Rolls...');
 						}
 						else if (choice == 'ingredients'){
 							$('#typeSearch').attr('placeHolder', 'Chicken mushroom onion...');
 						}
 						else if (choice == 'cuisine'){
-							$('#typeSearch').attr('placeHolder', 'Californian dutch chinese...');
+							$('#typeSearch').attr('placeHolder', 'Thai, New Zealand, Indonesian, Belgian...');
 						}
 						else{
-							$('#typeSearch').attr('placeHolder', 'Vegetarian meat appetizer...');
+							$('#typeSearch').attr('placeHolder', 'Vegetarian, Soups, Appetizers, Main Dishes...');
 						}
 					});
 				});
-				
+
 			</script>
 			<style type="text/css">
-				
+
 				#typeSearch{
 					width:400px;
 				}
-				
+
 				#recipe-search{
 					padding-right: 200px;
-				}	
-				
+				}
+
 				.input-group-btn {
 					font-family: Consolas,monospace;
 				}
-				
-				@media (max-width:600px){ 
+
+				@media (max-width:600px){
 					#recipe-search{
 						padding-right: 70px;
-					}	
-				
+					}
+
 					#typeSearch{
 						width:50%;
-					}	
+					}
 				}
 				@media only screen and (min-width:1070px){
 					div.boxLeft{
 						float:center;
-						width: 30%; 
+						width: 30%;
 						padding-left: 0px;
 						padding-right: 0px;
-						padding-bottom: 0px; 	
+						padding-bottom: 0px;
 					}
- 
+
 				}
 				 body {
 					font-family: 'Raleway', sans-serif;
@@ -107,7 +107,7 @@
 					height: 0;
 					line-height: 0;
 					visibility: hidden;
-				}		
+				}
 				spaceLine {
 					white-space:pre-line;
 				}
@@ -115,7 +115,7 @@
 					width: 100%;
 					padding-left: 20%;
 					padding-right: 20%;
-					padding-bottom: 5%; 		
+					padding-bottom: 5%;
 					<!-- box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 					float: left;
 					-->
@@ -152,7 +152,7 @@
 					-webkit-transition-duration: 0.4s; /* Safari */
 					transition-duration: 0.4s;
 					cursor: pointer;
-	
+
 				}
 				.button4 {
 					background-color: white;
@@ -161,7 +161,7 @@
 				}
 
 				.button4:hover {background-color: #e7e7e7;}
-				
+
 				div.box {
 					width: 100%;
 					border-radius: .5em;
@@ -192,9 +192,9 @@
 					div.boxWord{
 						float:right;
 						max-width:50%;
-					}					
- 
-				}				
+					}
+
+				}
 				div.boxPic{
 				width:100%;
 				float: left;
@@ -220,24 +220,24 @@
 				}
 				.darken-grey-text {
 					color: #2E2E2E;
-				}				
-				
+				}
+
 			</style>
-		
+
 	</head>
     <header>
         <div id="header">
             <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
-               
+
 				<a class="navbar-brand" href="/">Silicon Kooking</a>
 				 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
-					&#x2630;	
-				</button>	
+					&#x2630;
+				</button>
 
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <div class="container text-center">
                         <ul class="nav navbar-nav">
-							
+
 							<div id="recipe-search">
 								<form class="form-inline" action="search" id="recipeSearch" method="get">
 									<div class="input-group">
@@ -263,7 +263,7 @@
 									</div>
 								</form>
 							</div>
-							
+
 							<li class="nav-item"><a href="#" class="nav-link">Advanced Search</a> </li>
 							{% if user.is_authenticated %}
 								<li class="nav-item"><a href="/accounts/profile/" class="nav-link">Profile</a></li>
@@ -272,7 +272,7 @@
 								<li class="nav-item"><a href="/accounts/login/" style="align:left;" class="nav-link">Login</a></li>
 								<li class="nav-item"><a href="/accounts/register/" style="align:left;" class="nav-link">Register</a></li>
 							{% endif %}
-						
+
 						</ul>
                     </div>
 				</div>
@@ -283,10 +283,10 @@
     <br>
     <br>
     <br>
-	{% block pager %} 
-	
-	{% endblock %} 
-	{% block body %} 
-	
+	{% block pager %}
+
+	{% endblock %}
+	{% block body %}
+
 	{% endblock %}
 </html>
