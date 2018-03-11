@@ -1,9 +1,12 @@
 {% extends "header.html" %}
 
 {% block body %}
+
 <div class = "box" style = "position: absolute;width:70%;left: 50%;margin-left: -35%;height: auto;">
 <form method="post">
+
 <input type='hidden' name='csrfmiddlewaretoken' value='bxAYddDrMtz8GXj5iD6YnUanLmisfHJtDOEfF15I0fql3rQM2WtcU1WMb7RpuTIC' />
+{% csrf_token %}
 <h1>Register</h1>
 <p><p><label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autofocus required id="id_username" /> <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
 <p><label for="id_first_name">First name:</label> <input type="text" name="first_name" maxlength="30" id="id_first_name" /></p>
