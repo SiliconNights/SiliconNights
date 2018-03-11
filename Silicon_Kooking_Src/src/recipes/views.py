@@ -139,7 +139,7 @@ def search_by_ingredient(list_of_queries):
 
 # Supports advanced search functionality
 def advanced_search(request):
-    pass
+	return render(request, 'recipes/advanced_search.html')
 
 def generic_search(query):
     if len(query) == 0:

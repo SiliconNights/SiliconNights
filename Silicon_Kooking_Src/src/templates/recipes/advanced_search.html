@@ -1,0 +1,262 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<style type="text/css">
+	body {
+		padding-top: 50px;
+	}
+
+	@media (min-width: 992px) {
+		body {
+			padding-top: 50px;
+		}
+	}
+
+	.publisher{
+		color: #a3a2a3;
+		letter-spacing: .09em;
+		font-size: 14px;
+		margin-bottom: 12px;
+	}
+	#profile-box{
+		background-color: #ffffff; 
+		border-color: #f0f0f0;
+	}
+	
+	img {
+		width: 100%;
+		max-height: 100%;
+		border-radius: 25px;
+	}
+	
+	li{
+		list-style-type: none;
+	}
+	
+	
+</style>
+
+<center>
+<div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-2">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Meal Type<span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></button>
+			<div id="mealtypes">
+				<ul class="dropdown-menu">
+					<li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="all" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   All
+					   </label>
+					</li>
+					
+				   <li>
+					   <label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="appetizer" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Appetizer
+					   </label>
+				   </li>
+				   <li>
+					   <label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="dessert" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Dessert
+					   </label>
+				   </li> 
+				   <li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="soup" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Soup
+					   </label>
+				   </li> 
+					<li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="salad" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Salad
+					   </label>
+				   </li> 
+				   <li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="side dish" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Side dish
+					   </label>
+				   </li> 
+				   <li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox"  type="checkbox" name="main dish"/>
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Main dish
+					   </label>
+				   </li> 
+				   <li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="meat dish" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Meat dish
+					   </label>
+				   </li> 
+				   <li>
+						<label class="dropdown-menu-item checkbox">
+						   <input class="messageCheckbox" type="checkbox" name="vegetarian" />
+						   <span class="glyphicon glyphicon-unchecked"></span>
+						   Vegetarian
+					   </label>
+				   </li> 	   
+				</ul>
+			</div>
+			
+			<script language="javascript">
+				var mealtypes = {
+					'all' : false,
+					'appetizer': false, 
+					'dessert' : false, 
+					'soup' : false, 
+					'salad' : false, 
+					'side dish' : false, 
+					'main dish' : false, 
+					'vegetarian' : false
+				};
+				
+				var el = document.getElementById('mealtypes');
+
+				var types = el.getElementsByTagName('input');
+
+				
+				$(document).ready(function(e){
+					$('#mealtypes').find('input').click(function(e) {
+						var name = $(this).attr("name");
+						if (mealtypes[name] == true){
+							mealtypes[name] = false;
+							if (name === 'all'){
+								var el = document.getElementById('mealtypes');
+								console.log($('#mealtypes').find('input').prop('checked', false));
+							}
+							
+							for (var key in mealtypes) {
+								mealtypes[key] = false;
+							}
+						}
+						else{
+							mealtypes[name] = true;
+							if (name === 'all'){
+								var el = document.getElementById('mealtypes');
+								console.log($('#mealtypes').find('input').prop('checked', true));
+							}
+
+							for (var key in mealtypes) {
+								mealtypes[key] = true;
+							}
+							
+						}				
+					});
+				});
+			</script>
+			
+		</div>	
+	</div>
+	
+	<div class="col-md-3">
+		<div class="input-group">
+			<input type="text" id="country" class="form-control" placeholder="Cuisines...">
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" onclick='changeText1()' type="button">Add</button>
+			</span>
+		</div>
+		<div class="col-md-12">
+		
+			<div id="countries" class="list-group"> </div>
+			<script language="javascript">
+				var list1 = document.getElementById('countries');
+				var lastid1 = 0;
+				var countries = [];
+
+				function changeText1() {
+					var country = document.getElementById('country').value;
+					if (country !== ""){
+						countries.push(country);
+						var entry = document.createElement('li');
+						entry.setAttribute('id',lastid1);
+						var button = document.createElement('button');
+						button.setAttribute('onClick','removecountry("'+lastid1+'")');
+						button.setAttribute('class',"list-group-item list-group-item-action");
+						button.setAttribute('type',"button");
+						button.appendChild(document.createTextNode(country));
+						entry.appendChild(button);
+						list1.appendChild(entry);
+						lastid1+=1;
+						list1.appendChild(entry);
+						document.getElementById("country").value = '';
+						console.log(countries);
+					}
+				}
+				function removecountry(itemid) {
+					var item1 = document.getElementById(itemid);
+					index = item1.getAttribute("id");
+					list1.removeChild(item1);
+					countries.splice(index, 1, '');
+				}
+			</script>	
+			
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="input-group">
+			<input type="text" id="ingredient" class="form-control" placeholder="Ingredients...">
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" onclick='changeText2()' type="button">Add</button>
+			</span>
+		</div>
+		<div class="col-md-12">	
+			<div id="ingredients" class="list-group"></div>
+			<script language="javascript">
+				var list2 = document.getElementById('ingredients');
+				var lastid2 = 0;
+				var ingredients = [];
+
+				function changeText2() {
+					var ingredient = document.getElementById('ingredient').value;
+					if (ingredient !== ""){
+						ingredients.push(ingredient);
+						var entry = document.createElement('li');
+						entry.setAttribute('id', lastid2);
+						var button = document.createElement('button');
+						button.setAttribute('onClick','removeingredient("'+lastid2+'")');
+						button.setAttribute('class',"list-group-item list-group-item-action");
+						button.setAttribute('type',"button");
+						button.appendChild(document.createTextNode(ingredient));
+						entry.appendChild(button);
+						list2.appendChild(entry);
+						lastid2+=1;
+						list2.appendChild(entry);
+						document.getElementById("ingredient").value = '';
+						console.log(ingredients);
+					}
+				}
+				function removeingredient(itemid) {
+				  var item1 = document.getElementById(itemid);
+				  index = item1.getAttribute("id");
+				  list2.removeChild(item1);
+				  ingredients.splice(index, 1, '');
+				}
+				
+			</script>		
+		</div>
+	</div>
+</div>
+</center>
+			
+			
+			
+
+
+
+{% endblock %}

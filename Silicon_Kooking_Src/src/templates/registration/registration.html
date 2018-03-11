@@ -1,8 +1,8 @@
 {% extends "header.html" %}
+{% load widget_tweaks %}
 
 {% block body %}
-
-
+			
 <style type="text/css">
 	#formInput{
 		width: 100%;
@@ -49,72 +49,51 @@
 		visibility:visible;
 		display: block;
 	}
-
+<
 </style>
 <center>
-<div class="displayForm">
-	<div class="container" style="background-color:white;border-radius: 25px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);s">
-		<form>
-			<input type='hidden' name='csrfmiddlewaretoken' value='bxAYddDrMtz8GXj5iD6YnUanLmisfHJtDOEfF15I0fql3rQM2WtcU1WMb7RpuTIC' />
-			{% csrf_token %}
-			<br>
-			<br>
-			<h1>Register</h1>
-			<br>
-			<div class="form-group row">
-				<label for="id_username" class="col-sm-3 col-form-label">Username </label> 
-				<div class="col-sm-7" id="wrapper">
-					<input type="text" class="form-control" name="username" maxlength="150" autofocus required id="id_username" />
-					<span class="text" style="width:100%; height:100%"><p>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only</p></span>
-				</div>				
-			</div>
-			
-			<div class="form-group row">
-				<label for="id_first_name" class="col-sm-3 col-form-label">First name</label> 
-				<div class="col-sm-7">	 
-					 <input type="text" class="form-control" name="first_name" maxlength="30" id="id_first_name" />
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="id_last_name" class="col-sm-3 col-form-label">Last name</label> 
-				<div class="col-sm-7">	
-					<input type="text" class="form-control" name="last_name" maxlength="150" id="id_last_name" />
-				</div>
-			</div>
+	<div class="displayForm">
+		<div class="container" style="background-color:white;border-radius: 25px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.9);">
+			<br> <h1> Register </h1> <br>
+			<form method="post">
+			  {% csrf_token %}
 
+			  {% for hidden_field in form.hidden_fields %}
+				{{ hidden_field }}
+			  {% endfor %}
 
-			<div class="form-group row">
-				<label for="id_email" class="col-sm-3 col-form-label">Email</label> 
-				<div class="col-sm-7">	
-					<input type="email" class="form-control" name="email" required id="id_email"/>
+			  {% if form.non_field_errors %}
+				<div class="alert alert-danger" role="alert">
+				  {% for error in form.non_field_errors %}
+					{{ error }}
+				  {% endfor %}
 				</div>
-			</div>
-			
-			<div class="form-group row">
-				 <label for="id_password1" class="col-sm-3 col-form-label">Password</label>
-				 <div class="col-sm-7" id="wrapper">	
-					<input type="password" class="form-control" name="password1" required id="id_password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> 
-					<span class="text" style="width:100%; height:100%"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Must contain at least one number and one uppercase and lowercase letter.</li></ul> </span>
-				</div>
-			</div>
+			  {% endif %}
 
-			<div class="form-group row">
-				 <label for="id_password2" class="col-sm-3 col-form-label">Password confirmation</label>
-				 <div class="col-sm-7" id="wrapper">	
-					<input type="password" class="form-control" name="password2" required id="id_password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> 
-					<span class="text" style="width:100%; height:100%"><p>Enter the same password as before, for verification </p></span>
+			  {% for field in form.visible_fields %}
+				<div class="form-group">
+				  {{ field.label_tag }}
+
+				  {% if form.is_bound %}
+					{% if field.errors %}
+					  {% render_field field class="form-control is-invalid" %}
+					  {% for error in field.errors %}
+						<div class="invalid-feedback">
+						  {{ error }}
+						</div>
+					  {% endfor %}
+					{% else %}
+					  {% render_field field class="form-control is-valid" %}
+					{% endif %}
+				  {% else %}
+					{% render_field field class="form-control" %}
+				  {% endif %}
 				</div>
-			</div>
-			
-			<input type="submit" value="Register"/>
-		</form>
-		<br>
-		<br>
-		<br>
+			  {% endfor %}
+			  <button type="submit" class="btn btn-primary" value="login">Submit</button>
+			</form>
+			<br> <br>
+		</div>
 	</div>
-</div>
 </center>
-
-
 {% endblock %}
