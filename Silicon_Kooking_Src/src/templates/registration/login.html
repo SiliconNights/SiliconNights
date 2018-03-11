@@ -1,10 +1,8 @@
 {% extends "header.html" %}
+{% block body %}
 
-
-{% load static %}
 <link rel="stylesheet" src="css/login.css" type = "text/css"/>
 
-{% block head_css %}
 	<style type="text/css">
 
 	 body {
@@ -42,23 +40,20 @@ spaceLine {
 	div.BackColor {
     background-color: white;
 }
+
 #clear {
     clear: both;
 }
+
 </style>
-{%endblock%}
-
-
-
-
-
-{% block body %}
-
 
 <body class="body" style="background-color:white">
 	<div id = "container" >
-
 	 <div class = "box">
+		 <center>
+		 <h1> Login </h1>
+			<br>
+		 </center>
 		     <div class = "BackColor">
 		{% if form.errors %}
 		<p>Your username or password is invalid. Please try again.</p>
