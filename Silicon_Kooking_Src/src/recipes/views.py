@@ -73,7 +73,7 @@ def recipes_detail_list(request):
 
 # Supports advanced search functionality
 def advanced_search(request):
-    pass
+	return render(request, 'recipes/advanced_search.html')
 
 def generic_search(query):
     # Contains all the queries in a generic search
