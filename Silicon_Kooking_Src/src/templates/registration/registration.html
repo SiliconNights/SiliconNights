@@ -2,17 +2,6 @@
 
 {% block body %}
 
-<script language="javascript">
-	$('#user').each(function() {
-		var $this = $(this);
-		$this.popover({
-			trigger: 'hover',
-			placement: 'right',
-			html: true,
-			content: $this.find('.userInfo').html()  
-		});
-	});	
-</script>
 
 <style type="text/css">
 	#formInput{
@@ -126,8 +115,6 @@
 	</div>
 </div>
 </center>
-
-
 
 
 {% endblock %}
