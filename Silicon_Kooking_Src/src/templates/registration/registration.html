@@ -2,19 +2,132 @@
 
 {% block body %}
 
-<div class = "box" style = "position: absolute;width:70%;left: 50%;margin-left: -35%;height: auto;">
-<form method="post">
+<script language="javascript">
+	$('#user').each(function() {
+		var $this = $(this);
+		$this.popover({
+			trigger: 'hover',
+			placement: 'right',
+			html: true,
+			content: $this.find('.userInfo').html()  
+		});
+	});	
+</script>
 
-<input type='hidden' name='csrfmiddlewaretoken' value='bxAYddDrMtz8GXj5iD6YnUanLmisfHJtDOEfF15I0fql3rQM2WtcU1WMb7RpuTIC' />
-{% csrf_token %}
-<h1>Register</h1>
-<p><p><label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autofocus required id="id_username" /> <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
-<p><label for="id_first_name">First name:</label> <input type="text" name="first_name" maxlength="30" id="id_first_name" /></p>
-<p><label for="id_last_name">Last name:</label> <input type="text" name="last_name" maxlength="150" id="id_last_name" /></p>
-<p><label for="id_email">Email:</label> <input type="email" name="email" required id="id_email" /></p>
-<p><label for="id_password1">Password:</label> <input type="password" name="password1" required id="id_password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> <span class="helptext"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Must contain at least one number and one uppercase and lowercase letter.</li></ul></span></p>
-<p><label for="id_password2">Password confirmation:</label> <input type="password" name="password2" required id="id_password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> <span class="helptext">Enter the same password as before, for verification.</span></p></p>
-<input type="submit" value="login" />
+<style type="text/css">
+	#formInput{
+		width: 100%;
+	}
+	
+	.displayForm {
+	  min-height: 70%; 
+	  min-height: 70vh; 
+
+	  display: -webkit-box;
+	  display: -moz-box;
+	  display: -ms-flexbox;
+	  display: -webkit-flex;
+	  display: flex; 
+	  
+	  -webkit-box-align : center;
+	  -webkit-align-items : center;
+	  -moz-box-align : center;
+	  -ms-flex-align : center;
+	  align-items : center;
+  
+
+	  width: 70%;
+	  
+	  -webkit-box-pack : center;
+	  -moz-box-pack : center;
+	  -ms-flex-pack : center;
+	  -webkit-justify-content : center;
+      justify-content : center;
+	}
+	
+	#wrapper .text {
+		width:0px;
+		height:0px;
+		bottom:0px;
+		left:0px;
+		visibility:hidden;
+		display: none;
+	}
+
+	#wrapper:hover .text {
+		width: 100%;
+		left:0px;
+		visibility:visible;
+		display: block;
+	}
+
+</style>
+<center>
+<div class="displayForm">
+	<div class="container" style="background-color:white;border-radius: 25px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);s">
+		<form>
+			<input type='hidden' name='csrfmiddlewaretoken' value='bxAYddDrMtz8GXj5iD6YnUanLmisfHJtDOEfF15I0fql3rQM2WtcU1WMb7RpuTIC' />
+			{% csrf_token %}
+			<br>
+			<br>
+			<h1>Register</h1>
+			<br>
+			<div class="form-group row">
+				<label for="id_username" class="col-sm-3 col-form-label">Username </label> 
+				<div class="col-sm-7" id="wrapper">
+					<input type="text" class="form-control" name="username" maxlength="150" autofocus required id="id_username" />
+					<span class="text" style="width:100%; height:100%"><p>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only</p></span>
+				</div>				
+			</div>
+			
+			<div class="form-group row">
+				<label for="id_first_name" class="col-sm-3 col-form-label">First name</label> 
+				<div class="col-sm-7">	 
+					 <input type="text" class="form-control" name="first_name" maxlength="30" id="id_first_name" />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="id_last_name" class="col-sm-3 col-form-label">Last name</label> 
+				<div class="col-sm-7">	
+					<input type="text" class="form-control" name="last_name" maxlength="150" id="id_last_name" />
+				</div>
+			</div>
+
+
+			<div class="form-group row">
+				<label for="id_email" class="col-sm-3 col-form-label">Email</label> 
+				<div class="col-sm-7">	
+					<input type="email" class="form-control" name="email" required id="id_email"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				 <label for="id_password1" class="col-sm-3 col-form-label">Password</label>
+				 <div class="col-sm-7" id="wrapper">	
+					<input type="password" class="form-control" name="password1" required id="id_password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> 
+					<span class="text" style="width:100%; height:100%"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Must contain at least one number and one uppercase and lowercase letter.</li></ul> </span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				 <label for="id_password2" class="col-sm-3 col-form-label">Password confirmation</label>
+				 <div class="col-sm-7" id="wrapper">	
+					<input type="password" class="form-control" name="password2" required id="id_password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/> 
+					<span class="text" style="width:100%; height:100%"><p>Enter the same password as before, for verification </p></span>
+				</div>
+			</div>
+			
+			<input type="submit" value="Register"/>
+		</form>
+		<br>
+		<br>
+		<br>
+	</div>
 </div>
+</center>
+
+
+
 
 {% endblock %}
