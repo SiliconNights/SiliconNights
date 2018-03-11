@@ -48,7 +48,6 @@ def recipes_detail_list(request):
     # Needs to be refined returning ingredients and recipes as results
     elif type[0] == 'ingredients':
         query = request.GET['ingredients']
-        query = query.split(' ')
         queryset = search_by_ingredient(query)
 
     elif type[0] == 'cuisine':
@@ -89,8 +88,6 @@ def search_by_type(query):
     return queryset
 
 def search_by_cuisine(list_of_queries):
-        
-    # Contains all the queries in a generic search
     list_of_queries = parse_query(list_of_queries)
     
     if len(list_of_queries) == 0:
@@ -105,16 +102,16 @@ def search_by_cuisine(list_of_queries):
         for c in Cuisine.objects.filter(name__icontains=q):
             cuisine_set.add(c)
 
-    print (cuisine_set)
 
     for c in cuisine_set:
         for r in CuisineRecipe.objects.filter(name__id=c.id):
-            print(r.recipe)
             query_set.add(r.recipe)
 
     return query_set
 
 def search_by_ingredient(list_of_queries):
+    list_of_queries = parse_query(list_of_queries)
+    
     all_ing = Ingredient.objects.all()
     for i in range(5):
         print (all_ing[random.randint(0, len(all_ing)-1)].name)
