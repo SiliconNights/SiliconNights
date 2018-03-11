@@ -45,7 +45,7 @@ def recipes_detail_list(request):
         queryset = search_by_recipe_name(query)
 
 
-	# Needs to be refined returning ingredients and recipes as results
+    # Needs to be refined returning ingredients and recipes as results
     elif type[0] == 'ingredients':
         query = request.GET['ingredients']
         query = query.split(' ')
@@ -89,22 +89,27 @@ def search_by_type(query):
     return queryset
 
 def search_by_cuisine(list_of_queries):
+        
+    # Contains all the queries in a generic search
+    list_of_queries = parse_query(list_of_queries)
+    
     if len(list_of_queries) == 0:
         return set()
 
+
     query_set = set()
     cuisine_set = set()
-
-    for c in Cuisine.objects.filter(name__icontains=list_of_queries):
-        cuisine_set.add(c)
+    
+    for q in list_of_queries:
+        print(q)
+        for c in Cuisine.objects.filter(name__icontains=q):
+            cuisine_set.add(c)
 
     print (cuisine_set)
 
-    c = Cuisine.objects.filter(name__icontains="belgian")[0]
-    print (CuisineRecipe.objects.filter(name__id=c.id))
-
     for c in cuisine_set:
         for r in CuisineRecipe.objects.filter(name__id=c.id):
+            print(r.recipe)
             query_set.add(r.recipe)
 
     return query_set
@@ -139,7 +144,7 @@ def search_by_ingredient(list_of_queries):
 
 # Supports advanced search functionality
 def advanced_search(request):
-	return render(request, 'recipes/advanced_search.html')
+    return render(request, 'recipes/advanced_search.html')
 
 def generic_search(query):
     if len(query) == 0:
@@ -159,6 +164,10 @@ def generic_search(query):
     ingredient_set = search_similar_ingredients(ingredient_set, list_of_queries)
 
     queryset = queryset.union(search_ingredient_recipe(ingredient_set))
+    
+    queryset = queryset.union(search_by_cuisine(ingredient_set))
+    
+    queryset = queryset.union(search_by_type(ingredient_set))
 
     return queryset
 
