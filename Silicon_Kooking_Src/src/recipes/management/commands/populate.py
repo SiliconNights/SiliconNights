@@ -197,7 +197,7 @@ def addAllRecipes():
 				if add:
 					for element in data[j]:
 						if element.tag == 'title':
-							test = element.text
+							name = element.text
 						elif element.tag == 'description':
 							description = element.text
 						elif element.tag == 'ingredients':
@@ -367,7 +367,7 @@ class Command(BaseCommand):
 
 
 		# --- Add Tags ---	#
-		if arg1 == 'tag':
+		elif arg1 == 'tag':
 
 			print('\n Adding meal types...')
 			addAllMealTypes()
@@ -376,13 +376,13 @@ class Command(BaseCommand):
 			addAllCuisines()
 
 		# --- Add Recipes ---	#
-		if arg1 == 'rec':
+		elif arg1 == 'rec':
 
 			print('\n Adding recipes...')
 			addAllRecipes()
 
 		# --- Add Ingredients, Tags and Recipes --- #
-		if arg1 == 'all':
+		elif arg1 == 'all':
 
 			print('\n Adding ingredients...')
 			addAllIngredients()
