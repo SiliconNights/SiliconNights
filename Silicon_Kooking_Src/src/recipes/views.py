@@ -393,6 +393,7 @@ def recipes_detail_display(request, pk):
 	return render(request, 'recipes/recipe_page.html', args)
 
 def upload_recipe(request):
+<<<<<<< HEAD
 	if request.user.is_authenticated:
 		if request.method == 'POST':
 			form = UploadRecipeForm(request.POST, request.FILES or None)
@@ -409,6 +410,27 @@ def upload_recipe(request):
 
 
 ##	  if request.method == 'POST':
+=======
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UploadRecipeForm(request.POST, request.FILES or None)
+            if form.is_valid():
+                form.instance.user = request.user
+                form.save()
+                return redirect('/recipes/recipe_uploaded')
+        else:
+            form = UploadRecipeForm()
+        return render(request,'recipes/uploadRecipe.html',{'form':form})
+    else:
+        return redirect('/accounts/login')
+
+def uploaded_recipe(request):
+    return render(request, 'recipes/uploaded.html', )
+
+
+
+##    if request.method == 'POST':
+>>>>>>> 1521344b05220cc6c4729a55b5fc7fd3d0524ba6
 ##
 ##		  imageForm = ImageUpload(request.POST, request.FILES)
 ##
