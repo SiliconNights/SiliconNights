@@ -360,29 +360,29 @@ class Command(BaseCommand):
 
 
 		# --- Add Ingredients --- #
-		if arg1 == 'ing':
+		#if arg1 == 'ing':
 
-			print('\n Adding ingredients...')
-			addAllIngredients()
+		#	print('\n Adding ingredients...')
+		#	addAllIngredients()
 
 
 		# --- Add Tags ---	#
-		elif arg1 == 'tag':
+		#elif arg1 == 'tag':
 
-			print('\n Adding meal types...')
-			addAllMealTypes()
+		#	print('\n Adding meal types...')
+		#	addAllMealTypes()
 
-			print('\n Adding cuisines...')
-			addAllCuisines()
+		#	print('\n Adding cuisines...')
+		#	addAllCuisines()
 
 		# --- Add Recipes ---	#
-		elif arg1 == 'rec':
+		#elif arg1 == 'rec':
 
-			print('\n Adding recipes...')
-			addAllRecipes()
+		#	print('\n Adding recipes...')
+		#	addAllRecipes()
 
 		# --- Add Ingredients, Tags and Recipes --- #
-		elif arg1 == 'all':
+		if arg1 == 'all':
 
 			print('\n Adding ingredients...')
 			addAllIngredients()

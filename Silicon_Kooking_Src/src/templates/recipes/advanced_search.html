@@ -263,7 +263,7 @@
 			var url = window.location;
 			url += "asearch?meal+type=";
 			if(mealtypes['all'] == true){
-				url += "all";
+				url += "all^";
 			}
 			else{
 				for (var key in mealtypes) {
@@ -293,7 +293,7 @@
 			}
 			
 			url = url.substring(0, url.length - 1);
-			
+			url += "&";
 			console.log(url);
 			
 			window.location = url;
