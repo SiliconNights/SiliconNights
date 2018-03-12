@@ -40,9 +40,9 @@ To set number of recipes to add to database, modify last-recipe.txt [max = 1528]
 
 #### Choose populate option:
 A) For populate all (Quick):
-'''
+```
 python manage.py populate all
-'''
+```
 
 B) For populate with debug:
 ```
