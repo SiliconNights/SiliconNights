@@ -33,6 +33,9 @@ def adv_recipes_detail_list(request):
 	request_url = request.build_absolute_uri()
 	type = re.findall(r'\=(.*?)&', request_url)
 	
+	if len(type) < 3:
+		return render(request, 'recipes/no_results.html')
+		
 	mealtypes = type[0];
 	cuisines = type[1];
 	ingredients = type[2];
@@ -111,6 +114,8 @@ def adv_recipes_detail_list(request):
 	context = {'object_list': queryset,}
 
 	return render(request, 'recipes/list_results.html', context)
+
+
 
 # Use for listing recipes and querying
 # Generic Search
