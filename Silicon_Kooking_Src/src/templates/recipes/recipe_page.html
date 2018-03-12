@@ -34,7 +34,7 @@
       <div class="row">
 
 		<!-- Main Recipe Column -->
-        <div class="col-md-8">
+        <div class="col-md-9">
 
 			<h1 class="my-4"> {{recipe.name}} </h1>
 				<div class="publisher">
@@ -52,10 +52,22 @@
 				</object>
 
 				<div class="card-body">
-					{% if recipe.description != 'none' %}
-						<h3 class="card-title">Description</h2>
+					{% if description != 'none' %}
+						<h4 class="card-title">Description</h4>
 
-						<p class="card-text"> {{recipe.description}} </p>
+						<p class="card-text"> {{description}} </p>
+					{% endif %}
+					
+					{% if mealtype != 'none' %}
+						<h4 class="card-title">Meal Type</h4>
+
+						<p class="card-text"> {{mealtype}} </p>
+					{% endif %}
+					
+					{% if cuisine != 'none' %}
+						<h4 class="card-title">Cuisine</h4>
+
+						<p class="card-text"> {{cuisine}} </p>
 					{% endif %}
 
 				</div>
@@ -67,7 +79,7 @@
 			</div>
 
 
-		<!--Profile card -->
+		<!--Profile card 
 		<div class="card mb-4">
 			<div class="row">
 				<div class="col-12">
@@ -100,20 +112,10 @@
 			</div>
 		</div>
 
+		-->
+		
 
-		<!--
 
-
-		<div class="card mb-4">
-			<div class="card-body">
-				{% if recipe.description != 'none' %}
-					<h3 class="card-title">Description</h2>
-
-					<p class="card-text"> {{recipe.description}} </p>
-				{% endif %}
-			</div>
-		</div>
-  -->
 
 
 			<!-- Recipe Ingredients -->
