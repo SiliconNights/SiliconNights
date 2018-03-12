@@ -33,7 +33,7 @@ def getImageURL(name):
 i = 0
 
 # max requests
-max = 500
+max = 2000
 			
 # get last recipe processed
 with open('last-recipe.txt') as f:

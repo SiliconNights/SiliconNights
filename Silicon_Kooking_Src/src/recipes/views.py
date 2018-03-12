@@ -123,11 +123,12 @@ def recipes_detail_list(request):
 	request_url = request.build_absolute_uri()
 	type = re.findall(r'\?(.*?)\=', request_url)
 
+	print(request_url)
 
 	queryset = set()
 	if type[0] == 'all':
 		query = request.GET['all']
-		queryset = generic_search(query)
+		queryset = search_by_recipe_name(query)
 
 	elif type[0] == 'recipe':
 		query = request.GET['recipe']
