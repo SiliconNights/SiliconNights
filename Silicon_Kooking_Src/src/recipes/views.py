@@ -32,13 +32,18 @@ def get_from(str, first):
 def adv_recipes_detail_list(request):
 	request_url = request.build_absolute_uri()
 	type = re.findall(r'\=(.*?)&', request_url)
-	#for item in type:
-		#print(item)
+	
+	mealtypes = type[0];
+	cuisines = type[1];
+	ingredients = type[2];
+	
+	print(type)
 	
 	check = True
 	queryset = set()
 	queryset1 = set()
 	queryset2 = set()
+	
 	
 	# meal types
 	typeset = set()
@@ -54,18 +59,17 @@ def adv_recipes_detail_list(request):
 			for m in MealType.objects.filter(type__icontains=type):
 				typeset.add(m)
 		
-		print(typeset)
 		for t in typeset:
 			for r in MealTypeRecipe.objects.filter(type__id = t.id):
 				queryset1.add(r.recipe)
 	
+	print('mealtypes ', len(queryset1))
+	
 	# cuisines
 	cuisine_set = set()
-	cuisines = type[1];
 	cuisines = cuisines.replace('+', ' ')
 	cuisines = cuisines.split('%5E')
 	
-	print(queryset)
 	for cuisine in cuisines:
 		for c in Cuisine.objects.filter(name__icontains=cuisine):
 			cuisine_set.add(c)
@@ -75,15 +79,15 @@ def adv_recipes_detail_list(request):
 			queryset2.add(r.recipe)
 	
 	if check:
-		queryset = queryset.intersection(queryset2);
+		queryset = queryset1.intersection(queryset2);
 	else:
-		queryset = queryset2;
+		queryset = queryset1.union(queryset2);
 	
 	queryset2 = set()
-	ingredients = type[2];
 	ingredients = ingredients.replace('+', ' ')
 	ingredients = ingredients.split('%5E')
 	
+	print('mealtypes + cuisine ', len(queryset))
 	ingredient_set = set()
 	similar_set = set()
 
@@ -103,7 +107,7 @@ def adv_recipes_detail_list(request):
 	
 	queryset = queryset.intersection(queryset2);
 
-	print('length', len(queryset))
+	print('mealtypes + cuisine + ingredients ', len(queryset))
 	context = {'object_list': queryset,}
 
 	return render(request, 'recipes/list_results.html', context)
