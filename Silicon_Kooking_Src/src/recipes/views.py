@@ -418,12 +418,15 @@ def upload_recipe(request):
             if form.is_valid():
                 form.instance.user = request.user
                 form.save()
-                return redirect('/recipes/upload')
+                return redirect('/recipes/recipe_uploaded')
         else:
             form = UploadRecipeForm()
         return render(request,'recipes/uploadRecipe.html',{'form':form})
     else:
         return redirect('/accounts/login')
+
+def uploaded_recipe(request):
+    return render(request, 'recipes/uploaded.html', )
 
 
 
