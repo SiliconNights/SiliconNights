@@ -1,6 +1,5 @@
 {% extends "header.html" %}
 
-<<<<<<< HEAD
 {% comment %}
 <!--
 {% if  num_pages > 1 %}
@@ -34,6 +33,16 @@
 {% block body %}
 
 <style type="text/css">
+	body {
+		background-image:  url("");
+		background-repeat: no-repeat;
+		background-position: right top;
+		background-attachment: fixed;
+		background-size: cover;
+		margin-top:50px;
+	}
+
+
 	#result{
 		width: 300px;
 		height: 300px;
@@ -65,18 +74,11 @@
 		border-radius: 25px;
 
 	}
-	
-	body {
-		background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yI9FRzo/vertical-pan-of-red-lentils-on-white-background-2-this-video-was-shoot-using-custom-light-set-up-with-additional-custom-build-underneath-light-system-to-eliminate-shadows_nkcfxbgmx__F0000.png");
-		background-repeat: no-repeat;
-		background-position: right top;
-		background-attachment: fixed;
-		background-size: cover;
-	}
 </style>
-
+<center>
 <div class="container">
 	<h1 class="my-4 text-center text-lg-left">Search Results</h1>
+	<center>
 	  <div class="row text-center text-lg-left">
 			{% for recipe in object_list %}
 				<div class="col-lg-3 col-md-4 col-xs-6" id="result">
@@ -95,5 +97,7 @@
 				</div>
 			{% endfor %}
 	  </div>
+	</center>
 </div>
+
 {% endblock %}
